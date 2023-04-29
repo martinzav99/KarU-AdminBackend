@@ -21,14 +21,14 @@ public class CreditController {
     CreditAnalysisService creditService;
 
     @PostMapping("/credit-analysis")
-    public ResponseEntity<CurrentAcountResponseTO> analyzeCredit(@RequestBody CurrentAcountRequestTO creditRequest) {
+    public ResponseEntity<Double> analyzeCredit(@RequestBody CurrentAcountRequestTO creditRequest) {
          creditRequest = creditService.analyzeCredit(
             creditRequest.getIncomeBalance(),
             creditRequest.getExitBalance()
         );
 
-        if (analysis != null) {
-            return ResponseEntity.ok(analysis);
+        if (creditRequest != null) {
+            return ResponseEntity.ok(creditRequest.getExitBalance());
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

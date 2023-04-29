@@ -1,11 +1,16 @@
 package com.ungspp1.gadminbackend.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import jakarta.activation.DataSource;
+import lombok.extern.log4j.Log4j;
 
 
 @Configuration
@@ -19,7 +24,9 @@ public class DatabaseConfig {
  
     @Value("${spring.datasource.password}")
     private String datasourcePassword;
- 
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseConfig.class);
+    
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -27,7 +34,8 @@ public class DatabaseConfig {
         dataSource.setUrl(datasourceUrl);
         dataSource.setUsername(datasourceUsername);
         dataSource.setPassword(datasourcePassword);
-        return (DataSource) dataSource;
+        LOGGER.info("conexion exitosa");
+        return  dataSource;
     }
  
 }
