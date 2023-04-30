@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ungspp1.gadminbackend.api.signup.to.UserRequestTO;
+import com.ungspp1.gadminbackend.api.signup.to.SignupUserRequestTO;
 import com.ungspp1.gadminbackend.response.BaseBodyResponse;
 import com.ungspp1.gadminbackend.response.ResponseHelper;
 
@@ -19,7 +19,7 @@ public class SignupController {
     private SignupFacade facade;
 
     @PostMapping(value = "/saveUser", produces = {"application/json"})
-    public ResponseEntity<BaseBodyResponse<?>> saveUser(@RequestBody UserRequestTO request){
+    public ResponseEntity<BaseBodyResponse<?>> saveUser(@RequestBody SignupUserRequestTO request){
         try{
             return ResponseHelper.simpleResponse(facade.saveUser(request));
         } catch (Exception e) {

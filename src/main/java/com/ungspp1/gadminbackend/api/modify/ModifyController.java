@@ -20,7 +20,7 @@ public class ModifyController
     @Autowired
     private ModifyService modifyService;
     
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     public ResponseEntity<BaseBodyResponse<?>> updateUser(@PathVariable Long id){//@RequestBody UsuarioDTO usuarioDTO 
         
         try{

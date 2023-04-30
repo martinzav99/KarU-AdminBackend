@@ -1,14 +1,19 @@
 package com.ungspp1.gadminbackend.api.signup;
 
+import com.ungspp1.gadminbackend.exceptions.EngineException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ungspp1.gadminbackend.api.signup.to.UserRequestTO;
-import com.ungspp1.gadminbackend.api.signup.to.UserResponseTO;
+import com.ungspp1.gadminbackend.api.signup.to.SignupUserRequestTO;
+import com.ungspp1.gadminbackend.api.signup.to.SignupUserResponseTO;
 
 @Component
 public class SignupFacade {
+
+    @Autowired
+    private SignupService signupService;
     
-    public UserResponseTO saveUser(UserRequestTO request){
-        return new UserResponseTO();
+    public SignupUserResponseTO saveUser(SignupUserRequestTO request) throws EngineException {
+        return signupService.saveUser(request);
     }
 }

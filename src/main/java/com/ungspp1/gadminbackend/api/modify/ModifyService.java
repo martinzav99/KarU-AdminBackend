@@ -9,7 +9,7 @@ import com.ungspp1.gadminbackend.repository.UserRepository;
 public class ModifyService{
     
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public void updateUser(Long id){
         
