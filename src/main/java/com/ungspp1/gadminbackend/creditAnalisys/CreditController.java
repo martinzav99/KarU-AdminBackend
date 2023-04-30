@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ungspp1.gadminbackend.creditAnalisys.to.CurrentAcountRequestTO;
-import com.ungspp1.gadminbackend.creditAnalisys.to.CurrentAcountResponseTO;
+//import com.ungspp1.gadminbackend.creditAnalisys.to.CurrentAcountResponseTO;
 import com.ungspp1.gadminbackend.service.CreditAnalysisService;
 
 

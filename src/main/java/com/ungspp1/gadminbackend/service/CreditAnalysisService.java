@@ -5,7 +5,7 @@ import org.tensorflow.SavedModelBundle;
 import org.tensorflow.Tensor;
 
 import com.ungspp1.gadminbackend.creditAnalisys.to.CurrentAcountRequestTO;
-import com.ungspp1.gadminbackend.creditAnalisys.to.CurrentAcountResponseTO;
+//import com.ungspp1.gadminbackend.creditAnalisys.to.CurrentAcountResponseTO;
 
 
 @Service
@@ -16,9 +16,9 @@ public class CreditAnalysisService {
         // Cargar el modelo entrenado
         try (SavedModelBundle model = SavedModelBundle.load(MODEL_PATH, "serve")) {
             // Crear el tensor de entrada
-            Tensor inputTensor = Tensor.create(new double[][]{{inputBalance, outputBalance}});
+            Tensor<?> inputTensor = Tensor.create(new double[][]{{inputBalance, outputBalance}});
           // Ejecutar el modelo en el tensor de entrada
-            Tensor result = model
+            Tensor<?> result = model
                     .session()
                     .runner()
                     .feed("dense_1_input", inputTensor)

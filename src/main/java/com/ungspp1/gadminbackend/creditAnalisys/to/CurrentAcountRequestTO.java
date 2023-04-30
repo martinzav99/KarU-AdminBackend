@@ -1,7 +1,7 @@
 package com.ungspp1.gadminbackend.creditAnalisys.to;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+//import java.math.BigDecimal;
+//import java.math.BigInteger;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
