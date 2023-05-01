@@ -22,6 +22,7 @@ public class SignupFacade {
     //TODO: Validar que los datos de contacto no esten repetidos
     public SignupUserResponseTO saveUser(SignupUserRequestTO request) throws EngineException {
         validateRepeatedUsername(request.getUsername());
+        signupService.validateRepeatedContact(request);
         return signupService.saveUser(request);
     }
 
