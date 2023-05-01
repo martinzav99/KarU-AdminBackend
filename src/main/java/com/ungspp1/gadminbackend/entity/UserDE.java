@@ -29,9 +29,9 @@ public class UserDE {
     private String password;
     @Column(name = "g03_type", length = 15, nullable = false)
     private String type;
-    @Column(name = "g03_status", length = 10, nullable = false)
+    @Column(name = "g03_status", length = 10, nullable = true)
     private String status;
-    @Column(name = "g03_branch", length = 10, nullable = false)
+    @Column(name = "g03_branch", length = 10, nullable = true)
     private String branch;
     //String billingId;
 
