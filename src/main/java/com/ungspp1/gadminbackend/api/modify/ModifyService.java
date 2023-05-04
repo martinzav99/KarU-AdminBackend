@@ -20,9 +20,14 @@ public class ModifyService{
 
     public ModifyResponseTO updateUserData(ModifyRequestTO request){
         UserDE user = userRepository.findById(request.getId()).get();
-        user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
-        user.getContactData().setEmail(request.getEmail());
+        
+        if (request.getUsername() != null)
+            user.setUsername(request.getUsername());
+        if (request.getPassword() != null)
+            user.setPassword(request.getPassword());
+        if (request.getEmail() != null)
+            user.getContactData().setEmail(request.getEmail());
+        
         userRepository.save(user);
         return modifyMapper.userDEToResponse(user);
     }

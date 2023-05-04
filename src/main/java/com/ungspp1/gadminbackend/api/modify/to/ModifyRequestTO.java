@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ModifyRequestTO {
     
-    private BigInteger id;
+    private BigInteger id;     
     private String username;
     private String password;
     private String email;
