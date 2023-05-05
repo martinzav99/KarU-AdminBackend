@@ -29,11 +29,10 @@ public class UserDE {
     private String password;
     @Column(name = "g03_type", length = 15, nullable = false)
     private String type;
-    @Column(name = "g03_status", length = 10, nullable = true)
-    private String status;
     @Column(name = "g03_branch", length = 10, nullable = true)
     private String branch;
-    //String billingId;
+    @Column(name = "g03_technical_level", length = 1, nullable = true)
+    private String technicalLevel;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "g03_contact_id", nullable = false)

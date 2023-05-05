@@ -16,8 +16,8 @@ public class SignupUserRequestTO {
     private String username;
     private String password;
     private String type;
-    private String status;
     private String branch;
+    private String technicalLevel;
 
     //Contact information
     private String email;
@@ -26,6 +26,7 @@ public class SignupUserRequestTO {
 
     //Address information
     private String street;
+    private String streetNumber;
     private String city;
     private String state;
     private String zipCode;

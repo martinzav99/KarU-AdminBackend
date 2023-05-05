@@ -13,6 +13,7 @@ public interface SignupUserMapper {
     @Mapping(source = "phoneCode", target = "contactData.phoneCode")
     @Mapping(source = "phoneNumber", target = "contactData.phoneNumber")
     @Mapping(source = "street", target = "addressData.street")
+    @Mapping(source = "streetNumber", target= "addressData.streetNumber")
     @Mapping(source = "city", target = "addressData.city")
     @Mapping(source = "state", target = "addressData.state")
     @Mapping(source = "zipCode", target = "addressData.zipCode")

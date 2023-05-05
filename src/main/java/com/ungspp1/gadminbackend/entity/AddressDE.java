@@ -22,6 +22,8 @@ public class AddressDE {
     private BigInteger id;
     @Column(name = "g01_street", length = 20, nullable = false)
     private String street;
+    @Column(name = "g01_street_number", length = 20, nullable = false)
+    private String streetNumber;
     @Column(name = "g01_city", length = 20, nullable = false)
     private String city;
     @Column(name = "g01_state", length = 20, nullable = false)

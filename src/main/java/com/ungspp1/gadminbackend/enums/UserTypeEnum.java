@@ -3,5 +3,7 @@ package com.ungspp1.gadminbackend.enums;
 public enum UserTypeEnum {
     CLIENTE,
     TECNICO,
-    ADMINISTRADOR    
+    ADMINISTRADOR,
+    SUPERVISOR,
+    VENDEDOR
 }
