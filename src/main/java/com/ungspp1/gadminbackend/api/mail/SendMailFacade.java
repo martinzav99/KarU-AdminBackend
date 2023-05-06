@@ -22,9 +22,9 @@ public class SendMailFacade {
 
     private SimpleMailMessage createMessage(){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("aca va el mail de usuario");
-        message.setTo("aca tenemos que crear un mail para la api");
-        message.setSubject("No responder este correo electronico");
+        message.setFrom("losmagiostest@gmail.com");
+        message.setTo("conte.ignacio03@gmail.com" , "gastoncarp2012@gmail.com");
+        message.setSubject("esto es una prueba por favor no me mates");
         message.setText(NumberUtils.RandomNumber());
         return message;
     }
