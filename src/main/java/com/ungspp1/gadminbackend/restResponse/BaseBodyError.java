@@ -1,4 +1,4 @@
-package com.ungspp1.gadminbackend.response;
+package com.ungspp1.gadminbackend.restResponse;
 
 import java.util.HashMap;
 import java.util.List;

@@ -16,7 +16,11 @@ public class LoginFacade {
         return loginService.getUserByUsername(username);
     }
 
-    public LoginResponseTO getUserByUsernameAndPassword(LoginRequestTO request){
-        return loginService.getUserByUsernameAndPassword(request);
+    public LoginResponseTO loginUser(LoginRequestTO request){
+        return loginService.loginUser(request);
+    }
+
+    public LoginResponseTO validateAuthCode(LoginRequestTO request){
+        return loginService.validateAuthCode(request);
     }
 }

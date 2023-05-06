@@ -3,9 +3,9 @@ package com.ungspp1.gadminbackend.api.signup;
 import com.ungspp1.gadminbackend.api.signup.mapper.SignupUserMapper;
 import com.ungspp1.gadminbackend.api.signup.to.SignupUserRequestTO;
 import com.ungspp1.gadminbackend.api.signup.to.SignupUserResponseTO;
-import com.ungspp1.gadminbackend.entity.UserDE;
 import com.ungspp1.gadminbackend.exceptions.EngineException;
-import com.ungspp1.gadminbackend.repository.UserRepository;
+import com.ungspp1.gadminbackend.model.entity.UserDE;
+import com.ungspp1.gadminbackend.model.repository.UserRepository;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package com.ungspp1.gadminbackend.entity;
+package com.ungspp1.gadminbackend.model.entity;
 
 import java.math.BigInteger;
 

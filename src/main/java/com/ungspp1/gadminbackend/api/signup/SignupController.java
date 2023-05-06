@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ungspp1.gadminbackend.api.signup.to.SignupUserRequestTO;
-import com.ungspp1.gadminbackend.response.BaseBodyResponse;
-import com.ungspp1.gadminbackend.response.ResponseHelper;
+import com.ungspp1.gadminbackend.restResponse.BaseBodyResponse;
+import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
 
 @RestController
 @RequestMapping("/api/v1/signup")

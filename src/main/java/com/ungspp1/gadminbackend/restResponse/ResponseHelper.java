@@ -1,9 +1,9 @@
-package com.ungspp1.gadminbackend.response;
+package com.ungspp1.gadminbackend.restResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.ungspp1.gadminbackend.response.BaseBodyError.BaseBodyDataError;
+import com.ungspp1.gadminbackend.restResponse.BaseBodyError.BaseBodyDataError;
 
 import java.util.ArrayList;
 import java.util.List;

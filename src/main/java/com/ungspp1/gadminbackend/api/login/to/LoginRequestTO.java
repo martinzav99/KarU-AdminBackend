@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class LoginRequestTO {
     private String username;
     private String password;
+    private String twoFactorCode;
 }

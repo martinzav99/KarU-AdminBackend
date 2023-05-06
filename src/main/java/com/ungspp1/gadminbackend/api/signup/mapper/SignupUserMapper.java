@@ -2,7 +2,8 @@ package com.ungspp1.gadminbackend.api.signup.mapper;
 
 import com.ungspp1.gadminbackend.api.signup.to.SignupUserRequestTO;
 import com.ungspp1.gadminbackend.api.signup.to.SignupUserResponseTO;
-import com.ungspp1.gadminbackend.entity.UserDE;
+import com.ungspp1.gadminbackend.model.entity.UserDE;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

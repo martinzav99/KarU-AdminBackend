@@ -1,7 +1,7 @@
-package com.ungspp1.gadminbackend.entity;
+package com.ungspp1.gadminbackend.model.entity;
 
 import java.math.BigInteger;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,9 +34,9 @@ public class UserSessionDE {
     @Column(name = "g04_code_status", length = 15, nullable = false)
     private String codeStatus;
     @Column(name = "g04_code_date", nullable = false)
-    private Date codeGenerationDate;
-    @Column(name = "g04_session_date", nullable = false)
-    private Date sessionGenerationDate;
+    private LocalDateTime codeGenerationDate;
+    @Column(name = "g04_session_date", nullable = true)
+    private LocalDateTime sessionGenerationDate;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "g04_user_id", nullable = false)

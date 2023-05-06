@@ -1,6 +1,8 @@
 package com.ungspp1.gadminbackend.api.signup;
 
 import com.ungspp1.gadminbackend.exceptions.EngineException;
+import com.ungspp1.gadminbackend.model.enums.SessionStatusEnum;
+import com.ungspp1.gadminbackend.model.enums.UserTypeEnum;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,8 +14,6 @@ import com.ungspp1.gadminbackend.api.login.LoginFacade;
 import com.ungspp1.gadminbackend.api.login.to.LoginResponseTO;
 import com.ungspp1.gadminbackend.api.signup.to.SignupUserRequestTO;
 import com.ungspp1.gadminbackend.api.signup.to.SignupUserResponseTO;
-import com.ungspp1.gadminbackend.enums.SessionStatusEnum;
-import com.ungspp1.gadminbackend.enums.UserTypeEnum;
 
 @Component
 public class SignupFacade {

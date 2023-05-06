@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ungspp1.gadminbackend.api.modify.to.ModifyRequestTO;
-import com.ungspp1.gadminbackend.response.BaseBodyResponse;
-import com.ungspp1.gadminbackend.response.ResponseHelper;
+import com.ungspp1.gadminbackend.restResponse.BaseBodyResponse;
+import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
 
 
 @RestController
@@ -25,7 +25,6 @@ public class ModifyController
     public ResponseEntity<BaseBodyResponse<?>> updateUser(@RequestBody ModifyRequestTO request){
         
         try{
-            
             return ResponseHelper.simpleResponse(facade.updateUserData(request));
         } catch (Exception e) {
             return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.toString(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());

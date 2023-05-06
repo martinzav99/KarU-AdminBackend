@@ -1,4 +1,4 @@
-package com.ungspp1.gadminbackend.enums;
+package com.ungspp1.gadminbackend.model.enums;
 
 public enum UserTypeEnum {
     CLIENTE,
