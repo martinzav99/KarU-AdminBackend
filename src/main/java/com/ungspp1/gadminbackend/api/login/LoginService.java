@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.ungspp1.gadminbackend.api.login.mapper.LoginMapper;
 import com.ungspp1.gadminbackend.api.login.to.LoginRequestTO;
 import com.ungspp1.gadminbackend.api.login.to.LoginResponseTO;
+import com.ungspp1.gadminbackend.api.mail.SendMailFacade;
 import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.model.entity.UserDE;
 import com.ungspp1.gadminbackend.model.enums.SessionStatusEnum;
@@ -25,6 +26,9 @@ public class LoginService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SendMailFacade mailFacade;
 
     @Autowired
     private UserSessionService sessionService;
@@ -69,6 +73,7 @@ public class LoginService {
             .twoFactorCode(code)
             .build();
         sessionService.createOrUpdateSession(user, sessionTO);
+        mailFacade.sendAutentcathionMail(user.getContactData().getEmail(), code);
         //TODO: agregar el envio por mail aca
     }
 

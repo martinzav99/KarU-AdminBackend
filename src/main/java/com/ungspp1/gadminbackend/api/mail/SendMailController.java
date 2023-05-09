@@ -19,12 +19,12 @@ public class SendMailController {
     SendMailFacade facade;
 
     
-    @PostMapping(value = "/sendConfirmationMail", produces = {"application/json"})
-    public ResponseEntity<BaseBodyResponse<?>> getSession(){
-        try{
-            return ResponseHelper.simpleResponse(facade.sendAutentcathionMail());
-        } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
-        }
-    }
+    // @PostMapping(value = "/sendConfirmationMail", produces = {"application/json"})
+    // public ResponseEntity<BaseBodyResponse<?>> getSession(){
+    //     try{
+    //         return ResponseHelper.simpleResponse(facade.sendAutentcathionMail());
+    //     } catch (Exception e) {
+    //         return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+    //     }
+    // }
 }

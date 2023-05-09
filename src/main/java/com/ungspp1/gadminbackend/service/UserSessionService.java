@@ -24,7 +24,7 @@ public class UserSessionService {
             return ValidatedUserSessionTO.builder().username(user).validation(false).build();
         } 
         if (sessionDE.getTwoFactorCode().equals(code) && sessionDE.getCodeStatus().equals(TwoFactorStatusEnum.NEW.name()) 
-        && DateUtils.minutesBetweenDates(sessionDE.getCodeGenerationDate(), LocalDateTime.now()) <= 5){
+        && DateUtils.minutesBetweenDates(sessionDE.getCodeGenerationDate(), LocalDateTime.now()) <= 10){
             createOrUpdateSession(sessionDE.getUserData(), sessionTO);
             return ValidatedUserSessionTO.builder().username(user).type(sessionDE.getUserData().getType()).validation(true).build();
         }
