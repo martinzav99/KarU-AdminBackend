@@ -14,20 +14,19 @@ import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
 
 
 @RestController
-@RequestMapping("/settings")
+@RequestMapping("/api/v1/user")
 public class ModifyController 
 {
 
     @Autowired
     private ModifyFacade facade;
     
-    @PutMapping(produces = {"application/json"})
+    @PutMapping(value = "/update", produces = {"application/json"})
     public ResponseEntity<BaseBodyResponse<?>> updateUser(@RequestBody ModifyRequestTO request){
-        
         try{
             return ResponseHelper.simpleResponse(facade.updateUserData(request));
         } catch (Exception e) {
-            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.toString(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
     }
 }
