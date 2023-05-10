@@ -1,4 +1,4 @@
-package com.ungspp1.gadminbackend.api.modify.to;
+package com.ungspp1.gadminbackend.api.password.to;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ModifyRequestTO { 
-    private String username;
-    private String email;
+public class NewPassRequest {
+    private String password;
+
 }
