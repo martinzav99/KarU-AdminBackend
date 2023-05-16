@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ungspp1.gadminbackend.restResponse.BaseBodyResponse;
 import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
 
-import jakarta.websocket.server.PathParam;
+//import jakarta.websocket.server.PathParam;
 
 @RestController
 @CrossOrigin(origins = "*")
