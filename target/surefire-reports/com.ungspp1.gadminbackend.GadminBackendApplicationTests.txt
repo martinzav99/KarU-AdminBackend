@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.ungspp1.gadminbackend.GadminBackendApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 29.971 s - in com.ungspp1.gadminbackend.GadminBackendApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 27.891 s - in com.ungspp1.gadminbackend.GadminBackendApplicationTests
