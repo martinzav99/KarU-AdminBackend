@@ -9,4 +9,5 @@ public class GadminBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GadminBackendApplication.class, args);
 	}
+
 }
