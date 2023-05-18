@@ -38,5 +38,9 @@ public class VehicleService {
         return modelRepository.findByModelAndYear(modelData.getModel(), modelData.getYear());
     }
 
+    public VehicleDE getByPlate(String plate) {
+        return repository.findByPlate(plate).get();
+    }
+
 
 }

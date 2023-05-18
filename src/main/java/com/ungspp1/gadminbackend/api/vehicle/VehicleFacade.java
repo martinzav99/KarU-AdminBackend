@@ -30,6 +30,11 @@ public class VehicleFacade {
 
     public List<VehicleRequestTO> getAllVehicles(){
         return service.getAllVehicles();
+    }
+
+
+    public Object getByPlate(String plate) {
+        return mapper.vehicleRequestToDE(service.getByPlate(plate));
     } 
 
 
