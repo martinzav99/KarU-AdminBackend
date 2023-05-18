@@ -29,7 +29,7 @@ public class PaperworkDE {
     private Boolean historical;
     @Column(name = "g07_infractions", nullable = false)
     private Boolean infractions;
-    @Column(name = "g07_debt", nullable = false)
+    @Column(name = "g07_faults_debt", nullable = false)
     private Float debt;
     @Column(name = "g07_vpa", nullable = false)
     private Boolean vpa;

@@ -38,16 +38,12 @@ public class VehicleDE {
     @Column(name = "g08_status", length = 20, nullable = false)
     private String status;
     @Column(name = "g08_technical_score", length = 1, nullable = false)
-    private String score;
+     private String score;
     @Column(name = "g08_branch", length = 10, nullable = false)
     private String branch;
     @Column(name = "g08_kilometers", length = 10, nullable = false)
     private String kilometers;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "g08_user_id", nullable = false)
-    private UserDE userData;
-
+    
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "g08_model_id", nullable = false)
     private ModelDE modelData;
