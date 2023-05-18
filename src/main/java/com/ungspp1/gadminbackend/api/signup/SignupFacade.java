@@ -2,7 +2,6 @@ package com.ungspp1.gadminbackend.api.signup;
 
 import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.model.enums.SessionStatusEnum;
-import com.ungspp1.gadminbackend.model.enums.UserTypeEnum;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,9 +21,10 @@ public class SignupFacade {
     private SignupService signupService;
     @Autowired
     private LoginFacade loginFacade;
-    private final List<String> internalUserType = Arrays.asList(new String[]{"TECNICO", "ADMINISTRADOR", "SUPERVISOR", "VENDEDOR"});
-    
-    //TODO: Validar que los datos de contacto no esten repetidos
+    private final List<String> branchUserType = Arrays.asList(new String[]{"GERENTE_SUCURSAL", "SUPERVISOR_VENTAS", "SUPERVISOR_TECNICO", "ADMINISTRADOR", "TECNICO", "VENDEDOR"});
+    private final List<String> noBranchUserType = Arrays.asList(new String[]{"GERENTE_GENERAL", "IT"});
+    private final List<String> technicalLevel = Arrays.asList(new String[]{"A","B","C"});
+
     public SignupUserResponseTO saveUser(SignupUserRequestTO request) throws EngineException {
         validateRepeatedUsername(request.getUsername());
         signupService.validateRepeatedContact(request);
@@ -41,17 +41,25 @@ public class SignupFacade {
     public void normalizeClientUser(SignupUserRequestTO request) {
         request.setBranch(null);
         request.setTechnicalLevel(null);
-        request.setType(UserTypeEnum.CLIENTE.name());
+        request.setType("CLIENTE");
     }
 
     public void validateInternalUser(SignupUserRequestTO request) throws EngineException{
         String type = request.getType().toUpperCase();
-        if (!internalUserType.contains(type)){
-            throw new EngineException("The user type is not valid", HttpStatus.BAD_REQUEST);
-        } else if (request.getBranch() == null){
-            throw new EngineException("The branch cant be null for internal users", HttpStatus.BAD_REQUEST);
-        } else if (request.getType().equals("TECNICO") && request.getTechnicalLevel() == null){
-            throw new EngineException("All technical operators must have a technical level", HttpStatus.BAD_REQUEST);
+        if (!branchUserType.contains(type) && !noBranchUserType.contains(type)){
+            throw new EngineException("The user type must be in:" + branchUserType + noBranchUserType, HttpStatus.BAD_REQUEST);
+        } 
+    
+        if (request.getType().equals("TECNICO") && !technicalLevel.contains(request.getTechnicalLevel())){
+            throw new EngineException("All technical operators must have a technical level: " + technicalLevel, HttpStatus.BAD_REQUEST);
+        } else if (!request.getType().equals("TECNICO")){
+            request.setTechnicalLevel(null);
+        }
+
+        if (branchUserType.contains(type) && request.getBranch() == null){
+            throw new EngineException("The branch cant be null for "+ type + " users", HttpStatus.BAD_REQUEST);
+        } else if (noBranchUserType.contains(type)){
+            request.setBranch(null);
         }
         request.setType(type);
     }

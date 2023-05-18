@@ -5,8 +5,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import com.ungspp1.gadminbackend.api.utils.NumberUtils;
-
 
 @Component
 public class SendMailFacade {
@@ -14,18 +12,36 @@ public class SendMailFacade {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public Object sendAutentcathionMail() {
-        SimpleMailMessage message = createMessage();
+    public Object sendAutentcathionMail(String mail, String code) {
+        SimpleMailMessage message = createMessage(mail, code);
         javaMailSender.send(message);
         return null;
     }
 
-    private SimpleMailMessage createMessage(){
+    public Object sendTokenMail(String mail, String code) {
+        SimpleMailMessage message = recoverPassMessage(mail, code);
+        javaMailSender.send(message);
+        return null;
+    }
+
+    private SimpleMailMessage createMessage(String mail, String code){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("aca va el mail de usuario");
-        message.setTo("aca tenemos que crear un mail para la api");
-        message.setSubject("No responder este correo electronico");
-        message.setText(NumberUtils.RandomNumber());
+        message.setFrom("losmagiostest@gmail.com");
+        message.setTo(mail);
+        message.setSubject("Autenticación en dos pasos");
+        message.setText("Tu codigo de autenticación es: "+code);
+        return message;
+    }
+
+    private SimpleMailMessage recoverPassMessage(String mail,String code){
+        String url = "http://localhost:8080/resetPassword?token=" + code;
+        String mensaje = String.format("Hola Usuario, para reestablecer tu contraseña haz clic en el siguiente enlace:%n%s%n", url);;
+        
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("losmagiostest@gmail.com"); 
+        message.setTo("martinkapo99@gmail.com");
+        message.setSubject("Recuperar password");
+        message.setText(mensaje);
         return message;
     }
     
