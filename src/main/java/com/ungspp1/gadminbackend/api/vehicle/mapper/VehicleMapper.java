@@ -14,13 +14,18 @@ import com.ungspp1.gadminbackend.model.entity.VehicleDE;
 
 @Mapper(componentModel = "spring")
 public interface VehicleMapper {
-    VehicleDE requestToDE(VehicleRequestTO request);
+    @Mapping (target = "paperworkData" , source = "paperworkDE")
+    VehicleDE requestToDE(VehicleRequestTO request, PaperworkDE paperworkDE);
+
     ModelDE   requestModelToDE (ModelTO modelTO);
     PaperworkDE requestPaperworkToDE (PaperworkTO paperworkTO);
     VehicleRequestTO vehicleRequestToDE(VehicleDE vehicleDE);
     List<VehicleRequestTO> vehicleDEtoRequestTOList(List<VehicleDE> vehicleDEs);
 
+    
+   
+    @Mapping (target = "paperworkData" , source = "paperworkDE")
     @Mapping (target = "modelData" , source = "de")
-    VehicleDE requestToDEWithModel(VehicleRequestTO request, ModelDE de);
+    VehicleDE requestToDEWithModel(VehicleRequestTO request, ModelDE de, PaperworkDE paperworkDE);
 
 }

@@ -7,8 +7,11 @@ import org.springframework.stereotype.Component;
 
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleRequestTO;
+import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.model.entity.ModelDE;
+import com.ungspp1.gadminbackend.model.entity.PaperworkDE;
 
 @Component
 public class VehicleFacade {
@@ -18,12 +21,14 @@ public class VehicleFacade {
     @Autowired 
     private VehicleMapper mapper;
 
-    public Object saveVehicle(VehicleRequestTO request) {
+    public Object saveVehicle(VehicleRequestTO request) throws EngineException {
         ModelDE de = service.findModel(request.getModelData());
+        PaperworkTO paperworkTO = PaperworkTO.builder().build();
+        PaperworkDE paperworkDE = mapper.requestPaperworkToDE(paperworkTO);
         if (de != null){
-            return service.save(mapper.requestToDEWithModel (request , de));
+            return service.save(mapper.requestToDEWithModel (request , de , paperworkDE));
         }else {
-            return service.save(mapper.requestToDE (request));
+             throw new EngineException("El modelo del vehiculo es inexistente.");
         }
     }
 

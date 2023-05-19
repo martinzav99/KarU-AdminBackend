@@ -4,6 +4,7 @@ package com.ungspp1.gadminbackend.api.vehicle.to;
 
 import com.ungspp1.gadminbackend.api.user.to.UserTO;
 
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
