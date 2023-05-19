@@ -19,14 +19,6 @@ public class PaperworkDE {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "g07_id", length = 8, nullable = true)
     private BigInteger paperworkId;
-    @Column(name = "g07_title", nullable = true)
-    private Boolean title;
-    @Column(name = "g07_cedula", nullable = true)
-    private Boolean cedula; 
-    @Column(name = "g07_cuit", nullable = true)
-    private Boolean cuit;
-    @Column(name = "g07_historical", nullable = true)
-    private Boolean historical;
     @Column(name = "g07_infractions", nullable = true)
     private Boolean infractions;
     @Column(name = "g07_faults_debt", nullable = true)

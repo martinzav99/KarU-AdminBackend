@@ -14,6 +14,7 @@ import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.model.entity.ModelDE;
 import com.ungspp1.gadminbackend.model.entity.PaperworkDE;
 import com.ungspp1.gadminbackend.model.entity.VehicleDE;
+import com.ungspp1.gadminbackend.model.enums.VehicleStatusEnum;
 
 @Component
 public class VehicleFacade {
@@ -30,7 +31,9 @@ public class VehicleFacade {
         VehicleDE vehicle = service.getByPlate(request.getPlate());
         if (vehicle == null){
             if (modelDE != null){
-                return service.save(mapper.requestToDEWithModel(request , modelDE , paperworkDE));
+                VehicleDE newVehicle = mapper.requestToDEWithModel(request , modelDE , paperworkDE);
+                newVehicle.setStatus(VehicleStatusEnum.NUEVO.name());
+                return service.save(newVehicle);
             }else {
                 throw new EngineException("El modelo del vehiculo es inexistente.", HttpStatus.BAD_REQUEST);
             }
@@ -68,5 +71,29 @@ public class VehicleFacade {
         return mapper.modelDEsToTOs(service.getAllModels());
     }
     
+    public String savePaperwork(PaperworkTO request) throws EngineException{
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+
+        if (vehicle != null){
+            if(request.getDebt() != null)
+                vehicle.getPaperworkData().setDebt(request.getDebt());
+            if(request.getInfractions() != null)
+                vehicle.getPaperworkData().setInfractions(request.getInfractions());
+            if(request.getRva() != null)
+                vehicle.getPaperworkData().setRva(request.getRva());
+            if(request.getVpa() != null)
+                vehicle.getPaperworkData().setVpa(request.getVpa());
+            if(request.getVtv() != null)
+                vehicle.getPaperworkData().setVtv(request.getVtv());
+
+            vehicle.setStatus(VehicleStatusEnum.REVISION_LEGAL.name());
+            service.save(vehicle);
+            return "Paperwork saved";
+        }
+        else{
+            throw new EngineException("The vehicle wasn't found", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
     

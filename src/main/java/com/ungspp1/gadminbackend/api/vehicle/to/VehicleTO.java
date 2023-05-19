@@ -11,10 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VehicleTO {
     private String plate;
-    private String status;
-    private String score;
-    private String branch;
     private String kilometers;
     private ModelTO modelData;
-    private PaperworkTO paperworkData;
 }

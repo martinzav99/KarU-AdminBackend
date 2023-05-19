@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleTO;
 import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.restResponse.BaseBodyResponse;
@@ -70,6 +71,17 @@ public class VehicleController {
     public ResponseEntity<BaseBodyResponse<?>> getAllModels(){
         try{
             return ResponseHelper.simpleResponse(facade.getAllModels());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/savePaperwork", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> savePaperwork(@RequestBody PaperworkTO request){
+        try{
+            return ResponseHelper.simpleResponse(facade.savePaperwork(request));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
         } catch (Exception ex) {
             return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
