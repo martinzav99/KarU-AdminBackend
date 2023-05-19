@@ -31,9 +31,9 @@ public class VehicleDE {
     private BigInteger id;
     @Column(name = "g08_plate", length = 10, nullable = false)
     private String plate;
-    @Column(name = "g08_purchase_price", nullable = false)
+    @Column(name = "g08_purchase_price", nullable = true)
     private Float purchasePrice;
-    @Column(name = "g08_sell_price", nullable = false) 
+    @Column(name = "g08_sell_price", nullable = true) 
     private Float sellPrice;
     @Column(name = "g08_status", length = 20, nullable = false)
     private String status;

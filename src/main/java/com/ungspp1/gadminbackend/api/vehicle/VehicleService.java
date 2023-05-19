@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
-import com.ungspp1.gadminbackend.api.vehicle.to.VehicleRequestTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.VehicleTO;
 import com.ungspp1.gadminbackend.model.entity.ModelDE;
 import com.ungspp1.gadminbackend.model.entity.VehicleDE;
 import com.ungspp1.gadminbackend.model.repository.ModelRepository;
@@ -25,22 +25,28 @@ public class VehicleService {
     @Autowired
     private ModelRepository modelRepository;
 
-    public Object save(VehicleDE vehicleDE) {
+    public VehicleDE save(VehicleDE vehicleDE) {
         return repository.save(vehicleDE);
     }
 
-    public List<VehicleRequestTO> getAllVehicles() {
+    public List<VehicleTO> getAllVehicles() {
         List<VehicleDE> vehicleDEs = repository.findAll();
         return mapper.vehicleDEtoRequestTOList(vehicleDEs);
     }
 
-    public  ModelDE findModel(ModelTO modelData) {
-        return modelRepository.findByModelAndYear(modelData.getModel(), modelData.getYear());
-    }
-
     public VehicleDE getByPlate(String plate) {
-        return repository.findByPlate(plate).get();
+        return repository.findByPlate(plate).orElse(null);
     }
 
+    public ModelDE saveModelDE(ModelDE model){
+        return modelRepository.save(model);
+    }
 
+    public ModelDE getModel(ModelTO modelData){
+        return modelRepository.findByBrandAndModelAndYear(modelData.getBrand(), modelData.getModel(), modelData.getYear());
+    }
+
+    public List<ModelDE> getAllModels(){
+        return modelRepository.findAll();
+    }
 }

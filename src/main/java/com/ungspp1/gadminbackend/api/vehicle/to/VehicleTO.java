@@ -1,10 +1,5 @@
 package com.ungspp1.gadminbackend.api.vehicle.to;
 
-
-
-import com.ungspp1.gadminbackend.api.user.to.UserTO;
-
-import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class VehicleRequestTO {
+public class VehicleTO {
     private String plate;
-    private Float purchasePrice;
-    private Float sellPrice;
     private String status;
     private String score;
     private String branch;

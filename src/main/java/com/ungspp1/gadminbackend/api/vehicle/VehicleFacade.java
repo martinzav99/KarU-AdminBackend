@@ -3,15 +3,17 @@ package com.ungspp1.gadminbackend.api.vehicle;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
-import com.ungspp1.gadminbackend.api.vehicle.to.VehicleRequestTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.VehicleTO;
 import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.model.entity.ModelDE;
 import com.ungspp1.gadminbackend.model.entity.PaperworkDE;
+import com.ungspp1.gadminbackend.model.entity.VehicleDE;
 
 @Component
 public class VehicleFacade {
@@ -21,29 +23,50 @@ public class VehicleFacade {
     @Autowired 
     private VehicleMapper mapper;
 
-    public Object saveVehicle(VehicleRequestTO request) throws EngineException {
-        ModelDE de = service.findModel(request.getModelData());
+    public VehicleDE saveVehicle(VehicleTO request) throws EngineException {
+        ModelDE modelDE = service.getModel(request.getModelData());
         PaperworkTO paperworkTO = PaperworkTO.builder().build();
         PaperworkDE paperworkDE = mapper.requestPaperworkToDE(paperworkTO);
-        if (de != null){
-            return service.save(mapper.requestToDEWithModel (request , de , paperworkDE));
-        }else {
-             throw new EngineException("El modelo del vehiculo es inexistente.");
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+        if (vehicle == null){
+            if (modelDE != null){
+                return service.save(mapper.requestToDEWithModel(request , modelDE , paperworkDE));
+            }else {
+                throw new EngineException("El modelo del vehiculo es inexistente.", HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            throw new EngineException("Ya existe un vehiculo con patente " + request.getPlate(), HttpStatus.BAD_REQUEST);
         }
     }
 
+    public ModelDE saveModel(ModelTO request) throws EngineException {
+        ModelDE model = service.getModel(request);
+        if(model != null){
+            throw new EngineException("El modelo ya esta registrado", HttpStatus.BAD_REQUEST);
+        }
+        if(request.getBasePrice() == null || request.getBrand() == null || request.getModel() == null || request.getModel() == null){
+            throw new EngineException("No se puede guardar un modelo con datos nulos", HttpStatus.BAD_REQUEST);
+        }
+        ModelDE savedModel = mapper.requestModelToDE(request);
+        return service.saveModelDE(savedModel);
+    }
 
-    public List<VehicleRequestTO> getAllVehicles(){
+    public List<VehicleTO> getAllVehicles(){
         return service.getAllVehicles();
     }
 
-
-    public Object getByPlate(String plate) {
-        return mapper.vehicleRequestToDE(service.getByPlate(plate));
+    public VehicleTO getByPlate(String plate) throws EngineException {
+        VehicleDE vehicle = service.getByPlate(plate);
+        if (vehicle == null){
+            throw new EngineException("No existe vehiculo con patente "+plate, HttpStatus.BAD_REQUEST);
+        } else {
+            return mapper.vehicleRequestToDE(vehicle);
+        }
     } 
 
-
-
-
+    public List<ModelTO> getAllModels(){
+        return mapper.modelDEsToTOs(service.getAllModels());
+    }
+    
 }
     
