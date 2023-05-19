@@ -19,7 +19,8 @@ import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
 public class SignupController {
     @Autowired
     private SignupFacade facade;
-
+    
+    //NO USADO
     @PostMapping(value = "/client", produces = {"application/json"})
     public ResponseEntity<BaseBodyResponse<?>> saveClient(@RequestBody SignupUserRequestTO request){
         try{
@@ -30,7 +31,6 @@ public class SignupController {
         }
     }
 
-    //TODO: logica de tipo de usuario interno (Que tipos hay?)
     @PostMapping(value = "/internal", produces = {"application/json"})
     public ResponseEntity<BaseBodyResponse<?>> saveInternalUser(@RequestBody SignupUserRequestTO request){
         try{

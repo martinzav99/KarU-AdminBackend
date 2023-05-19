@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.restResponse.BaseBodyResponse;
 import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
-
-//import jakarta.websocket.server.PathParam;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -26,8 +25,10 @@ public class UserController {
     public ResponseEntity<BaseBodyResponse<?>> getUserByUsername(@PathVariable String username){
         try{
             return ResponseHelper.simpleResponse(facade.getByUsername(username));
-        } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
 
@@ -35,8 +36,10 @@ public class UserController {
     public ResponseEntity<BaseBodyResponse<?>> getUsersByType(@PathVariable String type){
         try{
             return ResponseHelper.simpleResponse(facade.getByType(type));
-        } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
 
@@ -44,8 +47,10 @@ public class UserController {
     public ResponseEntity<BaseBodyResponse<?>> getUsersByBranch(@PathVariable String branch){
         try{
             return ResponseHelper.simpleResponse(facade.getByBranch(branch));
-        } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
 
@@ -53,8 +58,10 @@ public class UserController {
     public ResponseEntity<BaseBodyResponse<?>> getUsersByTechLevel(@PathVariable String level){
         try{
             return ResponseHelper.simpleResponse(facade.getByTechLevel(level));
-        } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
 
@@ -63,7 +70,7 @@ public class UserController {
         try{
             return ResponseHelper.simpleResponse(facade.getAllUsers());
         } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage());
         }
     }
 
