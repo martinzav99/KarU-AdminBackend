@@ -16,10 +16,15 @@ import com.ungspp1.gadminbackend.model.entity.VehicleDE;
 public interface VehicleMapper {
 
     ModelDE requestModelToDE (ModelTO modelTO);
+
     ModelTO modelDEtoTO (ModelDE modelDE);
+
     List<ModelTO> modelDEsToTOs(List<ModelDE> modelDEs);
+
     PaperworkDE requestPaperworkToDE (PaperworkTO paperworkTO);
+
     VehicleTO vehicleRequestToDE(VehicleDE vehicleDE);
+    
     List<VehicleTO> vehicleDEtoRequestTOList(List<VehicleDE> vehicleDEs);
 
     @Mapping (target = "paperworkData" , source = "paperworkDE")

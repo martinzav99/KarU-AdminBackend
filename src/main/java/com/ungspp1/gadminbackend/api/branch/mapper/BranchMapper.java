@@ -6,7 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import com.ungspp1.gadminbackend.api.branch.to.OfficeResponseTO;
 import com.ungspp1.gadminbackend.api.branch.to.WorkshopResponseTO;
+import com.ungspp1.gadminbackend.external.adminArea.to.OfficeTO;
 import com.ungspp1.gadminbackend.external.techArea.to.WorkshopTO;
 
 @Mapper(componentModel = "spring")
@@ -18,6 +20,11 @@ public interface BranchMapper {
 
     List<WorkshopResponseTO> workshopsToResponseList(List<WorkshopTO> workshopTOs);
 
+    @Mapping(target="officeName", source="nombre")
+    @Mapping(target="officeCode", source="id", qualifiedByName = "generateOfficeCode")
+    OfficeResponseTO officeToResponse(OfficeTO officeTO);
+
+    List<OfficeResponseTO> officesToResponseList(List<OfficeTO> officeTOs);
 
     @Named("generateWorkshopCode")
     public static String generateWorkshopCode(int workshopId) {
@@ -34,6 +41,6 @@ public interface BranchMapper {
         while (code.length()<3){
             code = 0+code;
         }
-        return "T"+code;
+        return "S"+code;
     }
 }
