@@ -65,13 +65,16 @@ public class RecoverPassService {
 
             if (request.getPassword() != null){
                 user.setPassword(request.getPassword());
+                userRepository.save(user);
+                userResetPassRepository.DeleteByUsername(user.getUsername());
+                return HttpStatus.OK;
             }
-            userRepository.save(user);
-            return HttpStatus.OK;
+            else{
+                throw new EngineException("Error trying to upload new password", HttpStatus.BAD_REQUEST);
+            }        
         }
         else{
             throw new EngineException("The user wasn't found", HttpStatus.BAD_REQUEST);
         }
     }
-
 }
