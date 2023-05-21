@@ -3,8 +3,6 @@ package com.ungspp1.gadminbackend.api.password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ungspp1.gadminbackend.api.password.to.NewPassRequest;
 import com.ungspp1.gadminbackend.api.password.to.RecoverPassRequestTO;
+import com.ungspp1.gadminbackend.api.password.to.TokenRequestTO;
 import com.ungspp1.gadminbackend.restResponse.BaseBodyResponse;
 import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
 
@@ -24,28 +23,28 @@ public class RecoverPassController {
     @Autowired 
     RecoverPassFacade facade;
 
-    @PostMapping(produces = {"application/json"})
-    public ResponseEntity<BaseBodyResponse<?>> rpassword(@RequestBody RecoverPassRequestTO request){
+    @PostMapping(value = "/validateEmail",produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> vEmail(@RequestBody RecoverPassRequestTO request){
         try{
-            return ResponseHelper.simpleResponse(facade.resetPassword(request));
+            return ResponseHelper.simpleResponse(facade.verifyEmail(request));
         } catch (Exception e) {
             return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
     }
 
-    @GetMapping(value = "/{token}", produces = {"application/json"})
-    public ResponseEntity<BaseBodyResponse<?>> vToken(@PathVariable("token") String token){
+    @PostMapping(value = "/validateToken", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> vToken(@RequestBody TokenRequestTO request){
         try {
-            return ResponseHelper.simpleResponse(facade.verifyToken(token));
+            return ResponseHelper.simpleResponse(facade.verifyToken(request));
         } catch (Exception e) {
             return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
     }
 
-    @PostMapping(value = "/{token}", produces = {"application/json"})
-    public ResponseEntity<BaseBodyResponse<?>> dasasf(@PathVariable("token") String token,@RequestBody NewPassRequest request){
+    @PostMapping(value = "/changePassword", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> newPassword(@RequestBody NewPassRequest request){
         try {
-            return ResponseHelper.simpleResponse(facade.uploadNewPass(token,request));
+            return ResponseHelper.simpleResponse(facade.uploadNewPass(request));
         } catch (Exception e) {
             return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
