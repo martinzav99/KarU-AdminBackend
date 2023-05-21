@@ -71,7 +71,7 @@ public class RecoverPassService {
                 return HttpStatus.OK;
             }
             else{
-                throw new EngineException("Error trying to upload new password", HttpStatus.BAD_REQUEST);
+                throw new EngineException("Error uploading new password, try not to use the old password", HttpStatus.BAD_REQUEST);
             }        
         }
         else{
