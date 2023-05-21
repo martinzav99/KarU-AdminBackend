@@ -3,7 +3,7 @@ package com.ungspp1.gadminbackend.api.password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +16,8 @@ import com.ungspp1.gadminbackend.restResponse.BaseBodyResponse;
 import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
 
 @RestController
-//@CrossOrigin(origins = "*")
-@RequestMapping("/resetPassword")
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/v1/resetPassword")
 public class RecoverPassController {
     
     @Autowired 
