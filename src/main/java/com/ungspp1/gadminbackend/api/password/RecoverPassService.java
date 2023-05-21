@@ -44,7 +44,7 @@ public class RecoverPassService {
             .userData(user.get()).build();
 
             userResetPassRepository.save(token);
-            mailFacade.sendTokenMail(request.getEmail(), code);
+            mailFacade.sendTokenMail(user.get().getUsername(),request.getEmail(), code);
             return HttpStatus.OK;
         }
         else {

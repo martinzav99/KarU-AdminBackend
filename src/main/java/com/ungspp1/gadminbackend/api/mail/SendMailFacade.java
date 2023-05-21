@@ -18,8 +18,8 @@ public class SendMailFacade {
         return null;
     }
 
-    public Object sendTokenMail(String mail, String code) {
-        SimpleMailMessage message = recoverPassMessage(mail, code);
+    public Object sendTokenMail(String username,String mail, String code) {
+        SimpleMailMessage message = recoverPassMessage(username,mail, code);
         javaMailSender.send(message);
         return null;
     }
@@ -33,13 +33,12 @@ public class SendMailFacade {
         return message;
     }
 
-    private SimpleMailMessage recoverPassMessage(String mail,String code){
-        String url = "http://localhost:8080/resetPassword?token=" + code;
-        String mensaje = String.format("Hola Usuario, para reestablecer tu contraseña haz clic en el siguiente enlace:%n%s%n", url);;
+    private SimpleMailMessage recoverPassMessage(String username,String mail,String code){
+        String mensaje = String.format("Hola %s, para reestablecer tu contraseña utilice el siguiente codigo:%n%s%n",username ,code);;
         
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("losmagiostest@gmail.com"); 
-        message.setTo("martinkapo99@gmail.com");
+        message.setTo(mail);
         message.setSubject("Recuperar password");
         message.setText(mensaje);
         return message;
