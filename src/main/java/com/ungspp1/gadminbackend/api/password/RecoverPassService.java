@@ -1,6 +1,7 @@
 package com.ungspp1.gadminbackend.api.password;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -52,30 +53,73 @@ public class RecoverPassService {
         }
     }
 
-    public Boolean verifyToken(TokenRequestTO request) throws EngineException{
+    public HttpStatus verifyToken(TokenRequestTO request) throws EngineException{
         Optional<UserResetPassDE> tokenFound = userResetPassRepository.findByToken(request.getToken());
-        boolean exist = tokenFound.isPresent();
-        boolean isAvailable = tokenFound.get().getCodeExpirationDate().isAfter(LocalDateTime.now());
-        return exist && isAvailable;
+        
+        if(!tokenFound.isPresent())
+            throw new EngineException("Token wasn't found", HttpStatus.BAD_REQUEST);
+
+        if (!tokenFound.get().getCodeExpirationDate().isAfter(LocalDateTime.now()))
+            throw new EngineException("Token is expired", HttpStatus.BAD_REQUEST);
+       
+        return HttpStatus.OK;
     }
 
     public HttpStatus uploadNewPass(NewPassRequest request) throws EngineException{
         Optional<UserDE> user =userRepository.findByEmail(request.getEmail());
 
-        if (user.isPresent()){
-            UserDE userFounded = user.get();
-            if (request.getPassword() != null && !request.getPassword().equals(userFounded.getPassword())){
-                userFounded.setPassword(request.getPassword());
-                userRepository.save(userFounded);
-                userResetPassRepository.DeleteByUsername(userFounded.getUsername());
-                return HttpStatus.OK;
-            }
-            else{
-                throw new EngineException("Error uploading new password, try not to use the old password", HttpStatus.BAD_REQUEST);
-            }        
-        }
-        else{
+        if (!user.isPresent())
             throw new EngineException("The user wasn't found", HttpStatus.BAD_REQUEST);
+        
+        UserDE userFounded = user.get();
+
+        if (request.getPassword() == null)
+            throw new EngineException("Error uploading new password", HttpStatus.BAD_REQUEST); 
+
+        if (sameOldPass(request, userFounded))
+            throw new EngineException("Error uploading new password, try not to use the old password", HttpStatus.BAD_REQUEST);
+        
+        if(!validPass(userFounded))
+            throw new EngineException("Error uploading new password, not valid password", HttpStatus.BAD_REQUEST);
+   
+        userFounded.setPassword(request.getPassword());
+        userRepository.save(userFounded);
+        return HttpStatus.OK;                      
+    }
+
+    private boolean sameOldPass(NewPassRequest request ,UserDE user){
+        return request.getPassword().equals(user.getPassword());
+    }
+
+    private boolean validPass(UserDE user){
+    
+        String password = user.getPassword();
+
+        if (8 <= password.length() && password.length()<=20){
+            
+            boolean hasMayus= false, hasMin= false, hasNumb= false, hasEspecial = false;
+
+            for (int i = 0; i< password.length(); i++){
+                if (ascciRange(password, i, 97, 122))
+                    hasMin = true;
+                    
+                if (ascciRange(password, i, 65, 90))
+                    hasMayus = true;
+                    
+                if (ascciRange(password, i, 48, 57))
+                    hasNumb = true;
+                    
+                if (ascciRange(password,i, 33, 47) || ascciRange(password,i, 58, 64) || ascciRange(password,i, 91, 96))
+                    hasEspecial = true;          
+            }
+            return hasMayus && hasMin && hasNumb && hasEspecial;
         }
+        else {
+            return false;
+        }
+    }
+
+    private boolean ascciRange(String word, int pos, int a , int b ){
+        return a <= word.charAt(pos) && word.charAt(pos) <= b;
     }
 }

@@ -19,7 +19,7 @@ public class RecoverPassFacade {
         return recoverPassService.verifyEmail(request);
     }
     
-    public Boolean verifyToken(TokenRequestTO request) throws EngineException{
+    public HttpStatus verifyToken(TokenRequestTO request) throws EngineException{
         return recoverPassService.verifyToken(request);
     }
 
