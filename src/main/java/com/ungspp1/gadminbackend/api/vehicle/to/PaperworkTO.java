@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class PaperworkTO {
-    private Boolean title;
-    private Boolean cedula;
-    private Boolean cuit;
-    private Boolean historical;
+    private String plate;
     private Boolean infractions;
     private Float debt;
     private Boolean vpa;

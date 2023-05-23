@@ -10,5 +10,7 @@ public interface ModelRepository extends JpaRepository<ModelDE, Long> {
     
    ModelDE findByModelAndYear (String model , String year);
 
+   ModelDE findByBrandAndModelAndYear (String brand, String model, String year);
+
 }
 

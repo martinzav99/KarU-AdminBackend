@@ -1,4 +1,4 @@
-package com.ungspp1.gadminbackend.api.password.to;
+package com.ungspp1.gadminbackend.api.branch.to;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class NewPassRequest {
-    private String email;
-    private String password;
-
+public class WorkshopResponseTO {
+    private String workshopCode;
+    private String workshopName;
 }

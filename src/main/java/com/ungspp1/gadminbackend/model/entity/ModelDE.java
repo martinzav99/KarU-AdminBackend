@@ -18,7 +18,7 @@ public class ModelDE {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "g06_id", length = 8, nullable = false)
-    private BigInteger id;
+    private BigInteger modelId;
     @Column(name = "g06_brand", length = 20, nullable = false)
     private String brand;
     @Column(name = "g06_model", length = 20, nullable = false)
