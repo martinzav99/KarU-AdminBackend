@@ -23,7 +23,7 @@ public class SignupFacade {
     private LoginFacade loginFacade;
     private final List<String> branchUserType = Arrays.asList(new String[]{"GERENTE_SUCURSAL", "SUPERVISOR_VENTAS", "SUPERVISOR_TECNICO", "ADMINISTRADOR", "TECNICO", "VENDEDOR"});
     private final List<String> noBranchUserType = Arrays.asList(new String[]{"GERENTE_GENERAL", "IT"});
-    private final List<String> technicalLevel = Arrays.asList(new String[]{"A","B","C"});
+    private final List<String> technicalLevel = Arrays.asList(new String[]{"A","B","C","D"});
 
     public SignupUserResponseTO saveUser(SignupUserRequestTO request) throws EngineException {
         validateRepeatedUsername(request.getUsername());
