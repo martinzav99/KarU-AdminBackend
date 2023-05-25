@@ -1,5 +1,7 @@
 package com.ungspp1.gadminbackend.api.user.to;
 
+import java.math.BigInteger;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserTO {
+    private BigInteger id;
     private String fullName;
     private String document;
     private String username;
