@@ -35,7 +35,7 @@ public class VehicleDE {
     private Float purchasePrice;
     @Column(name = "g08_sell_price", nullable = true) 
     private Float sellPrice;
-    @Column(name = "g08_status", length = 20, nullable = false)
+    @Column(name = "g08_status", length = 40, nullable = false)
     private String status;
     @Column(name = "g08_technical_score", nullable = true)
     private Float score;
