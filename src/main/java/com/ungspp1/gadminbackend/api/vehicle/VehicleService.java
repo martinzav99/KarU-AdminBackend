@@ -21,22 +21,22 @@ public class VehicleService {
     private VehicleRepository repository;
 
     @Autowired
-    private VehicleMapper mapper;
-
-    @Autowired
     private ModelRepository modelRepository;
 
     public VehicleDE save(VehicleDE vehicleDE) {
         return repository.save(vehicleDE);
     }
 
-    public List<VehicleTO> getAllVehicles() {
-        List<VehicleDE> vehicleDEs = repository.findAll();
-        return mapper.vehicleDEtoRequestTOList(vehicleDEs);
+    public List<VehicleDE> getAllVehicles() {
+        return repository.findAll();
     }
 
     public VehicleDE getByPlate(String plate) {
         return repository.findByPlate(plate).orElse(null);
+    }
+
+    public List<VehicleDE> getByStatus(String status) {
+        return repository.findByStatus(status);
     }
 
     public ModelDE saveModelDE(ModelDE model){

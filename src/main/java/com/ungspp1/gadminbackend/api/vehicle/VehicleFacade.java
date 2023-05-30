@@ -73,16 +73,25 @@ public class VehicleFacade {
         return service.saveModelDE(savedModel);
     }
 
-    public List<VehicleTO> getAllVehicles(){
-        return service.getAllVehicles();
+    public List<VehicleResponseTO> getAllVehicles(){
+        return mapper.deListToResponseList(service.getAllVehicles());
     }
 
-    public VehicleTO getByPlate(String plate) throws EngineException {
+    public VehicleResponseTO getByPlate(String plate) throws EngineException {
         VehicleDE vehicle = service.getByPlate(plate);
         if (vehicle == null){
             throw new EngineException("No existe vehiculo con patente "+plate, HttpStatus.BAD_REQUEST);
         } else {
-            return mapper.vehicleRequestToDE(vehicle);
+            return mapper.deToResponseTO(vehicle);
+        }
+    } 
+
+    public List<VehicleResponseTO> getByStatus(String status) throws EngineException {
+        List<VehicleDE> vehicles = service.getByStatus(status);
+        if (vehicles.isEmpty()){
+            throw new EngineException("No se encontraron vehiculos con estado "+status, HttpStatus.BAD_REQUEST);
+        } else {
+            return mapper.deListToResponseList(vehicles);
         }
     } 
 

@@ -98,5 +98,16 @@ public class VehicleController {
             return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
+
+    @GetMapping(value = "/getByStatus/{status}", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> getByStatus(@PathVariable String status){
+        try{
+            return ResponseHelper.simpleResponse(facade.getByStatus(status));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
     
 }

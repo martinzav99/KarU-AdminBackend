@@ -21,7 +21,7 @@ public class VehicleResponseTO {
     private String brand;
     private String model;
     private String year;
-    private String basePrice;
+    private Float basePrice;
     private Float debt;
     private Boolean vpa;
     private Boolean rva;
