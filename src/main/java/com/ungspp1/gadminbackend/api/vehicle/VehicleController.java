@@ -16,6 +16,7 @@ import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleTO;
 import com.ungspp1.gadminbackend.exceptions.EngineException;
+import com.ungspp1.gadminbackend.model.enums.VehicleStatusEnum;
 import com.ungspp1.gadminbackend.restResponse.BaseBodyResponse;
 import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
 
@@ -109,5 +110,5 @@ public class VehicleController {
             return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
-    
+
 }

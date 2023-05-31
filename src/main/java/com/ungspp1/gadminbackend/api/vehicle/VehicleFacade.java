@@ -109,9 +109,10 @@ public class VehicleFacade {
 
         if (vehicle != null){
             float debtPercentage = NumberUtils.toPercentage(variablesService.getVariable("PORCENTAJE_DEUDA"));
-            float debtLimit = (float) (vehicle.getModelData().getBasePrice()*debtPercentage);
+            float modelPrice = vehicle.getModelData().getBasePrice();
+            float debtLimit = (float) (modelPrice*debtPercentage);
             if(request.getDebt()>debtLimit){
-                throw new EngineException("No se admiten vehiculos con deuda mayor al "+debtPercentage+" del valor del modelo" , HttpStatus.BAD_REQUEST);
+                throw new EngineException("No se admiten vehiculos con deuda mayor al "+debtPercentage*100+"% del valor del modelo("+modelPrice+")" , HttpStatus.BAD_REQUEST);
             } else {
                 if(request.getDebt() != null)
                     vehicle.getPaperworkData().setDebt(request.getDebt());
