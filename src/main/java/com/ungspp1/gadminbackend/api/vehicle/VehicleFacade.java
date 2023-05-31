@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import com.ungspp1.gadminbackend.api.utils.EnumUtils;
 import com.ungspp1.gadminbackend.api.utils.NumberUtils;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.UpdateStatusTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleResponseTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleTO;
 import com.ungspp1.gadminbackend.exceptions.EngineException;
@@ -100,6 +102,24 @@ public class VehicleFacade {
         }
     } 
 
+    public String updateStatus(UpdateStatusTO request) throws EngineException {
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+        if (vehicle == null){
+            throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
+        } else {
+            Boolean found = EnumUtils.validateVehicleStatusEnum(request.getStatus());
+            if(found){
+                vehicle.setStatus(request.getStatus());
+                service.save(vehicle);
+                return "Estado actualizado";
+            } else {
+                throw new EngineException("El estado ingresado no es valido", HttpStatus.BAD_REQUEST);
+            }
+        }
+    }
+
+    
+
     public List<ModelTO> getAllModels(){
         return mapper.modelDEsToTOs(service.getAllModels());
     }
@@ -127,10 +147,10 @@ public class VehicleFacade {
             }
             vehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name());
             service.save(vehicle);
-            return "Paperwork saved";
+            return "Documentos guardados";
         }
         else{
-            throw new EngineException("The vehicle wasn't found", HttpStatus.BAD_REQUEST);
+            throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
         }
     }
 
