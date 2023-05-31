@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.VehicleResponseTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleTO;
 import com.ungspp1.gadminbackend.model.entity.ModelDE;
 import com.ungspp1.gadminbackend.model.entity.PaperworkDE;
@@ -14,6 +15,18 @@ import com.ungspp1.gadminbackend.model.entity.VehicleDE;
 
 @Mapper(componentModel = "spring")
 public interface VehicleMapper {
+
+    @Mapping(source="paperworkData.debt", target = "debt")
+    @Mapping(source="paperworkData.vpa", target ="vpa")
+    @Mapping(source="paperworkData.rva", target ="rva")
+    @Mapping(source="paperworkData.vtv", target ="vtv")
+    @Mapping(source="modelData.basePrice", target="basePrice")
+    @Mapping(source="modelData.brand", target="brand")
+    @Mapping(source="modelData.model", target="model")
+    @Mapping(source="modelData.year", target="year")
+    VehicleResponseTO deToResponseTO (VehicleDE vehicleDE);
+
+    List<VehicleResponseTO> deListToResponseList(List<VehicleDE> vehicleDEs);
 
     ModelDE requestModelToDE (ModelTO modelTO);
 

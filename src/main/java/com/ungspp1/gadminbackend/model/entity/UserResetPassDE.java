@@ -11,7 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,14 +29,12 @@ public class UserResetPassDE {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "g05_id", length = 8, nullable = false)
     private BigInteger id;
-    @Column(name = "g05_code", length = 150, nullable = false)
+    @Column(name = "g05_code", length = 10, nullable = false)
     private String token;
-    @Column(name = "g05_creation_date", nullable = false)
-    private LocalDateTime codeGenerationDate;
     @Column(name = "g05_expired_date", nullable = false)
     private LocalDateTime codeExpirationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "g05_user_id", nullable = false)
     private UserDE userData;
 }

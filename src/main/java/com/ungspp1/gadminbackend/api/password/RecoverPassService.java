@@ -1,7 +1,6 @@
 package com.ungspp1.gadminbackend.api.password;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -35,22 +34,32 @@ public class RecoverPassService {
 
         Optional<UserDE> user = userRepository.findByEmail(request.getEmail());
 
-        if(user.isPresent()){
-           
-            String code = RandomStringUtils.randomAlphanumeric(150).toUpperCase();
-            UserResetPassDE token = UserResetPassDE.builder()
-            .token(code)
-            .codeGenerationDate(LocalDateTime.now())
-            .codeExpirationDate(LocalDateTime.now().plusHours(3))
-            .userData(user.get()).build();
+        if(!user.isPresent())
+            throw new EngineException("The user wasn't found", HttpStatus.BAD_REQUEST);
+        
+        Optional<UserResetPassDE> token = userResetPassRepository.findByusername(user.get().getUsername());
 
-            userResetPassRepository.save(token);
+        String code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
+        
+        if(!token.isPresent()){
+            
+            UserResetPassDE tokenNuevo = new  UserResetPassDE();
+            tokenNuevo.setToken(code);
+            tokenNuevo.setCodeExpirationDate(LocalDateTime.now().plusHours(3));
+            tokenNuevo.setUserData(user.get());
+
+            userResetPassRepository.save(tokenNuevo);
             mailFacade.sendTokenMail(user.get().getUsername(),request.getEmail(), code);
             return HttpStatus.OK;
         }
-        else {
-            throw new EngineException("The user wasn't found", HttpStatus.BAD_REQUEST);
-        }
+        else{
+            UserResetPassDE tokenFounded = token.get();
+            tokenFounded.setToken(code);
+            tokenFounded.setCodeExpirationDate(LocalDateTime.now().plusHours(3));
+            userResetPassRepository.save(tokenFounded);
+            mailFacade.sendTokenMail(user.get().getUsername(),request.getEmail(), code);
+            return HttpStatus.OK;
+        }     
     }
 
     public HttpStatus verifyToken(TokenRequestTO request) throws EngineException{
@@ -79,9 +88,18 @@ public class RecoverPassService {
         if (sameOldPass(request, userFounded))
             throw new EngineException("Error uploading new password, try not to use the old password", HttpStatus.BAD_REQUEST);
         
-        if(!validPass(userFounded))
+        if(!validPass(request))
             throw new EngineException("Error uploading new password, not valid password", HttpStatus.BAD_REQUEST);
-   
+        
+        Optional<UserResetPassDE> token =userResetPassRepository.findByusername(userFounded.getUsername());
+
+        if(!token.isPresent())
+            throw new EngineException("Token wasn't found", HttpStatus.BAD_REQUEST);
+
+        UserResetPassDE tokenFounded = token.get();
+        tokenFounded.setCodeExpirationDate(LocalDateTime.now());
+        userResetPassRepository.save(tokenFounded);
+
         userFounded.setPassword(request.getPassword());
         userRepository.save(userFounded);
         return HttpStatus.OK;                      
@@ -91,9 +109,9 @@ public class RecoverPassService {
         return request.getPassword().equals(user.getPassword());
     }
 
-    private boolean validPass(UserDE user){
+    private boolean validPass(NewPassRequest request){
     
-        String password = user.getPassword();
+        String password = request.getPassword();
 
         if (8 <= password.length() && password.length()<=20){
             
