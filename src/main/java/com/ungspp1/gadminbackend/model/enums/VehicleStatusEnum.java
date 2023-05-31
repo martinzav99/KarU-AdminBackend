@@ -6,6 +6,7 @@ public enum VehicleStatusEnum {
     ESPERA_REVISION_TECNICA,
     ESPERA_DECISION_FINAL,
     RECHAZADO,
+    ACEPTADO,
     DISPONIBLE,
     RESERVADO,
     VENDIDO
