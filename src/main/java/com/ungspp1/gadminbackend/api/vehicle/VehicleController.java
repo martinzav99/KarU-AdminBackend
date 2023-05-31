@@ -88,10 +88,10 @@ public class VehicleController {
         }
     }
 
-    @PostMapping(value = "/updateTechInfo", produces = {"application/json"})
-    public ResponseEntity<BaseBodyResponse<?>> updateTechInfo(@RequestBody TechInfoTO request){
+    @PostMapping(value = "/saveTechInfo", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> saveTechInfo(@RequestBody TechInfoTO request){
         try{
-            return ResponseHelper.simpleResponse(facade.updateTechInfo(request));
+            return ResponseHelper.simpleResponse(facade.saveTechInfo(request));
         } catch (EngineException e) {
             return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
         } catch (Exception ex) {

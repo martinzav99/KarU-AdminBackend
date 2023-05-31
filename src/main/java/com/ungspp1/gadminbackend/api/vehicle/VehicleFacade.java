@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import com.ungspp1.gadminbackend.api.utils.NumberUtils;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
@@ -17,12 +18,15 @@ import com.ungspp1.gadminbackend.model.entity.ModelDE;
 import com.ungspp1.gadminbackend.model.entity.PaperworkDE;
 import com.ungspp1.gadminbackend.model.entity.VehicleDE;
 import com.ungspp1.gadminbackend.model.enums.VehicleStatusEnum;
+import com.ungspp1.gadminbackend.service.VariablesService;
 
 @Component
 public class VehicleFacade {
 
     @Autowired
     private VehicleService service;
+    @Autowired
+    private VariablesService variablesService;
     @Autowired 
     private VehicleMapper mapper;
 
@@ -44,9 +48,10 @@ public class VehicleFacade {
         }
     }
 
-    public VehicleResponseTO updateTechInfo(TechInfoTO request) throws EngineException{
-        if (request.getScore()>100 || request.getScore()<0){
-            throw new EngineException("El puntaje debe estar entre 0 y 100", HttpStatus.BAD_REQUEST);
+    public VehicleResponseTO saveTechInfo(TechInfoTO request) throws EngineException{
+        float minimumScore = variablesService.getVariable("PUNTAJE_MINIMO");
+        if (request.getScore()>100 || request.getScore()<minimumScore){
+            throw new EngineException("El puntaje debe estar entre "+minimumScore+" y 100", HttpStatus.BAD_REQUEST);
         }
         VehicleDE vehicle = service.getByPlate(request.getPlate());
         if (vehicle.getStatus().equals(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name())){
@@ -103,17 +108,22 @@ public class VehicleFacade {
         VehicleDE vehicle = service.getByPlate(request.getPlate());
 
         if (vehicle != null){
-            if(request.getDebt() != null)
-                vehicle.getPaperworkData().setDebt(request.getDebt());
-            if(request.getInfractions() != null)
-                vehicle.getPaperworkData().setInfractions(request.getInfractions());
-            if(request.getRva() != null)
-                vehicle.getPaperworkData().setRva(request.getRva());
-            if(request.getVpa() != null)
-                vehicle.getPaperworkData().setVpa(request.getVpa());
-            if(request.getVtv() != null)
-                vehicle.getPaperworkData().setVtv(request.getVtv());
-
+            float debtPercentage = NumberUtils.toPercentage(variablesService.getVariable("PORCENTAJE_DEUDA"));
+            float debtLimit = (float) (vehicle.getModelData().getBasePrice()*debtPercentage);
+            if(request.getDebt()>debtLimit){
+                throw new EngineException("No se admiten vehiculos con deuda mayor al "+debtPercentage+" del valor del modelo" , HttpStatus.BAD_REQUEST);
+            } else {
+                if(request.getDebt() != null)
+                    vehicle.getPaperworkData().setDebt(request.getDebt());
+                if(request.getInfractions() != null)
+                    vehicle.getPaperworkData().setInfractions(request.getInfractions());
+                if(request.getRva() != null)
+                    vehicle.getPaperworkData().setRva(request.getRva());
+                if(request.getVpa() != null)
+                    vehicle.getPaperworkData().setVpa(request.getVpa());
+                if(request.getVtv() != null)
+                    vehicle.getPaperworkData().setVtv(request.getVtv());
+            }
             vehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name());
             service.save(vehicle);
             return "Paperwork saved";
@@ -126,8 +136,9 @@ public class VehicleFacade {
     //CALCULO TEMPORAL DE PRECIO DE COMPRA
     private float calculatePurchasePrice(VehicleDE vehicle) throws EngineException{
         float basePrice = vehicle.getModelData().getBasePrice();
-        float vehicleScore = (float) (vehicle.getScore()*0.01);
-        float finalPrice = (float) (basePrice* 0.90);
+        float vehicleScore = NumberUtils.toPercentage(vehicle.getScore());
+        float purchasePercentage = NumberUtils.toPercentage(variablesService.getVariable("PORCENTAJE_COMPRA"));
+        float finalPrice = (float) (basePrice*purchasePercentage);
         finalPrice = finalPrice*vehicleScore;
         
         if(vehicle.getPaperworkData().getDebt()!=null){
@@ -140,9 +151,10 @@ public class VehicleFacade {
     }
 
     //CALCULO TEMPORAL DE PRECIO DE VENTA
-    private float calculateSellPrice(VehicleDE vehicle){
+    private float calculateSellPrice(VehicleDE vehicle) throws EngineException{
         float purchasePrice = vehicle.getPurchasePrice();
-        float sellPrice = (float) (purchasePrice*1.20);
+        float sellPercentage = NumberUtils.toPercentage(variablesService.getVariable("PORCENTAJE_VENTA"));
+        float sellPrice = (float) (purchasePrice*sellPercentage);
         return sellPrice;
     }
 
