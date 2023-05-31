@@ -47,13 +47,13 @@ public class ModifyService{
 
         UserDE user = userOptional.get();
         
-        if (validParameters(request))
+        if (!validParameters(request))
             throw new EngineException("Error uploading new password, please insert the values", HttpStatus.BAD_REQUEST);
 
         if (sameOldPass(request, user))
             throw new EngineException("Error uploading new password, try not to use the old password", HttpStatus.BAD_REQUEST);
      
-        if (!validPass(user))
+        if (!validPass(request))
             throw new EngineException("Error uploading new password, not valid password", HttpStatus.BAD_REQUEST);
 
         user.setPassword(request.getNewPassword());          
@@ -69,9 +69,9 @@ public class ModifyService{
         return  request.getOldPassword() != null && request.getNewPassword() != null;
     }
 
-    private boolean validPass(UserDE user){
+    private boolean validPass(ChangePassRequestTO request){
     
-        String password = user.getPassword();
+        String password = request.getNewPassword();
 
         if (8 <= password.length() && password.length()<=20){
             
