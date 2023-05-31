@@ -35,14 +35,17 @@ public class VehicleDE {
     private Float purchasePrice;
     @Column(name = "g08_sell_price", nullable = true) 
     private Float sellPrice;
-    @Column(name = "g08_status", length = 20, nullable = false)
+    @Column(name = "g08_status", length = 40, nullable = false)
     private String status;
-    @Column(name = "g08_technical_score", length = 1, nullable = true)
-     private String score;
+    @Column(name = "g08_technical_score", nullable = true)
+    private Float score;
     @Column(name = "g08_branch", length = 10, nullable = true)
     private String branch;
     @Column(name = "g08_kilometers", length = 10, nullable = false)
     private String kilometers;
+    @Column(name = "g08_message", nullable = true)
+    private String message;
+    
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "g08_model_id", nullable = false)
