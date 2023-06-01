@@ -15,8 +15,8 @@ public class VehicleResponseTO {
     private Float purchasePrice;
     private Float sellPrice;
     private String status;
-    private float score;
-    private float repairCost;
+    private Float score;
+    private Float repairCost;
     private String branch;
     private String kilometers;
     private String message;

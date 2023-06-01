@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import com.ungspp1.gadminbackend.api.priceHistory.PriceHistoryFacade;
 import com.ungspp1.gadminbackend.api.variables.VariablesFacade;
 import com.ungspp1.gadminbackend.api.variables.VariablesService;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
@@ -19,6 +20,7 @@ import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.model.entity.ModelDE;
 import com.ungspp1.gadminbackend.model.entity.PaperworkDE;
 import com.ungspp1.gadminbackend.model.entity.VehicleDE;
+import com.ungspp1.gadminbackend.model.enums.HistoryMessageEnum;
 import com.ungspp1.gadminbackend.model.enums.VehicleStatusEnum;
 import com.ungspp1.gadminbackend.utils.EnumUtils;
 import com.ungspp1.gadminbackend.utils.NumberUtils;
@@ -32,6 +34,8 @@ public class VehicleFacade {
     private VariablesFacade variablesFacade;
     @Autowired 
     private VehicleMapper mapper;
+    @Autowired
+    private PriceHistoryFacade priceHistoryFacade;
 
     public List<ModelTO> getAllModels(){
         return mapper.modelDEsToTOs(service.getAllModels());
@@ -69,13 +73,15 @@ public class VehicleFacade {
         VehicleDE vehicle = service.getByPlate(request.getPlate());
         if (vehicle.getStatus().equals(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name())){
             mapVehicleTechInfo(request, vehicle);
-            return mapper.deToResponseTO(service.save(vehicle));
+            VehicleResponseTO response = mapper.deToResponseTO(service.save(vehicle));
+            priceHistoryFacade.newVehiclePriceHistory(request.getPlate(), response.getPurchasePrice(), response.getSellPrice(), HistoryMessageEnum.NUEVO_VEHICULO.name());
+            return response;
         } else {
             throw new EngineException("El vehiculo no se encuentra en revisión tecnica", HttpStatus.BAD_REQUEST);
         }
     }
 
-    public ModelDE saveModel(ModelTO request) throws EngineException {
+    public ModelTO saveModel(ModelTO request) throws EngineException {
         ModelDE model = service.getModel(request);
         if(model != null){
             throw new EngineException("El modelo ya esta registrado", HttpStatus.BAD_REQUEST);
@@ -87,7 +93,10 @@ public class VehicleFacade {
             throw new EngineException("El tipo de combustible no es valido", HttpStatus.BAD_REQUEST);
         }
         ModelDE savedModel = mapper.requestModelToDE(request);
-        return service.saveModelDE(savedModel);
+        ModelTO response = mapper.modelDEtoTO(service.saveModelDE(savedModel));
+        String modelReference = request.getBrand()+" "+request.getModel()+" "+request.getYear()+" "+request.getFuelType()+" "+request.getEngine();
+        priceHistoryFacade.newModelPriceHistory(modelReference, request.getBasePrice(), HistoryMessageEnum.NUEVO_MODELO.name());
+        return response;
     }
 
     public List<VehicleResponseTO> getAllVehicles(){
@@ -170,11 +179,11 @@ public class VehicleFacade {
     }
 
     //CALCULO TEMPORAL DE PRECIO DE COMPRA
-    private float calculatePurchasePrice(VehicleDE vehicle) throws EngineException{
-        float basePrice = vehicle.getModelData().getBasePrice();
-        float repairCost = vehicle.getRepairCost();
-        float purchasePercentage = NumberUtils.toPercentage(variablesFacade.getVariableValue("PORCENTAJE_COMPRA"));
-        float finalPrice = (float) (basePrice*purchasePercentage);
+    private Float calculatePurchasePrice(VehicleDE vehicle) throws EngineException{
+        Float basePrice = vehicle.getModelData().getBasePrice();
+        Float repairCost = vehicle.getRepairCost();
+        Float purchasePercentage = NumberUtils.toPercentage(variablesFacade.getVariableValue("PORCENTAJE_COMPRA"));
+        Float finalPrice = (float) (basePrice*purchasePercentage);
         finalPrice = finalPrice-repairCost;
         
         if(vehicle.getPaperworkData().getDebt()!=null){
@@ -187,10 +196,10 @@ public class VehicleFacade {
     }
 
     //CALCULO TEMPORAL DE PRECIO DE VENTA
-    private float calculateSellPrice(VehicleDE vehicle) throws EngineException{
-        float basePrice = vehicle.getModelData().getBasePrice();
-        float sellPercentage = NumberUtils.toPercentage(variablesFacade.getVariableValue("PORCENTAJE_VENTA"));
-        float sellPrice = (float) (basePrice*sellPercentage);
+    private Float calculateSellPrice(VehicleDE vehicle) throws EngineException{
+        Float basePrice = vehicle.getModelData().getBasePrice();
+        Float sellPercentage = NumberUtils.toPercentage(variablesFacade.getVariableValue("PORCENTAJE_VENTA"));
+        Float sellPrice = (float) (basePrice*sellPercentage);
         return sellPrice;
     }
 

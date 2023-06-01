@@ -16,25 +16,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "g10_model", schema = "public")
+@Table(name = "g10_price_history", schema = "public")
 public class PriceHistoryDE {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "g10_id" ,length = 8, nullable = false)
     private BigInteger id; 
 
-    @Column (name = "g10_referencia" , length = 255)
-    private String referencia;
+    @Column(name = "g10_message", length = 30)
+    private String message;
 
-    @Column(name = "g10_precio_compra" , length = 8)
-    private Double precioCompra;
+    @Column (name = "g10_reference" , length = 200)
+    private String reference;
 
-    @Column(name = "g10_precio_venta" , length = 8)
-    private Double precioVenta;
+    @Column(name = "g10_purchase_price" , length = 8)
+    private Float newPurchasePrice;
 
-    @Column(name = "g10_fecha_cambio",length = 8)
-    private LocalDateTime fecha;
+    @Column(name = "g10_sell_price" , length = 8)
+    private Float newSellPrice;
 
-    @Column(name = "g10_porcentaje_masivo" , length = 8)
-    private Double porcentajeMasivo;
+    @Column(name = "g10_base_price" , length = 8)
+    private Float newBasePrice;
+
+    @Column(name = "g10_update_date",length = 8)
+    private LocalDateTime updateDate;
+
+    @Column(name = "g10_massive_percentage" , length = 8)
+    private Float massivePercentage;
 }
