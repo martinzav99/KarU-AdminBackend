@@ -41,7 +41,7 @@ public class VehicleService {
     }
 
     public ModelDE getModel(ModelTO modelData){
-        return modelRepository.findByBrandAndModelAndYear(modelData.getBrand(), modelData.getModel(), modelData.getYear());
+        return modelRepository.findModel(modelData.getBrand(), modelData.getModel(), modelData.getYear(), modelData.getEngine(), modelData.getFuelType());
     }
 
     public List<ModelDE> getAllModels(){

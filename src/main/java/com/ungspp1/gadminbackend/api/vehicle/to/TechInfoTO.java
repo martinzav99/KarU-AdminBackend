@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TechInfoTO {
     private String plate;
-    private float score;
+    private Float score;
+    private Float repairCost;
     private String message;
 }

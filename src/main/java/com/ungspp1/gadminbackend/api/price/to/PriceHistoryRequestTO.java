@@ -1,6 +1,5 @@
 package com.ungspp1.gadminbackend.api.price.to;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;

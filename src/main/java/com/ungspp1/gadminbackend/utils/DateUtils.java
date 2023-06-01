@@ -1,4 +1,4 @@
-package com.ungspp1.gadminbackend.api.utils;
+package com.ungspp1.gadminbackend.utils;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

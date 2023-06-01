@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ungspp1.gadminbackend.api.utils.DateUtils;
 import com.ungspp1.gadminbackend.model.entity.UserDE;
 import com.ungspp1.gadminbackend.model.entity.UserSessionDE;
 import com.ungspp1.gadminbackend.model.enums.TwoFactorStatusEnum;
 import com.ungspp1.gadminbackend.model.repository.UserSessionRepository;
 import com.ungspp1.gadminbackend.model.to.UserSessionTO;
 import com.ungspp1.gadminbackend.model.to.ValidatedUserSessionTO;
+import com.ungspp1.gadminbackend.utils.DateUtils;
 
 @Service
 public class UserSessionService {
