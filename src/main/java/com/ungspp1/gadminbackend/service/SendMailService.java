@@ -1,4 +1,4 @@
-package com.ungspp1.gadminbackend.api.mail;
+package com.ungspp1.gadminbackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class SendMailFacade {
+public class SendMailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -28,8 +28,8 @@ public class SendMailFacade {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("losmagiostest@gmail.com");
         message.setTo(mail);
-        message.setSubject("Autenticación en dos pasos");
-        message.setText("Tu codigo de autenticación es: "+code);
+        message.setSubject("KarU: Autenticacion en dos pasos");
+        message.setText("Tu codigo de autenticacion para KarU es: "+code);
         return message;
     }
 
@@ -39,7 +39,7 @@ public class SendMailFacade {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("losmagiostest@gmail.com"); 
         message.setTo(mail);
-        message.setSubject("Recuperar password");
+        message.setSubject("KarU: Recuperar contraseña");
         message.setText(mensaje);
         return message;
     }

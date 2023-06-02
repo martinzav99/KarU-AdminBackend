@@ -25,7 +25,7 @@ public class BranchFacade {
     public List<WorkshopResponseTO> getWorkshops() throws EngineException{
         List<WorkshopTO> workshopTOs = branchService.getWorkshops();
         if (workshopTOs.isEmpty()){
-            throw new EngineException("No workshops found", HttpStatus.NO_CONTENT);
+            throw new EngineException("No se encontraron talleres", HttpStatus.NO_CONTENT);
         } else {
             return branchMapper.workshopsToResponseList(workshopTOs);
         }
@@ -34,7 +34,7 @@ public class BranchFacade {
     public List<OfficeResponseTO> getOffices() throws EngineException{
         List<OfficeTO> officeTOs = branchService.getOffices();
         if (officeTOs.isEmpty()){
-            throw new EngineException("No offices found", HttpStatus.NO_CONTENT);
+            throw new EngineException("No se encontraron sucursales", HttpStatus.NO_CONTENT);
         } else {
             return branchMapper.officesToResponseList(officeTOs);
         }

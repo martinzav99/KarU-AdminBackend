@@ -35,7 +35,7 @@ public class ModifyService{
             return modifyMapper.userDEToResponse(user);
         } 
         else {
-            throw new EngineException("The user wasn't found", HttpStatus.BAD_REQUEST);
+            throw new EngineException("Usuario no encontrado", HttpStatus.BAD_REQUEST);
         }
     }
     
@@ -43,18 +43,18 @@ public class ModifyService{
         Optional<UserDE> userOptional = userRepository.findByUsername(request.getUsername());
         
         if (!userOptional.isPresent())
-            throw new EngineException("The user wasn't found", HttpStatus.BAD_REQUEST);
+            throw new EngineException("Usuario no encontrado", HttpStatus.BAD_REQUEST);
 
         UserDE user = userOptional.get();
         
         if (!validParameters(request))
-            throw new EngineException("Error uploading new password, please insert the values", HttpStatus.BAD_REQUEST);
+            throw new EngineException("Por favor, complete los campos", HttpStatus.BAD_REQUEST);
 
         if (sameOldPass(request, user))
-            throw new EngineException("Error uploading new password, try not to use the old password", HttpStatus.BAD_REQUEST);
+            throw new EngineException("Por favor, no utilice su contraseña antigua", HttpStatus.BAD_REQUEST);
      
         if (!validPass(request))
-            throw new EngineException("Error uploading new password, not valid password", HttpStatus.BAD_REQUEST);
+            throw new EngineException("Por favor, ingrece una contraseña valida", HttpStatus.BAD_REQUEST);
 
         user.setPassword(request.getNewPassword());          
         userRepository.save(user);
