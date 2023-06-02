@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.restResponse.BaseBodyResponse;
 import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
 
@@ -23,8 +24,10 @@ public class BranchController {
     public ResponseEntity<BaseBodyResponse<?>> startLogin(){
         try{
             return ResponseHelper.simpleResponse(facade.getOffices());
-        } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
 
@@ -32,8 +35,10 @@ public class BranchController {
     public ResponseEntity<BaseBodyResponse<?>> sendTwoFactor(){
         try{
             return ResponseHelper.simpleResponse(facade.getWorkshops());
-        } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
 }

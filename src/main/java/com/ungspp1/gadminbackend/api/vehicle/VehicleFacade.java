@@ -138,8 +138,6 @@ public class VehicleFacade {
         }
     }
 
-
-    
     public String savePaperwork(PaperworkTO request) throws EngineException{
         VehicleDE vehicle = service.getByPlate(request.getPlate());
 
@@ -222,8 +220,6 @@ public class VehicleFacade {
         }
         return "Se actualizaron los precios por modelo";
     }
-
-
 
     //CALCULO TEMPORAL DE PRECIO DE COMPRA
     private Float calculatePurchasePrice(VehicleDE vehicle) throws EngineException{
