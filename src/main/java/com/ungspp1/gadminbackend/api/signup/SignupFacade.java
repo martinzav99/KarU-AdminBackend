@@ -34,7 +34,7 @@ public class SignupFacade {
     private void validateRepeatedUsername(String username) throws EngineException{
         LoginResponseTO response = loginFacade.getUserByUsername(username);
         if(response.getSessionStatus().equals(SessionStatusEnum.USUARIO_ENCONTRADO.name())){
-            throw new EngineException("The username is already in use", HttpStatus.BAD_REQUEST);
+            throw new EngineException("El nombre de usuario ya esta en uso", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -47,17 +47,17 @@ public class SignupFacade {
     public void validateInternalUser(SignupUserRequestTO request) throws EngineException{
         String type = request.getType().toUpperCase();
         if (!branchUserType.contains(type) && !noBranchUserType.contains(type)){
-            throw new EngineException("The user type must be in:" + branchUserType + noBranchUserType, HttpStatus.BAD_REQUEST);
+            throw new EngineException("El tipo de usuario debe estar en la siguiente lista:" + branchUserType + noBranchUserType, HttpStatus.BAD_REQUEST);
         } 
     
         if (request.getType().equals("TECNICO") && !technicalLevel.contains(request.getTechnicalLevel())){
-            throw new EngineException("All technical operators must have a technical level: " + technicalLevel, HttpStatus.BAD_REQUEST);
+            throw new EngineException("Los usuarios TECNICO deben tener uno de los siguientes niveles: " + technicalLevel, HttpStatus.BAD_REQUEST);
         } else if (!request.getType().equals("TECNICO")){
             request.setTechnicalLevel(null);
         }
 
         if (branchUserType.contains(type) && request.getBranch() == null){
-            throw new EngineException("The branch cant be null for "+ type + " users", HttpStatus.BAD_REQUEST);
+            throw new EngineException("La sucursal no puede ser nula para los usuarios de tipo "+ type, HttpStatus.BAD_REQUEST);
         } else if (noBranchUserType.contains(type)){
             request.setBranch(null);
         }

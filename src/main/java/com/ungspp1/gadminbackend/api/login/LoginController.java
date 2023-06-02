@@ -26,7 +26,7 @@ public class LoginController {
         try{
             return ResponseHelper.simpleResponse(facade.loginUser(request));
         } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage());
         }
     }
 
@@ -35,7 +35,7 @@ public class LoginController {
         try{
             return ResponseHelper.simpleResponse(facade.validateAuthCode(request));
         } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e.getMessage());
         }
     }
 
