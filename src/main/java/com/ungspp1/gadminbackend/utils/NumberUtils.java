@@ -1,4 +1,4 @@
-package com.ungspp1.gadminbackend.api.utils;
+package com.ungspp1.gadminbackend.utils;
 
 import java.util.Random;
 
@@ -9,7 +9,7 @@ public class NumberUtils {
         return String.format("%06d", RandomNumber);
     }
 
-    public static float toPercentage(float number){
+    public static Float toPercentage(Float number){
         return (float) (number*0.01);
     }
     

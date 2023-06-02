@@ -13,5 +13,7 @@ public class ModelTO {
     private String brand;
     private String model;
     private String year;
+    private String fuelType;
+    private String engine;
     private Float basePrice;
 }

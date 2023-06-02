@@ -24,6 +24,8 @@ public interface VehicleMapper {
     @Mapping(source="modelData.brand", target="brand")
     @Mapping(source="modelData.model", target="model")
     @Mapping(source="modelData.year", target="year")
+    @Mapping(source="modelData.fuelType", target="fuelType")
+    @Mapping(source="modelData.engine", target="engine")
     VehicleResponseTO deToResponseTO (VehicleDE vehicleDE);
 
     List<VehicleResponseTO> deListToResponseList(List<VehicleDE> vehicleDEs);

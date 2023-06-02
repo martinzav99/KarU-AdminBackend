@@ -27,5 +27,9 @@ public class ModelDE {
     private String year;
     @Column(name = "g06_base_price", nullable = false)
     private Float basePrice;
+    @Column(name = "g06_fuel_type", length = 7, nullable = false)
+    private String fuelType;
+    @Column(name = "g06_engine", length = 60,nullable = false)
+    private String engine;
     
 }
