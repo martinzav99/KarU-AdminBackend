@@ -45,6 +45,20 @@ public class VehicleDE {
     private String kilometers;
     @Column(name = "g08_message", nullable = true)
     private String message;
+    @Column(name = "g08_dni", length = 15, nullable = true)
+    private String dni;
+    @Column(name = "g08_gnc", nullable = true)
+    private Boolean gnc;
+    @Column(name = "g08_origin", length = 10, nullable = true)
+    private String origin;
+    @Column(name = "g08_repair_cost", nullable = true)
+    private Float repairCost;
+    @Column(name = "g08_picture_1", nullable = true)
+    private String picture1;
+    @Column(name = "g08_picture_2", nullable = true)
+    private String picture2;
+    @Column(name = "g08_picture_3", nullable = true)
+    private String picture3;
     
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)

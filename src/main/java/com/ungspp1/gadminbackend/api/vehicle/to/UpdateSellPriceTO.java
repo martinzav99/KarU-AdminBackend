@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TechInfoTO {
+public class UpdateSellPriceTO {
     private String plate;
-    private Float score;
-    private Float repairCost;
-    private String message;
+    private Float newSellPrice;
 }

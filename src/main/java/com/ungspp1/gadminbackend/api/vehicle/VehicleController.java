@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.UpdateSellPriceTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.UpdateStatusTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleTO;
 import com.ungspp1.gadminbackend.exceptions.EngineException;
@@ -115,6 +116,39 @@ public class VehicleController {
     public ResponseEntity<BaseBodyResponse<?>> updateStatus(@RequestBody UpdateStatusTO request){
         try{
             return ResponseHelper.simpleResponse(facade.updateStatus(request));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/updateSellPrice", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> updateSellPrice(@RequestBody UpdateSellPriceTO request){
+        try{
+            return ResponseHelper.simpleResponse(facade.updateSellPrice(request));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/updatePriceByModel", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> updatePriceByModel(@RequestBody ModelTO request){
+        try{
+            return ResponseHelper.simpleResponse(facade.updatePriceByModel(request));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/updateBasePricesByInflation", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> updateBasePricesByInflation(){
+        try{
+            return ResponseHelper.simpleResponse(facade.updateBasePricesByInflation());
         } catch (EngineException e) {
             return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
         } catch (Exception ex) {

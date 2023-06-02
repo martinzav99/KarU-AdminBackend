@@ -12,5 +12,11 @@ import lombok.NoArgsConstructor;
 public class VehicleTO {
     private String plate;
     private String kilometers;
+    private String dni;
+    private String origin;
+    private Boolean gnc;
+    private String picture1;
+    private String picture2;
+    private String picture3;
     private ModelTO modelData;
 }
