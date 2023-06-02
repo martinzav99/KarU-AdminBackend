@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.ungspp1.gadminbackend.api.login.mapper.LoginMapper;
 import com.ungspp1.gadminbackend.api.login.to.LoginRequestTO;
 import com.ungspp1.gadminbackend.api.login.to.LoginResponseTO;
-import com.ungspp1.gadminbackend.api.mail.SendMailFacade;
 import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.model.entity.UserDE;
 import com.ungspp1.gadminbackend.model.enums.SessionStatusEnum;
@@ -19,6 +18,7 @@ import com.ungspp1.gadminbackend.model.enums.TwoFactorStatusEnum;
 import com.ungspp1.gadminbackend.model.repository.UserRepository;
 import com.ungspp1.gadminbackend.model.to.UserSessionTO;
 import com.ungspp1.gadminbackend.model.to.ValidatedUserSessionTO;
+import com.ungspp1.gadminbackend.service.SendMailService;
 import com.ungspp1.gadminbackend.service.UserSessionService;
 
 @Service
@@ -28,7 +28,7 @@ public class LoginService {
     private UserRepository userRepository;
 
     @Autowired
-    private SendMailFacade mailFacade;
+    private SendMailService mailFacade;
 
     @Autowired
     private UserSessionService sessionService;
@@ -82,7 +82,7 @@ public class LoginService {
         if(userDE.isPresent()){
             return userDE.get();
         } else {
-            throw new EngineException("The user wasn't found", HttpStatus.BAD_REQUEST);
+            throw new EngineException("Usuario no encontrado", HttpStatus.BAD_REQUEST);
         }
     }
     
