@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ungspp1.gadminbackend.api.signup.to.SignupUserRequestTO;
+import com.ungspp1.gadminbackend.exceptions.EngineException;
 import com.ungspp1.gadminbackend.restResponse.BaseBodyResponse;
 import com.ungspp1.gadminbackend.restResponse.ResponseHelper;
 
@@ -26,8 +27,10 @@ public class SignupController {
         try{
             facade.normalizeClientUser(request);
             return ResponseHelper.simpleResponse(facade.saveUser(request));
-        } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
 
@@ -36,8 +39,10 @@ public class SignupController {
         try{
             facade.validateInternalUser(request);
             return ResponseHelper.simpleResponse(facade.saveUser(request));
-        } catch (Exception e) {
-            return ResponseHelper.errorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
 }
