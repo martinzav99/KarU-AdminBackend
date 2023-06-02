@@ -27,18 +27,18 @@ public class SignupService {
             UserDE savedUser = userRepository.save(user);
             return signupUserMapper.UserDEToResponse(savedUser);
         } catch (Exception e) {
-            throw new EngineException("An unexpected error has ocurred while saving the user", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new EngineException("Ocurrio un error al guardar el usuario", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     public void validateRepeatedContact(SignupUserRequestTO request) throws EngineException {
         Optional<UserDE> user = userRepository.findByEmail(request.getEmail());
         if (user.isPresent()){
-            throw new EngineException("The email is already in use", HttpStatus.BAD_REQUEST);
+            throw new EngineException("El email ya esta en uso", HttpStatus.BAD_REQUEST);
         } else {
             user = userRepository.findByPhone(request.getPhoneCode(), request.getPhoneNumber());
             if(user.isPresent()){
-                throw new EngineException("The phone is already in use", HttpStatus.BAD_REQUEST);
+                throw new EngineException("El telefono ya esta en uso", HttpStatus.BAD_REQUEST);
             }
         }
     }
