@@ -8,11 +8,12 @@ import org.springframework.stereotype.Component;
 
 import com.ungspp1.gadminbackend.api.priceHistory.PriceHistoryFacade;
 import com.ungspp1.gadminbackend.api.variables.VariablesFacade;
-import com.ungspp1.gadminbackend.api.variables.VariablesService;
+//import com.ungspp1.gadminbackend.api.variables.VariablesService;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.UpdateSellPriceTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.UpdateStatusTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleResponseTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleTO;
@@ -178,6 +179,52 @@ public class VehicleFacade {
         vehicle.setStatus(VehicleStatusEnum.ESPERA_DECISION_FINAL.name());
     }
 
+    public String updateSellPrice(UpdateSellPriceTO request) throws EngineException{
+        
+        if (request.getPlate() == null || request.getNewSellPrice() == null)
+            throw new EngineException("Ingrese los datos necesarios", HttpStatus.BAD_REQUEST);
+        
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+
+        if (vehicle == null)
+            throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
+        
+        vehicle.setSellPrice(request.getNewSellPrice());
+        service.save(vehicle);
+        return "Precio de venta actualizado";
+    }
+
+    public String updatePriceByModel(ModelTO request) throws EngineException{
+        
+        if(!validateModelField(request))
+            throw new EngineException("Ingrese los datos necesarios", HttpStatus.BAD_REQUEST);
+
+        ModelDE model = service.getModel(request);
+        
+        if (model == null)
+            throw new EngineException("No se encontró el modelo", HttpStatus.BAD_REQUEST);
+
+        model.setBasePrice(request.getBasePrice());
+        service.saveModelDE(model);
+        return "Precio base de modelo actualizado";
+    }
+    
+    public String updateBasePricesByInflation() throws EngineException{
+
+        List<ModelDE> models = service.getAllModels();
+
+        if (models.isEmpty())
+            throw new EngineException("No hay modelos disponibles", HttpStatus.BAD_REQUEST);
+            
+        for (ModelDE model : models){
+            model.setBasePrice(model.getBasePrice() + 120); // inflacion como variable o como request
+            service.saveModelDE(model);
+        }
+        return "Se actualizaron los precios por modelo";
+    }
+
+
+
     //CALCULO TEMPORAL DE PRECIO DE COMPRA
     private Float calculatePurchasePrice(VehicleDE vehicle) throws EngineException{
         Float basePrice = vehicle.getModelData().getBasePrice();
@@ -212,6 +259,15 @@ public class VehicleFacade {
             return true;
         }
         return false;
+    }
+
+    private boolean validateModelField(ModelTO request){
+        return request.getBasePrice() != null 
+                && request.getBrand() != null 
+                && request.getModel() !=null 
+                && request.getYear() !=null 
+                && request.getEngine() !=null 
+                && request.getFuelType() != null;
     }
 
 }
