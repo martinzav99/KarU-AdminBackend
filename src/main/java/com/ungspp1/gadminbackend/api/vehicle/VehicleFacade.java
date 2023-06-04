@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.ungspp1.gadminbackend.api.priceHistory.PriceHistoryFacade;
 import com.ungspp1.gadminbackend.api.variables.VariablesFacade;
-//import com.ungspp1.gadminbackend.api.variables.VariablesService;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
-import com.ungspp1.gadminbackend.api.vehicle.to.InflationTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
@@ -76,7 +74,7 @@ public class VehicleFacade {
         if (vehicle.getStatus().equals(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name())){
             mapVehicleTechInfo(request, vehicle);
             VehicleResponseTO response = mapper.deToResponseTO(service.save(vehicle));
-            priceHistoryFacade.newVehiclePriceHistory(request.getPlate(), response.getPurchasePrice(), response.getSellPrice(), HistoryMessageEnum.NUEVO_VEHICULO.name());
+            priceHistoryFacade.newVehiclePriceHistory(request.getPlate(), response.getSellPrice(), HistoryMessageEnum.NUEVO_VEHICULO.name());
             return response;
         } else {
             throw new EngineException("El vehiculo no se encuentra en revisión tecnica", HttpStatus.BAD_REQUEST);
@@ -190,6 +188,8 @@ public class VehicleFacade {
         
         vehicle.setSellPrice(request.getNewSellPrice());
         service.save(vehicle);
+        
+        priceHistoryFacade.vehiclePriceChangeHistory(request.getPlate(),HistoryMessageEnum.CAMBIO_VENTA_INDIVIDUAL.name(),request.getNewSellPrice());
         return "Precio de venta actualizado";
     }
 
@@ -205,12 +205,16 @@ public class VehicleFacade {
 
         model.setBasePrice(request.getBasePrice());
         service.saveModelDE(model);
+        
+        String modelReference = request.getBrand()+" "+request.getModel()+" "+request.getYear()+" "+request.getFuelType()+" "+request.getEngine();
+        priceHistoryFacade.modelPriceChangeHistory(modelReference, HistoryMessageEnum.CAMBIO_MODELO_INDIVIDUAL.name(), request.getBasePrice());
+        
         return "Precio base de modelo actualizado";
     }
     
-    public String updatePricesByInflation(InflationTO request) throws EngineException{
+    public String updatePricesByInflation(Float inflation) throws EngineException{
 
-        if (request.getInflation() == null)
+        if (inflation == null)
             throw new EngineException("No hay modelos disponibles", HttpStatus.BAD_REQUEST);
           
         List<ModelDE> models = service.getAllModels();
@@ -221,23 +225,24 @@ public class VehicleFacade {
 
         for (ModelDE model : models){
             if (model.getBasePrice() != null){
-                model.setBasePrice(model.getBasePrice() + ((model.getBasePrice() * request.getInflation()) / 100 ) );
+                model.setBasePrice(model.getBasePrice() + ((model.getBasePrice() * inflation) / 100 ) );
                 service.saveModelDE(model);
             }
         }
 
-        List<VehicleDE> vehicles = service.getAllVehicles();
+        List<VehicleDE> vehicles = service.getAllAvailable();
 
         if (vehicles.isEmpty())
             throw new EngineException("No hay vehiculos disponibles", HttpStatus.BAD_REQUEST);
         
         for (VehicleDE vehicle : vehicles){
             if (vehicle.getSellPrice() != null){
-                vehicle.setSellPrice(vehicle.getSellPrice() + ((vehicle.getSellPrice()*request.getInflation())/100));
+                vehicle.setSellPrice(vehicle.getSellPrice() + ((vehicle.getSellPrice()*inflation)/100));
                 service.save(vehicle);
             }
         }
 
+        priceHistoryFacade.saveMassiveChangeHistory("Cambio masivo: precio base (modelo), precio venta (vehiculos)", HistoryMessageEnum.CAMBIO_PRECIO_MASIVO.name(), inflation);
         return "Se actualizaron precios base de modelos y precios de venta";
     }
 

@@ -29,9 +29,6 @@ public class PriceHistoryDE {
     @Column (name = "g10_reference" , length = 200)
     private String reference;
 
-    @Column(name = "g10_purchase_price" , length = 8)
-    private Float newPurchasePrice;
-
     @Column(name = "g10_sell_price" , length = 8)
     private Float newSellPrice;
 
