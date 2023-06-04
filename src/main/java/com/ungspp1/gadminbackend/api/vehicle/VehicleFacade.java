@@ -10,6 +10,7 @@ import com.ungspp1.gadminbackend.api.priceHistory.PriceHistoryFacade;
 import com.ungspp1.gadminbackend.api.variables.VariablesFacade;
 //import com.ungspp1.gadminbackend.api.variables.VariablesService;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
+import com.ungspp1.gadminbackend.api.vehicle.to.InflationTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
@@ -207,18 +208,37 @@ public class VehicleFacade {
         return "Precio base de modelo actualizado";
     }
     
-    public String updateBasePricesByInflation() throws EngineException{
+    public String updatePricesByInflation(InflationTO request) throws EngineException{
 
+        if (request.getInflation() == null)
+            throw new EngineException("No hay modelos disponibles", HttpStatus.BAD_REQUEST);
+          
         List<ModelDE> models = service.getAllModels();
 
         if (models.isEmpty())
             throw new EngineException("No hay modelos disponibles", HttpStatus.BAD_REQUEST);
-            
+          
+
         for (ModelDE model : models){
-            model.setBasePrice(model.getBasePrice() + 120); // inflacion como variable o como request
-            service.saveModelDE(model);
+            if (model.getBasePrice() != null){
+                model.setBasePrice(model.getBasePrice() + ((model.getBasePrice() * request.getInflation()) / 100 ) );
+                service.saveModelDE(model);
+            }
         }
-        return "Se actualizaron los precios por modelo";
+
+        List<VehicleDE> vehicles = service.getAllVehicles();
+
+        if (vehicles.isEmpty())
+            throw new EngineException("No hay vehiculos disponibles", HttpStatus.BAD_REQUEST);
+        
+        for (VehicleDE vehicle : vehicles){
+            if (vehicle.getSellPrice() != null){
+                vehicle.setSellPrice(vehicle.getSellPrice() + ((vehicle.getSellPrice()*request.getInflation())/100));
+                service.save(vehicle);
+            }
+        }
+
+        return "Se actualizaron precios base de modelos y precios de venta";
     }
 
     //CALCULO TEMPORAL DE PRECIO DE COMPRA

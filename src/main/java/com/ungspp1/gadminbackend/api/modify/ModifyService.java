@@ -44,25 +44,24 @@ public class ModifyService{
         
         if (!userOptional.isPresent())
             throw new EngineException("Usuario no encontrado", HttpStatus.BAD_REQUEST);
-
-        UserDE user = userOptional.get();
         
         if (!validParameters(request))
             throw new EngineException("Por favor, complete los campos", HttpStatus.BAD_REQUEST);
 
-        if (sameOldPass(request, user))
+        if (sameOldPass(request))
             throw new EngineException("Por favor, no utilice su contraseña antigua", HttpStatus.BAD_REQUEST);
      
         if (!validPass(request))
             throw new EngineException("Por favor, ingrece una contraseña valida", HttpStatus.BAD_REQUEST);
-
+        
+        UserDE user = userOptional.get();
         user.setPassword(request.getNewPassword());          
         userRepository.save(user);
         return modifyMapper.userDEToResponse(user);
     }
 
-    private boolean sameOldPass(ChangePassRequestTO request ,UserDE user){
-        return request.getOldPassword().equals(user.getPassword());
+    private boolean sameOldPass(ChangePassRequestTO request){
+        return request.getOldPassword().equals(request.getNewPassword());
     }
 
     private boolean validParameters(ChangePassRequestTO request ){
