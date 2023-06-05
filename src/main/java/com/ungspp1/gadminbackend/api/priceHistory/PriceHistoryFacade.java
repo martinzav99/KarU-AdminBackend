@@ -1,5 +1,7 @@
 package com.ungspp1.gadminbackend.api.priceHistory;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -22,8 +24,8 @@ public class PriceHistoryFacade {
     @Autowired
     private PriceHistoryService service;
 
-    public PriceHistoryTO newVehiclePriceHistory(String reference, Float newPurchasePrice, Float newSellPrice, String message) throws EngineException {
-        PriceHistoryTO request = PriceHistoryTO.builder().reference(reference).message(message).newPurchasePrice(newPurchasePrice).newSellPrice(newSellPrice).build();
+    public PriceHistoryTO newVehiclePriceHistory(String reference, Float newSellPrice, String message) throws EngineException {
+        PriceHistoryTO request = PriceHistoryTO.builder().reference(reference).message(message).newSellPrice(newSellPrice).build();
         PriceHistoryDE newPrice = mapper.historyRequestToHistoryDE(request);
         return mapper.deToResponseTO(service.save(newPrice));
     }
@@ -34,10 +36,10 @@ public class PriceHistoryFacade {
         return mapper.deToResponseTO(service.save(newPrice));
     }
 
-    public PriceHistoryTO vehiclePriceChangeHistory(String reference, String message, Float newPurchasePrice, Float newSellPrice) throws EngineException {
+    public PriceHistoryTO vehiclePriceChangeHistory(String reference, String message, Float newSellPrice) throws EngineException {
         VehicleDE vehicle = vehicleService.getByPlate(reference);
         if (vehicle != null){
-            PriceHistoryTO request = PriceHistoryTO.builder().reference(reference).message(message).newPurchasePrice(newPurchasePrice).newSellPrice(newPurchasePrice).build();
+            PriceHistoryTO request = PriceHistoryTO.builder().reference(reference).message(message).newSellPrice(newSellPrice).build();
             PriceHistoryDE newPrice = mapper.historyRequestToHistoryDE(request);
             return mapper.deToResponseTO(service.save(newPrice));
         } else {
@@ -55,6 +57,11 @@ public class PriceHistoryFacade {
         PriceHistoryTO request = PriceHistoryTO.builder().reference(reference).message(message).massivePercentage(percentage).build();
         PriceHistoryDE newPrice = mapper.historyRequestToHistoryDE(request);
         return mapper.deToResponseTO(service.save(newPrice));
+    }
+
+    public List<PriceHistoryTO> getAll() {
+      List <PriceHistoryTO> historyTO = mapper.deListToResponseTO(service.getAll());
+       return historyTO;
     }
 }
     

@@ -1,5 +1,7 @@
 package com.ungspp1.gadminbackend.api.priceHistory;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,10 @@ public class PriceHistoryService {
 
     public PriceHistoryDE save(PriceHistoryDE newPrice) {
         return repository.save(newPrice);
+    }
+
+    public List <PriceHistoryDE> getAll() {
+      return repository.findAll();
     }
     
 }
