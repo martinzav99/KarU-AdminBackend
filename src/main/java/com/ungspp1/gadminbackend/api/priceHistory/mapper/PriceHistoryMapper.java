@@ -1,6 +1,7 @@
 package com.ungspp1.gadminbackend.api.priceHistory.mapper;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,4 +16,8 @@ public interface PriceHistoryMapper {
     PriceHistoryDE historyRequestToHistoryDE (PriceHistoryTO requestTO);
 
     PriceHistoryTO deToResponseTO(PriceHistoryDE de);
+
+    List<PriceHistoryTO> deListToResponseTO (List<PriceHistoryDE> deList);
+
+  
 }
