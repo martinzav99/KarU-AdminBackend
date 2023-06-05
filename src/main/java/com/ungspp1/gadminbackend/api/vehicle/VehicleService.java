@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.model.entity.ModelDE;
 import com.ungspp1.gadminbackend.model.entity.VehicleDE;
+import com.ungspp1.gadminbackend.model.enums.VehicleStatusEnum;
 import com.ungspp1.gadminbackend.model.repository.ModelRepository;
 import com.ungspp1.gadminbackend.model.repository.VehicleRepository;
 
@@ -26,6 +27,10 @@ public class VehicleService {
 
     public List<VehicleDE> getAllVehicles() {
         return repository.findAll();
+    }
+
+    public List<VehicleDE> getAllAvailable(){
+        return repository.findByStatus(VehicleStatusEnum.DISPONIBLE.name());
     }
 
     public VehicleDE getByPlate(String plate) {

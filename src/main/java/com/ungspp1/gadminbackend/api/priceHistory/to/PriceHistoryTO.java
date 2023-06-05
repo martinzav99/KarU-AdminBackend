@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class PriceHistoryTO {
     private String reference;
     private String message;
-    private Float newPurchasePrice;
     private Float newSellPrice;
     private Float newBasePrice;
     private LocalDateTime updateDate;
