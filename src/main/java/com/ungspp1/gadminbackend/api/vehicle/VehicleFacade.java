@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.ungspp1.gadminbackend.api.priceHistory.PriceHistoryFacade;
 import com.ungspp1.gadminbackend.api.variables.VariablesFacade;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
+import com.ungspp1.gadminbackend.api.vehicle.to.EnableVehicleTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
@@ -251,6 +252,25 @@ public class VehicleFacade {
         return "Se actualizaron precios base de modelos y precios de venta";
     }
 
+    public String enableVehicle(EnableVehicleTO request) throws EngineException{
+        if (!validateBranchPhoto(request))
+            throw new EngineException("ingrese los datos necesarios", HttpStatus.BAD_REQUEST);
+        
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+
+        if (vehicle == null)
+            throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
+
+        vehicle.setPicture1(request.getPhoto1());
+        vehicle.setPicture2(request.getPhoto2());
+        vehicle.setPicture3(request.getPhoto3());
+        vehicle.setBranch(request.getBranch());
+        vehicle.setStatus(VehicleStatusEnum.DISPONIBLE.name());
+        service.save(vehicle);
+        
+        return "El vehiculo ha sido habilitado para su venta";
+    }
+
     //CALCULO TEMPORAL DE PRECIO DE COMPRA
     private Float calculatePurchasePrice(VehicleDE vehicle) throws EngineException{
         Float basePrice = vehicle.getModelData().getBasePrice();
@@ -294,6 +314,12 @@ public class VehicleFacade {
                 && request.getYear() !=null 
                 && request.getEngine() !=null 
                 && request.getFuelType() != null;
+    }
+
+    private boolean validateBranchPhoto(EnableVehicleTO request){
+        return request.getPlate() !=null 
+               && request.getBranch() != null 
+               && (request.getPhoto1() != null || request.getPhoto2() != null || request.getPhoto3() != null);
     }
 
 }

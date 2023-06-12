@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ungspp1.gadminbackend.api.vehicle.to.EnableVehicleTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
@@ -150,6 +151,17 @@ public class VehicleController {
     public ResponseEntity<BaseBodyResponse<?>> updatePricesByInflation(@RequestParam Float inflation){
         try{
             return ResponseHelper.simpleResponse(facade.updatePricesByInflation(inflation));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/enableVehicle", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> enableVehicle(@RequestBody EnableVehicleTO request){
+        try{
+            return ResponseHelper.simpleResponse(facade.enableVehicle(request));
         } catch (EngineException e) {
             return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
         } catch (Exception ex) {
