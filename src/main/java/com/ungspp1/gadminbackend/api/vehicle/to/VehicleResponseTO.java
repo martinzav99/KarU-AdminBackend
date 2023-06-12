@@ -27,6 +27,7 @@ public class VehicleResponseTO {
     private String engine;
     private String origin;
     private String year;
+    private String category;
     private Float basePrice;
     private Float debt;
     private Boolean vpa;

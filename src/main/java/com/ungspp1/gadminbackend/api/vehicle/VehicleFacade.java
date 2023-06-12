@@ -86,11 +86,14 @@ public class VehicleFacade {
         if(model != null){
             throw new EngineException("El modelo ya esta registrado", HttpStatus.BAD_REQUEST);
         }
-        if(request.getBasePrice() == null || request.getBrand() == null || request.getModel() == null || request.getModel() == null || request.getEngine() == null || request.getFuelType() == null){
+        if(request.getBasePrice() == null || request.getBrand() == null || request.getModel() == null || request.getModel() == null || request.getEngine() == null || request.getFuelType() == null || request.getCategory() == null){
             throw new EngineException("No se puede guardar un modelo con datos nulos", HttpStatus.BAD_REQUEST);
         }
         if(!EnumUtils.validateFuelTypeEnum(request.getFuelType())){
             throw new EngineException("El tipo de combustible no es valido", HttpStatus.BAD_REQUEST);
+        }
+        if(!EnumUtils.validateVehicleCategoryEnum(request.getCategory())){
+            throw new EngineException("La gama del vehiculo no es valida", HttpStatus.BAD_REQUEST);
         }
         ModelDE savedModel = mapper.requestModelToDE(request);
         ModelTO response = mapper.modelDEtoTO(service.saveModelDE(savedModel));
