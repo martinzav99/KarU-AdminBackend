@@ -57,7 +57,7 @@ public class VehicleFacade {
             throw new EngineException("El origen debe ser: NACIONAL o IMPORTADO", HttpStatus.BAD_REQUEST);
         } else {
             VehicleDE newVehicle = mapper.requestToDEWithModel(request , modelDE , paperworkDE);
-            newVehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_INICIAL.name());
+            newVehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_LEGAL.name());
             return mapper.deToResponseTO(service.save(newVehicle));
         }  
     }
