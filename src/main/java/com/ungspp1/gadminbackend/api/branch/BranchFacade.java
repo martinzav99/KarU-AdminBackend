@@ -1,6 +1,7 @@
 package com.ungspp1.gadminbackend.api.branch;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,10 @@ public class BranchFacade {
     }
 
     public List<OfficeResponseTO> getOffices() throws EngineException{
-        List<OfficeTO> officeTOs = branchService.getOffices();
+        List<OfficeTO> officeTOs = branchService.getOffices()
+                                   .stream()
+                                   .filter(office -> office.isActiva())
+                                   .collect(Collectors.toList());
         if (officeTOs.isEmpty()){
             throw new EngineException("No se encontraron sucursales", HttpStatus.NO_CONTENT);
         } else {
