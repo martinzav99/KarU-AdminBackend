@@ -161,7 +161,9 @@ public class VehicleFacade {
                 if(request.getVtv() != null)
                     vehicle.getPaperworkData().setVtv(request.getVtv());
             }
-            vehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name());
+            if (vehicle.getStatus().equals(VehicleStatusEnum.ESPERA_REVISION_LEGAL.name())){ //It should only save the paperwork if the vehicle has a different status
+                vehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name());
+            }            
             service.save(vehicle);
             return "Documentos guardados";
         }
