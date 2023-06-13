@@ -15,7 +15,7 @@ public class creditAnalisysFacade {
     @Autowired 
     VariablesService service;
     public CreditResponseTO analizeCredit(CreditRequestTO request) throws EngineException {
-                double ingresosTotales = request.getMemberFamilyIngress()+ request.getTotalIngres();
+                double ingresosTotales = (request.getMemberFamilyIngress()+ request.getTotalIngres()) / request.getMemberFamilyNoAs().intValue();
                 double gastosMensuales = request.getMonthPayments();
                 double deudas = request.getDeudas();
                 String estadoLaboral = request.getJobState();
