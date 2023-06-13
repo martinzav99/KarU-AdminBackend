@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.ungspp1.gadminbackend.api.priceHistory.PriceHistoryFacade;
 import com.ungspp1.gadminbackend.api.variables.VariablesFacade;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
+import com.ungspp1.gadminbackend.api.vehicle.to.EnableVehicleTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
@@ -57,7 +58,7 @@ public class VehicleFacade {
             throw new EngineException("El origen debe ser: NACIONAL o IMPORTADO", HttpStatus.BAD_REQUEST);
         } else {
             VehicleDE newVehicle = mapper.requestToDEWithModel(request , modelDE , paperworkDE);
-            newVehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_INICIAL.name());
+            newVehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_LEGAL.name());
             return mapper.deToResponseTO(service.save(newVehicle));
         }  
     }
@@ -86,11 +87,14 @@ public class VehicleFacade {
         if(model != null){
             throw new EngineException("El modelo ya esta registrado", HttpStatus.BAD_REQUEST);
         }
-        if(request.getBasePrice() == null || request.getBrand() == null || request.getModel() == null || request.getModel() == null || request.getEngine() == null || request.getFuelType() == null){
+        if(request.getBasePrice() == null || request.getBrand() == null || request.getModel() == null || request.getModel() == null || request.getEngine() == null || request.getFuelType() == null || request.getCategory() == null){
             throw new EngineException("No se puede guardar un modelo con datos nulos", HttpStatus.BAD_REQUEST);
         }
         if(!EnumUtils.validateFuelTypeEnum(request.getFuelType())){
             throw new EngineException("El tipo de combustible no es valido", HttpStatus.BAD_REQUEST);
+        }
+        if(!EnumUtils.validateVehicleCategoryEnum(request.getCategory())){
+            throw new EngineException("La gama del vehiculo no es valida", HttpStatus.BAD_REQUEST);
         }
         ModelDE savedModel = mapper.requestModelToDE(request);
         ModelTO response = mapper.modelDEtoTO(service.saveModelDE(savedModel));
@@ -158,7 +162,9 @@ public class VehicleFacade {
                 if(request.getVtv() != null)
                     vehicle.getPaperworkData().setVtv(request.getVtv());
             }
-            vehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name());
+            if (vehicle.getStatus().equals(VehicleStatusEnum.ESPERA_REVISION_LEGAL.name())){ //It should only save the paperwork if the vehicle has a different status
+                vehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name());
+            }            
             service.save(vehicle);
             return "Documentos guardados";
         }
@@ -246,6 +252,25 @@ public class VehicleFacade {
         return "Se actualizaron precios base de modelos y precios de venta";
     }
 
+    public String enableVehicle(EnableVehicleTO request) throws EngineException{
+        if (!validateBranchPhoto(request))
+            throw new EngineException("ingrese los datos necesarios", HttpStatus.BAD_REQUEST);
+        
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+
+        if (vehicle == null)
+            throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
+
+        vehicle.setPicture1(request.getPhoto1());
+        vehicle.setPicture2(request.getPhoto2());
+        vehicle.setPicture3(request.getPhoto3());
+        vehicle.setBranch(request.getBranch());
+        vehicle.setStatus(VehicleStatusEnum.DISPONIBLE.name());
+        service.save(vehicle);
+        
+        return "El vehiculo ha sido habilitado para su venta";
+    }
+
     //CALCULO TEMPORAL DE PRECIO DE COMPRA
     private Float calculatePurchasePrice(VehicleDE vehicle) throws EngineException{
         Float basePrice = vehicle.getModelData().getBasePrice();
@@ -289,6 +314,12 @@ public class VehicleFacade {
                 && request.getYear() !=null 
                 && request.getEngine() !=null 
                 && request.getFuelType() != null;
+    }
+
+    private boolean validateBranchPhoto(EnableVehicleTO request){
+        return request.getPlate() !=null 
+               && request.getBranch() != null 
+               && (request.getPhoto1() != null || request.getPhoto2() != null || request.getPhoto3() != null);
     }
 
 }
