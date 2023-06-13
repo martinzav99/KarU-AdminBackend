@@ -1,6 +1,5 @@
-package com.ungspp1.gadminbackend.creditAnalisys.to;
+package com.ungspp1.gadminbackend.api.creditAnalisys.to;
 
-import java.math.BigInteger;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +14,6 @@ import lombok.Setter;
 @Setter
 @Builder
 @Data
-public class CurrentAcountResponseTO{
-    private BigInteger resultCredit;
+public class CreditResponseTO{
+    private String resultCredit;
 }
