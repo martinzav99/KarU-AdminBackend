@@ -15,5 +15,6 @@ import lombok.Setter;
 @Builder
 @Data
 public class CreditResponseTO{
+    private String document;
     private String resultCredit;
 }

@@ -29,5 +29,5 @@ public class CreditRequestTO{
     private BigInteger memberFamilyNoAs;
     private double memberFamilyIngress;
     private String jobState;
-    private String cuit;
+    private String dni;
 }
