@@ -2,6 +2,7 @@ package com.ungspp1.gadminbackend.utils;
 
 import com.ungspp1.gadminbackend.model.enums.FuelTypeEnum;
 import com.ungspp1.gadminbackend.model.enums.UserTypeEnum;
+import com.ungspp1.gadminbackend.model.enums.VehicleCategoryEnum;
 import com.ungspp1.gadminbackend.model.enums.VehicleOriginEnum;
 import com.ungspp1.gadminbackend.model.enums.VehicleStatusEnum;
 
@@ -48,6 +49,18 @@ public class EnumUtils {
         VehicleOriginEnum[] originArray = VehicleOriginEnum.values();
         for(int i=0; i<originArray.length;i++){
             if(originArray[i].name().equals(origin)){
+                found=true;
+                break;
+            }
+        }
+        return found;
+    } 
+
+    public static Boolean validateVehicleCategoryEnum(String category) {
+        Boolean found = false;
+        VehicleCategoryEnum[] categoryArray = VehicleCategoryEnum.values();
+        for(int i=0; i<categoryArray.length;i++){
+            if(categoryArray[i].name().equals(category)){
                 found=true;
                 break;
             }

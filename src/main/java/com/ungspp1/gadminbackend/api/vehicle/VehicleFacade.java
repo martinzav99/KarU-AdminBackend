@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 import com.ungspp1.gadminbackend.api.priceHistory.PriceHistoryFacade;
 import com.ungspp1.gadminbackend.api.variables.VariablesFacade;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
+import com.ungspp1.gadminbackend.api.vehicle.to.EnableVehicleTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.UpdateDniTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.UpdateSellPriceTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.UpdateStatusTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleResponseTO;
@@ -57,7 +59,7 @@ public class VehicleFacade {
             throw new EngineException("El origen debe ser: NACIONAL o IMPORTADO", HttpStatus.BAD_REQUEST);
         } else {
             VehicleDE newVehicle = mapper.requestToDEWithModel(request , modelDE , paperworkDE);
-            newVehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_INICIAL.name());
+            newVehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_LEGAL.name());
             return mapper.deToResponseTO(service.save(newVehicle));
         }  
     }
@@ -86,11 +88,14 @@ public class VehicleFacade {
         if(model != null){
             throw new EngineException("El modelo ya esta registrado", HttpStatus.BAD_REQUEST);
         }
-        if(request.getBasePrice() == null || request.getBrand() == null || request.getModel() == null || request.getModel() == null || request.getEngine() == null || request.getFuelType() == null){
+        if(request.getBasePrice() == null || request.getBrand() == null || request.getModel() == null || request.getModel() == null || request.getEngine() == null || request.getFuelType() == null || request.getCategory() == null){
             throw new EngineException("No se puede guardar un modelo con datos nulos", HttpStatus.BAD_REQUEST);
         }
         if(!EnumUtils.validateFuelTypeEnum(request.getFuelType())){
             throw new EngineException("El tipo de combustible no es valido", HttpStatus.BAD_REQUEST);
+        }
+        if(!EnumUtils.validateVehicleCategoryEnum(request.getCategory())){
+            throw new EngineException("La gama del vehiculo no es valida", HttpStatus.BAD_REQUEST);
         }
         ModelDE savedModel = mapper.requestModelToDE(request);
         ModelTO response = mapper.modelDEtoTO(service.saveModelDE(savedModel));
@@ -137,6 +142,22 @@ public class VehicleFacade {
         }
     }
 
+    public String updateFinalStatus(UpdateStatusTO request) throws EngineException {
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+        if (vehicle == null){
+            throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
+        } else {
+            Boolean found = EnumUtils.validateVehicleStatusEnum(request.getStatus());
+            if(found){
+                vehicle.setStatus(request.getStatus());
+                service.save(vehicle);
+                return "Estado actualizado";
+            } else {
+                throw new EngineException("El estado ingresado no es valido", HttpStatus.BAD_REQUEST);
+            }
+        }
+    }
+
     public String savePaperwork(PaperworkTO request) throws EngineException{
         VehicleDE vehicle = service.getByPlate(request.getPlate());
 
@@ -158,7 +179,9 @@ public class VehicleFacade {
                 if(request.getVtv() != null)
                     vehicle.getPaperworkData().setVtv(request.getVtv());
             }
-            vehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name());
+            if (vehicle.getStatus().equals(VehicleStatusEnum.ESPERA_REVISION_LEGAL.name())){ //It should only save the paperwork if the vehicle has a different status
+                vehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name());
+            }            
             service.save(vehicle);
             return "Documentos guardados";
         }
@@ -174,6 +197,20 @@ public class VehicleFacade {
         vehicle.setPurchasePrice(calculatePurchasePrice(vehicle));
         vehicle.setSellPrice(calculateSellPrice(vehicle));
         vehicle.setStatus(VehicleStatusEnum.ESPERA_DECISION_FINAL.name());
+    }
+
+    public String updateDni(UpdateDniTO request)throws EngineException{
+        if (request.getPlate() == null || request.getNewDni() == null)
+            throw new EngineException("Ingrese los datos necesarios", HttpStatus.BAD_REQUEST);
+        
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+
+        if (vehicle == null)
+            throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
+
+        vehicle.setDni(request.getNewDni());
+        service.save(vehicle);    
+        return "El dni ha sido actualizado";
     }
 
     public String updateSellPrice(UpdateSellPriceTO request) throws EngineException{
@@ -246,7 +283,64 @@ public class VehicleFacade {
         return "Se actualizaron precios base de modelos y precios de venta";
     }
 
-    //CALCULO TEMPORAL DE PRECIO DE COMPRA
+    public String enableVehicle(EnableVehicleTO request) throws EngineException{
+        if (!validateBranchPhoto(request))
+            throw new EngineException("ingrese los datos necesarios", HttpStatus.BAD_REQUEST);
+        
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+
+        if (vehicle == null)
+            throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
+
+        vehicle.setPicture1(request.getPhoto1());
+        vehicle.setPicture2(request.getPhoto2());
+        vehicle.setPicture3(request.getPhoto3());
+        vehicle.setBranch(request.getBranch());
+        vehicle.setStatus(VehicleStatusEnum.DISPONIBLE.name());
+        service.save(vehicle);
+        
+        return "El vehiculo ha sido habilitado para su venta";
+    }
+
+    public String rejectVehicle(String plate) throws EngineException{
+        VehicleDE vehicle = service.getByPlate(plate);
+        validateVehicleFinalStatus(vehicle);
+        vehicle.setStatus(VehicleStatusEnum.RECHAZADO.name());
+        service.save(vehicle);
+        return "El vehiculo "+plate+" fue RECHAZADO";
+    }
+
+    public String acceptVehicle(String plate) throws EngineException{
+        VehicleDE vehicle = service.getByPlate(plate);
+        validateVehicleFinalStatus(vehicle);
+        vehicle.setStatus(VehicleStatusEnum.ACEPTADO.name());
+        service.save(vehicle);
+        return "El vehiculo "+plate+" fue ACEPTADO";
+        //TODO FALTA LA PARTE DEL FLUJO QUE CHEQUEA EL PAGO (INTEGRACION GRUPO 2)
+    }
+
+    public String exchangeVehicle(String plate) throws EngineException{
+        VehicleDE vehicle = service.getByPlate(plate);
+        validateVehicleFinalStatus(vehicle);
+        if(vehicle.getScore()<100){
+            vehicle.setStatus(VehicleStatusEnum.EN_REPARACION.name());
+            service.save(vehicle);
+            return "El vehiculo "+plate+" fue actualizado: EN REPARACION";
+        } else {
+            vehicle.setStatus(VehicleStatusEnum.COMPRADO.name());
+            service.save(vehicle);
+            return "El vehiculo "+plate+" fue actualizado: COMPRADO";
+        }
+    }
+
+    private void validateVehicleFinalStatus(VehicleDE vehicle) throws EngineException {
+        if (vehicle == null) {
+            throw new EngineException("El vehiculo no existe", HttpStatus.BAD_REQUEST);
+        } else if (!vehicle.getStatus().equals(VehicleStatusEnum.ESPERA_DECISION_FINAL.name())){
+            throw new EngineException("El vehiculo no esta en espera de decision final", HttpStatus.BAD_REQUEST);
+        }
+    }
+
     private Float calculatePurchasePrice(VehicleDE vehicle) throws EngineException{
         Float basePrice = vehicle.getModelData().getBasePrice();
         Float repairCost = vehicle.getRepairCost();
@@ -263,7 +357,6 @@ public class VehicleFacade {
         return finalPrice;
     }
 
-    //CALCULO TEMPORAL DE PRECIO DE VENTA
     private Float calculateSellPrice(VehicleDE vehicle) throws EngineException{
         Float basePrice = vehicle.getModelData().getBasePrice();
         Float sellPercentage = NumberUtils.toPercentage(variablesFacade.getVariableValue("PORCENTAJE_VENTA"));
@@ -289,6 +382,12 @@ public class VehicleFacade {
                 && request.getYear() !=null 
                 && request.getEngine() !=null 
                 && request.getFuelType() != null;
+    }
+
+    private boolean validateBranchPhoto(EnableVehicleTO request){
+        return request.getPlate() !=null 
+               && request.getBranch() != null 
+               && (request.getPhoto1() != null || request.getPhoto2() != null || request.getPhoto3() != null);
     }
 
 }

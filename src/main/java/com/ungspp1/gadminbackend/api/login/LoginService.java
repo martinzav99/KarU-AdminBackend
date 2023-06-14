@@ -74,7 +74,6 @@ public class LoginService {
             .build();
         sessionService.createOrUpdateSession(user, sessionTO);
         mailFacade.sendAutentcathionMail(user.getContactData().getEmail(), code);
-        //TODO: agregar el envio por mail aca
     }
 
     private UserDE getUserByUsernameAndPassword(LoginRequestTO request) throws EngineException{
