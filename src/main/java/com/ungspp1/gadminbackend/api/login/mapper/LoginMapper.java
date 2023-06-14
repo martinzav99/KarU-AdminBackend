@@ -11,8 +11,11 @@ public interface LoginMapper {
     
     default LoginResponseTO userDEToResponseTO(UserDE user){
         return LoginResponseTO.builder()
+            .username(user.getUsername())
             .type(user.getType())
             .sessionStatus(SessionStatusEnum.USUARIO_ENCONTRADO.name())
+            .branch(user.getBranch())
+            .id(user.getId())
             .build();
     }
 

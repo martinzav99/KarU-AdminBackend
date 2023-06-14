@@ -9,12 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ModelTO {
-    private String brand;
-    private String model;
-    private String year;
-    private String fuelType;
-    private String engine;
-    private String category;
-    private Float basePrice;
+public class EnableVehicleTO {
+    
+    private String plate;
+    private String photo1;
+    private String photo2;
+    private String photo3;
+    private String branch;
 }
