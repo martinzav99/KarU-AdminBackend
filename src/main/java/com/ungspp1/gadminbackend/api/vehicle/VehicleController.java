@@ -114,17 +114,6 @@ public class VehicleController {
         }
     }
 
-    @PostMapping(value = "/updateStatus", produces = {"application/json"})
-    public ResponseEntity<BaseBodyResponse<?>> updateStatus(@RequestBody UpdateStatusTO request){
-        try{
-            return ResponseHelper.simpleResponse(facade.updateStatus(request));
-        } catch (EngineException e) {
-            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
-        } catch (Exception ex) {
-            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
-        }
-    }
-
     @PostMapping(value = "/updateSellPrice", produces = {"application/json"})
     public ResponseEntity<BaseBodyResponse<?>> updateSellPrice(@RequestBody UpdateSellPriceTO request){
         try{
@@ -162,6 +151,50 @@ public class VehicleController {
     public ResponseEntity<BaseBodyResponse<?>> enableVehicle(@RequestBody EnableVehicleTO request){
         try{
             return ResponseHelper.simpleResponse(facade.enableVehicle(request));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/updateStatus", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> updateStatus(@RequestBody UpdateStatusTO request){
+        try{
+            return ResponseHelper.simpleResponse(facade.updateStatus(request));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/rejectVehicle", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> rejectVehicle(@RequestParam String plate){
+        try{
+            return ResponseHelper.simpleResponse(facade.rejectVehicle(plate));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/acceptVehicle", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> acceptVehicle(@RequestParam String plate){
+        try{
+            return ResponseHelper.simpleResponse(facade.acceptVehicle(plate));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/exchangeVehicle", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> exchangeVehicle(@RequestParam String plate){
+        try{
+            return ResponseHelper.simpleResponse(facade.exchangeVehicle(plate));
         } catch (EngineException e) {
             return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
         } catch (Exception ex) {

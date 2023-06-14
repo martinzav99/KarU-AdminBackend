@@ -141,6 +141,22 @@ public class VehicleFacade {
         }
     }
 
+    public String updateFinalStatus(UpdateStatusTO request) throws EngineException {
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+        if (vehicle == null){
+            throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
+        } else {
+            Boolean found = EnumUtils.validateVehicleStatusEnum(request.getStatus());
+            if(found){
+                vehicle.setStatus(request.getStatus());
+                service.save(vehicle);
+                return "Estado actualizado";
+            } else {
+                throw new EngineException("El estado ingresado no es valido", HttpStatus.BAD_REQUEST);
+            }
+        }
+    }
+
     public String savePaperwork(PaperworkTO request) throws EngineException{
         VehicleDE vehicle = service.getByPlate(request.getPlate());
 
@@ -271,7 +287,45 @@ public class VehicleFacade {
         return "El vehiculo ha sido habilitado para su venta";
     }
 
-    //CALCULO TEMPORAL DE PRECIO DE COMPRA
+    public String rejectVehicle(String plate) throws EngineException{
+        VehicleDE vehicle = service.getByPlate(plate);
+        validateVehicleFinalStatus(vehicle);
+        vehicle.setStatus(VehicleStatusEnum.RECHAZADO.name());
+        service.save(vehicle);
+        return "El vehiculo "+plate+" fue RECHAZADO";
+    }
+
+    public String acceptVehicle(String plate) throws EngineException{
+        VehicleDE vehicle = service.getByPlate(plate);
+        validateVehicleFinalStatus(vehicle);
+        vehicle.setStatus(VehicleStatusEnum.ACEPTADO.name());
+        service.save(vehicle);
+        return "El vehiculo "+plate+" fue ACEPTADO";
+        //TODO FALTA LA PARTE DEL FLUJO QUE CHEQUEA EL PAGO (INTEGRACION GRUPO 2)
+    }
+
+    public String exchangeVehicle(String plate) throws EngineException{
+        VehicleDE vehicle = service.getByPlate(plate);
+        validateVehicleFinalStatus(vehicle);
+        if(vehicle.getScore()<100){
+            vehicle.setStatus(VehicleStatusEnum.EN_REPARACION.name());
+            service.save(vehicle);
+            return "El vehiculo "+plate+" fue actualizado: EN REPARACION";
+        } else {
+            vehicle.setStatus(VehicleStatusEnum.COMPRADO.name());
+            service.save(vehicle);
+            return "El vehiculo "+plate+" fue actualizado: COMPRADO";
+        }
+    }
+
+    private void validateVehicleFinalStatus(VehicleDE vehicle) throws EngineException {
+        if (vehicle == null) {
+            throw new EngineException("El vehiculo no existe", HttpStatus.BAD_REQUEST);
+        } else if (!vehicle.getStatus().equals(VehicleStatusEnum.ESPERA_DECISION_FINAL.name())){
+            throw new EngineException("El vehiculo no esta en espera de decision final", HttpStatus.BAD_REQUEST);
+        }
+    }
+
     private Float calculatePurchasePrice(VehicleDE vehicle) throws EngineException{
         Float basePrice = vehicle.getModelData().getBasePrice();
         Float repairCost = vehicle.getRepairCost();
@@ -288,7 +342,6 @@ public class VehicleFacade {
         return finalPrice;
     }
 
-    //CALCULO TEMPORAL DE PRECIO DE VENTA
     private Float calculateSellPrice(VehicleDE vehicle) throws EngineException{
         Float basePrice = vehicle.getModelData().getBasePrice();
         Float sellPercentage = NumberUtils.toPercentage(variablesFacade.getVariableValue("PORCENTAJE_VENTA"));
