@@ -31,5 +31,7 @@ public class ModelDE {
     private String fuelType;
     @Column(name = "g06_engine", length = 60,nullable = false)
     private String engine;
+    @Column(name = "g06_category", length = 20 ,nullable = false)
+    private String category;
     
 }

@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ungspp1.gadminbackend.api.vehicle.to.EnableVehicleTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.UpdateDniTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.UpdateSellPriceTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.UpdateStatusTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleTO;
@@ -113,10 +115,10 @@ public class VehicleController {
         }
     }
 
-    @PostMapping(value = "/updateStatus", produces = {"application/json"})
-    public ResponseEntity<BaseBodyResponse<?>> updateStatus(@RequestBody UpdateStatusTO request){
+    @PostMapping(value = "/updateDni", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> updateDni(@RequestBody UpdateDniTO request){
         try{
-            return ResponseHelper.simpleResponse(facade.updateStatus(request));
+            return ResponseHelper.simpleResponse(facade.updateDni(request));
         } catch (EngineException e) {
             return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
         } catch (Exception ex) {
@@ -157,4 +159,58 @@ public class VehicleController {
         }
     }
 
+    @PostMapping(value = "/enableVehicle", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> enableVehicle(@RequestBody EnableVehicleTO request){
+        try{
+            return ResponseHelper.simpleResponse(facade.enableVehicle(request));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/updateStatus", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> updateStatus(@RequestBody UpdateStatusTO request){
+        try{
+            return ResponseHelper.simpleResponse(facade.updateStatus(request));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/rejectVehicle", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> rejectVehicle(@RequestParam String plate){
+        try{
+            return ResponseHelper.simpleResponse(facade.rejectVehicle(plate));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/acceptVehicle", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> acceptVehicle(@RequestParam String plate){
+        try{
+            return ResponseHelper.simpleResponse(facade.acceptVehicle(plate));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/exchangeVehicle", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> exchangeVehicle(@RequestParam String plate){
+        try{
+            return ResponseHelper.simpleResponse(facade.exchangeVehicle(plate));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
 }
