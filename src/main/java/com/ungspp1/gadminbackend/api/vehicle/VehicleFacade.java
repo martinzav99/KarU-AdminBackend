@@ -13,6 +13,7 @@ import com.ungspp1.gadminbackend.api.vehicle.to.EnableVehicleTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.UpdateDniTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.UpdateSellPriceTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.UpdateStatusTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleResponseTO;
@@ -196,6 +197,20 @@ public class VehicleFacade {
         vehicle.setPurchasePrice(calculatePurchasePrice(vehicle));
         vehicle.setSellPrice(calculateSellPrice(vehicle));
         vehicle.setStatus(VehicleStatusEnum.ESPERA_DECISION_FINAL.name());
+    }
+
+    public String updateDni(UpdateDniTO request)throws EngineException{
+        if (request.getPlate() == null || request.getNewDni() == null)
+            throw new EngineException("Ingrese los datos necesarios", HttpStatus.BAD_REQUEST);
+        
+        VehicleDE vehicle = service.getByPlate(request.getPlate());
+
+        if (vehicle == null)
+            throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
+
+        vehicle.setDni(request.getNewDni());
+        service.save(vehicle);    
+        return "El dni ha sido actualizado";
     }
 
     public String updateSellPrice(UpdateSellPriceTO request) throws EngineException{

@@ -16,6 +16,7 @@ import com.ungspp1.gadminbackend.api.vehicle.to.EnableVehicleTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.ModelTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.PaperworkTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.TechInfoTO;
+import com.ungspp1.gadminbackend.api.vehicle.to.UpdateDniTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.UpdateSellPriceTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.UpdateStatusTO;
 import com.ungspp1.gadminbackend.api.vehicle.to.VehicleTO;
@@ -114,6 +115,17 @@ public class VehicleController {
         }
     }
 
+    @PostMapping(value = "/updateDni", produces = {"application/json"})
+    public ResponseEntity<BaseBodyResponse<?>> updateDni(@RequestBody UpdateDniTO request){
+        try{
+            return ResponseHelper.simpleResponse(facade.updateDni(request));
+        } catch (EngineException e) {
+            return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
+        } catch (Exception ex) {
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
+        }
+    }
+
     @PostMapping(value = "/updateSellPrice", produces = {"application/json"})
     public ResponseEntity<BaseBodyResponse<?>> updateSellPrice(@RequestBody UpdateSellPriceTO request){
         try{
@@ -201,5 +213,4 @@ public class VehicleController {
             return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), ex.getMessage());
         }
     }
-
 }
