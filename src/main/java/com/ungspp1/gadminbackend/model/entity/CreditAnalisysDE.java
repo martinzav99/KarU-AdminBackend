@@ -26,9 +26,9 @@ public class CreditAnalisysDE {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "g11_id", length = 8, nullable = false)
     private BigInteger id;
-    @Column(name = "g11_document", length = 50, nullable = false)
+    @Column(name = "g11_document", length = 10, nullable = false)
     private String document;
     @Column(name = "g11_score", length = 10, nullable = false)
-    private String value;
+    private String score;
     
 }

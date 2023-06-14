@@ -16,5 +16,5 @@ import lombok.Setter;
 @Data
 public class CreditResponseTO{
     private String document;
-    private String resultCredit;
+    private String score;
 }

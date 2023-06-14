@@ -8,22 +8,17 @@ import com.ungspp1.gadminbackend.model.entity.CreditAnalisysDE;
 import com.ungspp1.gadminbackend.model.repository.CreditAnalisysRepository;
 
 @Service
-public class creditAnalisysService {
+public class CreditAnalisysService {
+    
     @Autowired
-    CreditAnalisysRepository repository;
+    private CreditAnalisysRepository repository;
 
-    public void save  (CreditAnalisysDE de){
+    public void save(CreditAnalisysDE de){
         repository.save(de);
     }
 
     public CreditAnalisysDE findByDocument (String document) throws EngineException{
-        CreditAnalisysDE response =   repository.findByDocument(document);
-        if (response !=null){
-            return response;
-        } else{
-             throw new  EngineException ("No se encontro analisis con este documento");
-        }
-    
+        return repository.findByDocument(document).orElse(null);
     }
 
 } 
