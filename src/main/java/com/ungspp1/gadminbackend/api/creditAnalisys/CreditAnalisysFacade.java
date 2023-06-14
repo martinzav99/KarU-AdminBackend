@@ -37,14 +37,14 @@ public class CreditAnalisysFacade {
                 score = CreditScoreEnum.BUENO.name();
             }
         }
-        CreditResponseTO responseTO = CreditResponseTO.builder().document(request.getDocument()).score(score).build();
+        CreditResponseTO responseTO = CreditResponseTO.builder().document(request.getDocument()).value(score).build();
         CreditAnalisysDE analisysDE = analisysService.findByDocument(request.getDocument());
         
         if (analisysDE != null){
-            analisysDE.setScore(responseTO.getScore());
+            analisysDE.setScore(responseTO.getValue());
             analisysService.save(analisysDE);
         }else {
-            analisysService.save(CreditAnalisysDE.builder().document(responseTO.getDocument()).score(responseTO.getScore()).build());
+            analisysService.save(CreditAnalisysDE.builder().document(responseTO.getDocument()).score(responseTO.getValue()).build());
         }
 
         return responseTO;
@@ -56,7 +56,7 @@ public class CreditAnalisysFacade {
         if (analisysDE == null){
             throw new EngineException("No se encontró analisis crediticio para el DNI "+document, HttpStatus.BAD_REQUEST);
         } else {
-            return CreditResponseTO.builder().document(analisysDE.getDocument()).score(analisysDE.getScore()).build();
+            return CreditResponseTO.builder().document(analisysDE.getDocument()).value(analisysDE.getScore()).build();
         }
     }
 
