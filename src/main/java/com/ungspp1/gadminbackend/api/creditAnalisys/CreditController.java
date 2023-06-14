@@ -32,28 +32,23 @@ public class CreditController {
     @PostMapping("/credit-analysis")
     public ResponseEntity<BaseBodyResponse<?>> analyzeCredit(@RequestBody CreditRequestTO creditRequest) throws EngineException {
         try{
-           if ( facade.analizeCredit(creditRequest)!= null) {
             return ResponseHelper.simpleResponse(facade.analizeCredit(creditRequest));
-        }
         } 
         catch (EngineException e) {
             return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
         } catch (Exception e) {
-            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase() , e.getMessage()).build();
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase() , e.getMessage());
         }
-
     }
 
     @GetMapping("/credit-analysis")
     public ResponseEntity<BaseBodyResponse<?>> findByDocumentScoring(@RequestParam String document) throws EngineException {
         try {   
-            if ( facade.findByDocument(document)!= null) {
-                return ResponseHelper.simpleResponse(facade.findByDocument(document));
-            } 
+             return ResponseHelper.simpleResponse(facade.findByDocument(document));
         } catch (EngineException e) {
             return ResponseHelper.errorResponse(e.getStatus(), e.getMessage());
         } catch (Exception e) {
-            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase() , e.getMessage()).build();
+            return ResponseHelper.errorResponse(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase() , e.getMessage());
         }
 
     }
