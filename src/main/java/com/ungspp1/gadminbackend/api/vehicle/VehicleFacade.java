@@ -292,6 +292,9 @@ public class VehicleFacade {
         if (vehicle == null)
             throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
 
+        if (!vehicle.getStatus().equals(VehicleStatusEnum.COMPRADO.name()))
+            throw new EngineException("El vehiculo no ha sido comprado", HttpStatus.BAD_REQUEST);
+
         vehicle.setPicture1(request.getPhoto1());
         vehicle.setPicture2(request.getPhoto2());
         vehicle.setPicture3(request.getPhoto3());
@@ -387,7 +390,9 @@ public class VehicleFacade {
     private boolean validateBranchPhoto(EnableVehicleTO request){
         return request.getPlate() !=null 
                && request.getBranch() != null 
-               && (request.getPhoto1() != null || request.getPhoto2() != null || request.getPhoto3() != null);
+               && request.getPhoto1() != null 
+               && request.getPhoto2() != null 
+               && request.getPhoto3() != null;
     }
 
 }
