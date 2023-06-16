@@ -9,6 +9,6 @@ import com.ungspp1.gadminbackend.external.commerceArea.to.ClientTO;
 @FeignClient(name = "commerceArea", url = "${commerceArea.host}")
 public interface CommerceAreaFeignClient {
     
-    @GetMapping("/Cliente/getClienteByDni")
-    public ClientTO getClient(@RequestParam String dni);
+    @GetMapping("/api-gc/clientes/cliente")
+    public ClientTO getClient(@RequestParam("dni") String dni);
 }

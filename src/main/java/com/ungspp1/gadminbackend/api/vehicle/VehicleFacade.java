@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import com.ungspp1.gadminbackend.api.payment.PaymentFacade;
 import com.ungspp1.gadminbackend.api.priceHistory.PriceHistoryFacade;
 import com.ungspp1.gadminbackend.api.variables.VariablesFacade;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
@@ -38,6 +39,8 @@ public class VehicleFacade {
     private VehicleMapper mapper;
     @Autowired
     private PriceHistoryFacade priceHistoryFacade;
+    @Autowired
+    private PaymentFacade paymentFacade;
 
     public List<ModelTO> getAllModels(){
         return mapper.modelDEsToTOs(service.getAllModels());
@@ -318,6 +321,7 @@ public class VehicleFacade {
         validateVehicleFinalStatus(vehicle);
         vehicle.setStatus(VehicleStatusEnum.ACEPTADO.name());
         service.save(vehicle);
+        paymentFacade.sendDebitPayment(vehicle);  
         return "El vehiculo "+plate+" fue ACEPTADO";
         //TODO FALTA LA PARTE DEL FLUJO QUE CHEQUEA EL PAGO (INTEGRACION GRUPO 2)
     }

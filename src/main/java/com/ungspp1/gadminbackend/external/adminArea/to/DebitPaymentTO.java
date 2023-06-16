@@ -14,5 +14,5 @@ public class DebitPaymentTO {
     private Float monto;
     private String concepto;
     private String nombre_completo;
-    private String documento;
+    private Integer documento;
 }

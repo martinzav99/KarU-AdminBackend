@@ -20,7 +20,7 @@ public class PaymentFacade {
     @Autowired
     private CommerceAreaFeignClient commerceAreaFeignClient;
 
-    public boolean sendDebitPayment(VehicleDE vehicle) throws EngineException {
+    public void sendDebitPayment(VehicleDE vehicle) throws EngineException {
         
         String dni = vehicle.getDni();
         
@@ -30,24 +30,23 @@ public class PaymentFacade {
             throw new EngineException("No se encontro un cliente con el dni: " + dni, HttpStatus.NO_CONTENT);
     
         String code = generateCode(dni);
-        String concept = "P-1";
-        Float amount = vehicle.getSellPrice();
+        String concept = "P-" + vehicle.getId();
+        Float amount = vehicle.getPurchasePrice();
         String fullName = client.getNombre() + " " + client.getApellido();
 
-        DebitPaymentTO payment = new DebitPaymentTO(code, amount, concept, fullName, dni);
+        DebitPaymentTO payment = new DebitPaymentTO();
+        payment.setCodigo_unico(code);
+        payment.setConcepto(concept);
+        payment.setMonto(amount);
+        payment.setNombre_completo(fullName);
 
-        HttpStatus status = adminAreaFeignClient.debitPayment(payment);
-        
-        if (status.value() == 200 || status.value() == 201)  
-            return true;
-        else
-            return false; 
+        adminAreaFeignClient.debitPayment(payment);
     }
 
     private String generateCode(String dni){
         String code = dni;
         
-        while (code.length() <= 20)
+        while (code.length() < 20)
             code = 0 + code;
         
         code = "22" + code;
