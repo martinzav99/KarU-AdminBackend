@@ -17,6 +17,6 @@ public interface AdminAreaFeignClient {
     @GetMapping("/v1/sucursales")
     public List<OfficeTO> getOffices();
 
-    @PostMapping(value = "/v1/movimiento" , consumes = "application/json")
+    @PostMapping(value = "/v1/movimiento/" , consumes = "application/json")
     public ResponseEntity<Void> debitPayment(@RequestBody DebitPaymentTO payment);
 }

@@ -39,6 +39,7 @@ public class PaymentFacade {
         payment.setConcepto(concept);
         payment.setMonto(amount);
         payment.setNombre_completo(fullName);
+        payment.setDocumento(Integer.valueOf(client.getDni()));
 
         adminAreaFeignClient.debitPayment(payment);
     }
