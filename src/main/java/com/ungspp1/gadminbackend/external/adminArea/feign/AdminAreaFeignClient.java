@@ -3,6 +3,7 @@ package com.ungspp1.gadminbackend.external.adminArea.feign;
 import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,5 +18,5 @@ public interface AdminAreaFeignClient {
     public List<OfficeTO> getOffices();
 
     @PostMapping("/v1/movimiento")
-    public void debitPayment(@RequestBody DebitPaymentTO request);
+    public HttpStatus debitPayment(@RequestBody DebitPaymentTO request);
 }

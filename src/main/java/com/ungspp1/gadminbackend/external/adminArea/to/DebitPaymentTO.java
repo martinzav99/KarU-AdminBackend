@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DebitPaymentTO {
-    private String code;
-    private Float amount;
-    private String concept;
-    private String fullName;
-    private String dni;
+    private String codigo_unico;
+    private Float monto;
+    private String concepto;
+    private String nombre_completo;
+    private String documento;
 }
