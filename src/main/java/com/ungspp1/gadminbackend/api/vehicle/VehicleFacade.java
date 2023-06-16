@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import com.ungspp1.gadminbackend.api.payment.PaymentFacade;
 import com.ungspp1.gadminbackend.api.priceHistory.PriceHistoryFacade;
 import com.ungspp1.gadminbackend.api.variables.VariablesFacade;
 import com.ungspp1.gadminbackend.api.vehicle.mapper.VehicleMapper;
@@ -38,6 +39,8 @@ public class VehicleFacade {
     private VehicleMapper mapper;
     @Autowired
     private PriceHistoryFacade priceHistoryFacade;
+    @Autowired
+    private PaymentFacade paymentFacade;
 
     public List<ModelTO> getAllModels(){
         return mapper.modelDEsToTOs(service.getAllModels());
@@ -292,6 +295,9 @@ public class VehicleFacade {
         if (vehicle == null)
             throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
 
+        if (!vehicle.getStatus().equals(VehicleStatusEnum.COMPRADO.name()))
+            throw new EngineException("El vehiculo no ha sido comprado", HttpStatus.BAD_REQUEST);
+
         vehicle.setPicture1(request.getPhoto1());
         vehicle.setPicture2(request.getPhoto2());
         vehicle.setPicture3(request.getPhoto3());
@@ -315,8 +321,16 @@ public class VehicleFacade {
         validateVehicleFinalStatus(vehicle);
         vehicle.setStatus(VehicleStatusEnum.ACEPTADO.name());
         service.save(vehicle);
+        paymentFacade.sendDebitPayment(vehicle);
+
+        if(vehicle.getScore()<100){
+            vehicle.setStatus(VehicleStatusEnum.EN_REPARACION.name());
+            service.save(vehicle);
+        } else {
+            vehicle.setStatus(VehicleStatusEnum.COMPRADO.name());
+            service.save(vehicle);
+        }  
         return "El vehiculo "+plate+" fue ACEPTADO";
-        //TODO FALTA LA PARTE DEL FLUJO QUE CHEQUEA EL PAGO (INTEGRACION GRUPO 2)
     }
 
     public String exchangeVehicle(String plate) throws EngineException{
@@ -387,7 +401,9 @@ public class VehicleFacade {
     private boolean validateBranchPhoto(EnableVehicleTO request){
         return request.getPlate() !=null 
                && request.getBranch() != null 
-               && (request.getPhoto1() != null || request.getPhoto2() != null || request.getPhoto3() != null);
+               && request.getPhoto1() != null 
+               && request.getPhoto2() != null 
+               && request.getPhoto3() != null;
     }
 
 }
