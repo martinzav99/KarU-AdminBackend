@@ -321,9 +321,16 @@ public class VehicleFacade {
         validateVehicleFinalStatus(vehicle);
         vehicle.setStatus(VehicleStatusEnum.ACEPTADO.name());
         service.save(vehicle);
-        paymentFacade.sendDebitPayment(vehicle);  
+        paymentFacade.sendDebitPayment(vehicle);
+
+        if(vehicle.getScore()<100){
+            vehicle.setStatus(VehicleStatusEnum.EN_REPARACION.name());
+            service.save(vehicle);
+        } else {
+            vehicle.setStatus(VehicleStatusEnum.COMPRADO.name());
+            service.save(vehicle);
+        }  
         return "El vehiculo "+plate+" fue ACEPTADO";
-        //TODO FALTA LA PARTE DEL FLUJO QUE CHEQUEA EL PAGO (INTEGRACION GRUPO 2)
     }
 
     public String exchangeVehicle(String plate) throws EngineException{
