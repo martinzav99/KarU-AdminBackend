@@ -1,6 +1,8 @@
 package com.ungspp1.gadminbackend.api.vehicle;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,6 +62,8 @@ public class VehicleFacade {
             throw new EngineException("Campos faltantes", HttpStatus.BAD_REQUEST);
         } else if (!EnumUtils.validateOriginEnum(request.getOrigin())) {
             throw new EngineException("El origen debe ser: NACIONAL o IMPORTADO", HttpStatus.BAD_REQUEST);
+        }else if (!validatePlate(request.getPlate())) {
+            throw new EngineException("La matricula no sigue un patron valido", HttpStatus.BAD_REQUEST);
         } else {
             VehicleDE newVehicle = mapper.requestToDEWithModel(request , modelDE , paperworkDE);
             newVehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_LEGAL.name());
@@ -387,6 +391,19 @@ public class VehicleFacade {
             return true;
         }
         return false;
+    }
+
+    private boolean validatePlate(String plate){
+
+        Pattern pattern1964 = Pattern.compile("^[A-Za-z]\\d{7}$");
+        Pattern pattern1994 = Pattern.compile("^[A-Za-z]{3}\\d{3}$");
+        Pattern pattern2016 = Pattern.compile("^[A-Za-z]{2}\\d{3}[A-Za-z]{2}$");
+
+        Matcher matcher1964 = pattern1964.matcher(plate);
+        Matcher matcher1994 = pattern1994.matcher(plate);
+        Matcher matcher2016 = pattern2016.matcher(plate);
+
+        return matcher1964.matches() || matcher1994.matches() || matcher2016.matches();
     }
 
     private boolean validateModelField(ModelTO request){
