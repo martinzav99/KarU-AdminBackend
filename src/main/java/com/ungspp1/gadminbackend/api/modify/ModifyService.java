@@ -26,6 +26,11 @@ public class ModifyService{
     public ModifyResponseTO updateUserData(ModifyRequestTO request) throws EngineException{
         Optional<UserDE> userOptional = userRepository.findByUsername(request.getUsername());
         
+        UserDE emailUsed = userRepository.findByEmail(request.getEmail()).get();
+
+        if (emailUsed != null)
+            throw new EngineException("Ya existe un usuario con este email", HttpStatus.BAD_REQUEST);
+
         if(userOptional.isPresent()){
             UserDE user = userOptional.get();
             if (request.getEmail() != null) {
@@ -86,7 +91,7 @@ public class ModifyService{
                 if (ascciRange(password, i, 48, 57))
                     hasNumb = true;
                     
-                if (ascciRange(password,i, 33, 47) || ascciRange(password,i, 58, 64) || ascciRange(password,i, 91, 96))
+                if (ascciRange(password,i, 33, 47) || ascciRange(password,i, 58, 64) || ascciRange(password,i, 91, 96) || ascciRange(password,i, 123, 254))
                     hasEspecial = true;          
             }
             return hasMayus && hasMin && hasNumb && hasEspecial;

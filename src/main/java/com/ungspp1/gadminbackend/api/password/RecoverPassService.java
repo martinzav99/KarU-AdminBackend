@@ -127,7 +127,7 @@ public class RecoverPassService {
                 if (ascciRange(password, i, 48, 57))
                     hasNumb = true;
                     
-                if (ascciRange(password,i, 33, 47) || ascciRange(password,i, 58, 64) || ascciRange(password,i, 91, 96))
+                if (ascciRange(password,i, 33, 47) || ascciRange(password,i, 58, 64) || ascciRange(password,i, 91, 96) || ascciRange(password,i, 123, 254))
                     hasEspecial = true;          
             }
             return hasMayus && hasMin && hasNumb && hasEspecial;
