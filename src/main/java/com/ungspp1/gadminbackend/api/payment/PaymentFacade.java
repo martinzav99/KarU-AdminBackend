@@ -20,27 +20,21 @@ public class PaymentFacade {
     @Autowired
     private CommerceAreaFeignClient commerceAreaFeignClient;
 
-    public void sendDebitPayment(VehicleDE vehicle) throws EngineException {
-        
-        String dni = vehicle.getDni();
-        
+    public void sendDebitPayment(VehicleDE vehicle) throws EngineException {        
+        String dni = vehicle.getDni();        
         ClientTO client = commerceAreaFeignClient.getClient(dni);
-
         if (client == null)
-            throw new EngineException("No se encontro un cliente con el dni: " + dni, HttpStatus.NO_CONTENT);
-    
+            throw new EngineException("No se encontro un cliente con el dni: " + dni, HttpStatus.NO_CONTENT);    
         String code = generateCode(dni);
         String concept = "P-" + vehicle.getId();
         Float amount = vehicle.getPurchasePrice();
         String fullName = client.getNombre() + " " + client.getApellido();
-
         DebitPaymentTO payment = new DebitPaymentTO();
         payment.setCodigo_unico(code);
         payment.setConcepto(concept);
         payment.setMonto(amount);
         payment.setNombre_completo(fullName);
         payment.setDocumento(Integer.valueOf(client.getDni()));
-
         adminAreaFeignClient.debitPayment(payment);
     }
 
