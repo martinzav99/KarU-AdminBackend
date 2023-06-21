@@ -322,7 +322,9 @@ public class VehicleFacade {
 
     public String acceptVehicle(String plate) throws EngineException{
         VehicleDE vehicle = service.getByPlate(plate);
-        validateVehicleFinalStatus(vehicle);
+        if (vehicle == null) {
+            throw new EngineException("El vehiculo no existe", HttpStatus.BAD_REQUEST);
+        }
         vehicle.setStatus(VehicleStatusEnum.ACEPTADO.name());
         service.save(vehicle);
         paymentFacade.sendDebitPayment(vehicle);
