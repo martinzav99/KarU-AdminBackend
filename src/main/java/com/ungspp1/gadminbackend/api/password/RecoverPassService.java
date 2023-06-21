@@ -52,14 +52,21 @@ public class RecoverPassService {
             mailFacade.sendTokenMail(user.get().getUsername(),request.getEmail(), code);
             return HttpStatus.OK;
         }
-        else{
+        else{ 
             UserResetPassDE tokenFounded = token.get();
+            if (recentSend(tokenFounded))
+                throw new EngineException("Un token fue enviado recientemente, por favor revisa tu email.", HttpStatus.BAD_REQUEST); 
             tokenFounded.setToken(code);
             tokenFounded.setCodeExpirationDate(LocalDateTime.now().plusHours(3));
             userResetPassRepository.save(tokenFounded);
             mailFacade.sendTokenMail(user.get().getUsername(),request.getEmail(), code);
             return HttpStatus.OK;
         }     
+    }
+
+    public boolean recentSend(UserResetPassDE token){
+        LocalDateTime validDate = token.getCodeExpirationDate().minusHours(2).minusMinutes(45);
+        return LocalDateTime.now().isBefore(validDate);
     }
 
     public HttpStatus verifyToken(TokenRequestTO request) throws EngineException{
