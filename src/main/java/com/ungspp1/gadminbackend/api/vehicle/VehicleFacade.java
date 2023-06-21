@@ -186,7 +186,8 @@ public class VehicleFacade {
                 if(request.getVtv() != null)
                     vehicle.getPaperworkData().setVtv(request.getVtv());
             }
-            if (vehicle.getStatus().equals(VehicleStatusEnum.ESPERA_REVISION_LEGAL.name())){ //It should only save the paperwork if the vehicle has a different status
+
+            if (allDocumentTrue(request) && vehicle.getStatus().equals(VehicleStatusEnum.ESPERA_REVISION_LEGAL.name())){ //It should only save the paperwork if the vehicle has a different status
                 vehicle.setStatus(VehicleStatusEnum.ESPERA_REVISION_TECNICA.name());
             }            
             service.save(vehicle);
@@ -195,6 +196,10 @@ public class VehicleFacade {
         else{
             throw new EngineException("No se encontró el vehiculo", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    private boolean allDocumentTrue(PaperworkTO request){
+        return request.getRva()==true && request.getVpa()==true && request.getVtv()==true;
     }
 
     private void mapVehicleTechInfo(TechInfoTO request, VehicleDE vehicle) throws EngineException {
@@ -322,7 +327,9 @@ public class VehicleFacade {
 
     public String acceptVehicle(String plate) throws EngineException{
         VehicleDE vehicle = service.getByPlate(plate);
-        validateVehicleFinalStatus(vehicle);
+        if (vehicle == null) {
+            throw new EngineException("El vehiculo no existe", HttpStatus.BAD_REQUEST);
+        }
         vehicle.setStatus(VehicleStatusEnum.ACEPTADO.name());
         service.save(vehicle);
         paymentFacade.sendDebitPayment(vehicle);

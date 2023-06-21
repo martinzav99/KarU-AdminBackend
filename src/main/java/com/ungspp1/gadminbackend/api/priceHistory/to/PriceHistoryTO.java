@@ -1,6 +1,6 @@
 package com.ungspp1.gadminbackend.api.priceHistory.to;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +17,7 @@ public class PriceHistoryTO {
     private String message;
     private Float newSellPrice;
     private Float newBasePrice;
-    private LocalDateTime updateDate;
+    private ZonedDateTime updateDate;
     private Float massivePercentage;
 
 }
