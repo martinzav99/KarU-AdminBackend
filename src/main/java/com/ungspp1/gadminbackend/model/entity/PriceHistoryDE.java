@@ -2,7 +2,8 @@ package com.ungspp1.gadminbackend.model.entity;
 
 
 import java.math.BigInteger;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +37,7 @@ public class PriceHistoryDE {
     private Float newBasePrice;
 
     @Column(name = "g10_update_date",length = 8)
-    private LocalDateTime updateDate;
+    private ZonedDateTime updateDate;
 
     @Column(name = "g10_massive_percentage" , length = 8)
     private Float massivePercentage;
