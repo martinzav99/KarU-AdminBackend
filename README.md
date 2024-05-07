@@ -1,5 +1,1 @@
-<video width="640" height="360" controls>
-  <source src="Demo - Flujo de Compra" type="video/mp4">
-  Tu navegador no soporta la reproducción de videos.
-</video>
-
+[![Alt text](https://img.youtube.com/vi/IlsUgsk4XBw/0.jpg)](https://www.youtube.com/watch?v=IlsUgsk4XBw)
