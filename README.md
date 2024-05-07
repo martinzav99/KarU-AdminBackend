@@ -17,7 +17,7 @@ En particular, fue muy importante utilizar varios indicadores.
 El primero es el burndown chart, indicador que se utiliza para ver visualmente las horas restantes del proyecto.
 Como se puede ver, empezamos el proyecto con 694 horas estimadas e íbamos avanzando bien, hasta que en el segundo sprint se nos agregaron funcionalidades, por lo cual se ve el pico de subida en la imagen. Y de la misma forma, sucedió lo mismo en el pico que se ve al final del tercer sprint.
 ![alt text](/images/burndownchart.png)
-
+<img src="/images/burndownchart.png" width="300" height="200">
 El siguiente gráfico es el indicador de bugs abiertos vs cerrados, usado para mostrar la cantidad de bugs encontrados y solucionados cada día.
 Como se puede ver, durante el primer sprint no se realizó mucho testing, por lo cual al final del segundo, al testear las funcionalidades desarrolladas en los primeros dos sprints, se dió el periodo donde se encontró la mayor cantidad de bugs.
 Como la mayoría de bugs encontrados eran no críticos, se prefirió darle foco en desarrollar nuevas funcionalidades en los sprints 3 y 4, dejando el arreglo de bugs para el final, en lo cual se pudo arreglar la gran mayoría de bugs.
