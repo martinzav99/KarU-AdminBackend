@@ -1,12 +1,16 @@
 # KarU - Proyecto Profesional
-El objetivo de este proyecto es crear una pagina web de compra/venta de autos usados para la empresa ficticia "KarU".
-Ademas , se requeria utilizar el marco de trabajo Safe y como metodologia agil scrum.
-Para lograrlo se decidio dividir el total de desarrolladores en 4 grupos, facilitando asi aplicar la arquitectura de microservicios donde cada grupo
+El **objetivo** de este proyecto es **crear una pagina web de compra/venta de autos** usados para la empresa ficticia "KarU".
+
+Ademas , **se requería** utilizar el marco de trabajo Safe y como **metodologia agil scrum**.
+
+Para lograrlo se decidio dividir el total de desarrolladores en 4 grupos, facilitando asi aplicar la **arquitectura de microservicios** donde cada grupo
 usaba la base de datos y lenguaje de programacion que gusten.
 
 ## Alcance
-El proyecto se dividio en 3 modulos: comercio, administracion, tecnico
+El proyecto se dividio en 3 modulos: comercio, administracion, tecnico.
+
 Cabe desatacar que las tareas de administracion se dividio en 2 grupos. 
+
 A nuestro equipo se hizo encargo del analisis crediticio de los clientes y ajustes de precios masivos e individuales de los vehiculos publicados.
 Por otro lado, tambien seriamos los encargados de manejar los datos de los empleados(login, registro,TFA) y los vehiculos(carga y control del proceso de compra/venta).
 
@@ -38,7 +42,7 @@ Para hacer la entrega de la documentación requerida de un vehículo el usuario 
 A continuación, se realizará la revisión técnica en sí y luego a partir de los datos obtenidos previamente se genera una cotización de compra donde en caso de llegar a un acuerdo, un personal de ventas confirmará la compra del vehículo y se utilizará la funcionalidad creada por el grupo 2 para simular el pago bancario.
 Una vez realizado todo este proceso se tiene en cuenta el estado del vehículo, si su puntaje técnico es del 100%, es decir en perfecto estado, quiere decir que el vehículo está disponible para su habilitación (poner en venta)
 En caso de no estarlo, se deberá sacar turno para reparación y luego de la misma poder habilitar el vehículo para su venta
-<img src="/images/flujoDeVenta.png" width="604" height="337">
+<img src="/images/flujoDeCompra.png" width="604" height="337">
 
 El siguiente diagrama es una diagrama de estados por los que pasa el vehículo, este está en gran parte relacionado al diagrama anterior, excepto que a partir del estado disponible pertenecería al flujo de venta.
 Bueno rápidamente podemos mencionar el estado de espera revisión legal, que es cuando todavía no se cargó la documentación o está incompleta. espera revisión técnica cuando espera que el vehículo todavía no fue revisado, espera decisión final, cuando todavía no se confirmó la compra por parte del grupo comercial. Cuando se toma la decisión pasa a rechazado o aceptado.
