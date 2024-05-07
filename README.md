@@ -21,17 +21,19 @@ En particular, fue muy importante utilizar varios indicadores.
 El primero es el burndown chart, indicador que se utiliza para ver visualmente las horas restantes del proyecto.
 Como se puede ver, empezamos el proyecto con 694 horas estimadas e íbamos avanzando bien, hasta que en el segundo sprint se nos agregaron funcionalidades, por lo cual se ve el pico de subida en la imagen. Y de la misma forma, sucedió lo mismo en el pico que se ve al final del tercer sprint.
 <img src="/images/burndownchart.png" width="604" height="337">
+
 El siguiente gráfico es el indicador de bugs abiertos vs cerrados, usado para mostrar la cantidad de bugs encontrados y solucionados cada día.
 Como se puede ver, durante el primer sprint no se realizó mucho testing, por lo cual al final del segundo, al testear las funcionalidades desarrolladas en los primeros dos sprints, se dió el periodo donde se encontró la mayor cantidad de bugs.
 Como la mayoría de bugs encontrados eran no críticos, se prefirió darle foco en desarrollar nuevas funcionalidades en los sprints 3 y 4, dejando el arreglo de bugs para el final, en lo cual se pudo arreglar la gran mayoría de bugs.
 <img src="/images/bugs.png" width="604" height="337">
+
 Y el último indicador utilizado es el indicador de nivel de riesgo, el cual se utiliza para conocer bajo qué tanto peligro se encuentra el proyecto en un determinado momento.
 En nuestro caso lo calculamos sumando los 5 riesgos de mayor exposición que se encuentran en la matriz de riesgos.
 Como se puede ver, los dos picos de subida que se ven en el gráfico se deben primero al problema que tuvimos que todavía no encontrábamos forma de hostear el backend del sistema, lo cual al encontrar Railway bajó el nivel de riesgo, y el segundo pico fue por los problemas de integración del front mencionados anteriormente.
 Al final del proyecto se solucionaron la mayoría de los riesgos, por lo cual el nivel de riesgo acabó siendo bajo.
 <img src="/images/riesgo.png" width="604" height="337">
-## Diagramas
 
+## Diagramas
 Bueno, a continuación voy a presentar los diagramas.
 El primero es el flujo NORMAL de compra de un vehículo representado en un diagrama de actividad.
 El objetivo de este gráfico es mostrar las interacciones entre los módulos o grupos al momento de realizar la compra de un vehículo.
