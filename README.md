@@ -16,20 +16,18 @@ En particular, fue muy importante utilizar varios indicadores.
 
 El primero es el burndown chart, indicador que se utiliza para ver visualmente las horas restantes del proyecto.
 Como se puede ver, empezamos el proyecto con 694 horas estimadas e íbamos avanzando bien, hasta que en el segundo sprint se nos agregaron funcionalidades, por lo cual se ve el pico de subida en la imagen. Y de la misma forma, sucedió lo mismo en el pico que se ve al final del tercer sprint.
-[ foto de burdown chart]
+[alt text](/images/burndownchart.png)
 
 El siguiente gráfico es el indicador de bugs abiertos vs cerrados, usado para mostrar la cantidad de bugs encontrados y solucionados cada día.
 Como se puede ver, durante el primer sprint no se realizó mucho testing, por lo cual al final del segundo, al testear las funcionalidades desarrolladas en los primeros dos sprints, se dió el periodo donde se encontró la mayor cantidad de bugs.
 Como la mayoría de bugs encontrados eran no críticos, se prefirió darle foco en desarrollar nuevas funcionalidades en los sprints 3 y 4, dejando el arreglo de bugs para el final, en lo cual se pudo arreglar la gran mayoría de bugs.
-
-[foto de graico de bugs ]
+[alt text](/images/bugs.png)
 
 Y el último indicador utilizado es el indicador de nivel de riesgo, el cual se utiliza para conocer bajo qué tanto peligro se encuentra el proyecto en un determinado momento.
 En nuestro caso lo calculamos sumando los 5 riesgos de mayor exposición que se encuentran en la matriz de riesgos.
 Como se puede ver, los dos picos de subida que se ven en el gráfico se deben primero al problema que tuvimos que todavía no encontrábamos forma de hostear el backend del sistema, lo cual al encontrar Railway bajó el nivel de riesgo, y el segundo pico fue por los problemas de integración del front mencionados anteriormente.
 Al final del proyecto se solucionaron la mayoría de los riesgos, por lo cual el nivel de riesgo acabó siendo bajo.
-
-[foto de nivel de riesgo ]
+[alt text](/images/riesgo.png)
 
 ## Diagramas
 
@@ -43,15 +41,13 @@ Para hacer la entrega de la documentación requerida de un vehículo el usuario 
 A continuación, se realizará la revisión técnica en sí y luego a partir de los datos obtenidos previamente se genera una cotización de compra donde en caso de llegar a un acuerdo, un personal de ventas confirmará la compra del vehículo y se utilizará la funcionalidad creada por el grupo 2 para simular el pago bancario.
 Una vez realizado todo este proceso se tiene en cuenta el estado del vehículo, si su puntaje técnico es del 100%, es decir en perfecto estado, quiere decir que el vehículo está disponible para su habilitación (poner en venta)
 En caso de no estarlo, se deberá sacar turno para reparación y luego de la misma poder habilitar el vehículo para su venta
-
-[ diagrma de fljo de venta ]
+[alt text](/images/flujoDeVenta.png)
 
 El siguiente diagrama es una diagrama de estados por los que pasa el vehículo, este está en gran parte relacionado al diagrama anterior, excepto que a partir del estado disponible pertenecería al flujo de venta.
 Bueno rápidamente podemos mencionar el estado de espera revisión legal, que es cuando todavía no se cargó la documentación o está incompleta. espera revisión técnica cuando espera que el vehículo todavía no fue revisado, espera decisión final, cuando todavía no se confirmó la compra por parte del grupo comercial. Cuando se toma la decisión pasa a rechazado o aceptado.
 Pasará a comprado directamente si el auto estaba en perfecto estado y si no, pasará por reparación.
 Por último cuando el auto es habilitado, pasa a disponible donde podrá ser reservado y luego vendido o en caso de que cancelen la reserva volver a estar disponible o que se venda directamente.
-
-[ diagrma de estado ]
+[alt text](/images/estadoVehiculo.png)
 
 ## Demo
 https://karu-web-back.onrender.com/ (BBDD Fuera de Servicio)
