@@ -9,33 +9,48 @@ usaba la base de datos y lenguaje de programacion que gusten.
 ## Alcance
 El proyecto se dividio en 3 modulos: comercio, administracion, tecnico.
 
-Cabe desatacar que las tareas de administracion se dividio en 2 grupos. 
+Cabe desatacar que las tareas de administracion se reapartieron entre 2 equipos. 
 
-A nuestro equipo se hizo encargo del analisis crediticio de los clientes y ajustes de precios masivos e individuales de los vehiculos publicados.
-Por otro lado, tambien seriamos los encargados de manejar los datos de los empleados(login, registro,TFA) y los vehiculos(carga y control del proceso de compra/venta).
+Nuestro equipo fue el encargado de: 
+- Generar analisis crediticio de los clientes
+- Ajustar de forma masiva e individuales los precios de los vehiculos publicados.
+- Manejar los datos de los empleados(login, registro,TFA)
+- Manejar los datos de los vehiculos(carga y control del proceso de compra/venta).
 
 ## Indicadores
-A lo largo del proyecto se realizaron diferentes entregas donde se mostraba el avance del proyecto. 
-En particular, fue muy importante utilizar varios indicadores.
+Durante el transcurso del proyecto se realizaron diferentes entregas donde se mostraba el avance del proyecto.
 
-El primero es el burndown chart, indicador que se utiliza para ver visualmente las horas restantes del proyecto.
-Como se puede ver, empezamos el proyecto con 694 horas estimadas e íbamos avanzando bien, hasta que en el segundo sprint se nos agregaron funcionalidades, por lo cual se ve el pico de subida en la imagen. Y de la misma forma, sucedió lo mismo en el pico que se ve al final del tercer sprint.
+A continuacion se presentan la version final de los indicadores:
+
+### Burndown Chart
+
+Usado para mostrar el avance del proyecto en horas.
+En este caso podemos ver que se llego una estimacion de 694 horas para todo el proyecto y que durante el segundo y tercer sprint se agregaron cambios en las funcionalidades y es por esa razon que se ven picos que demuestran el uso extra de horas.
+
 <img src="/images/burndownchart.png" width="604" height="337">
 
-El siguiente gráfico es el indicador de bugs abiertos vs cerrados, usado para mostrar la cantidad de bugs encontrados y solucionados cada día.
+### Bugs abiertos vs cerrados
+
+Usado para mostrar la cantidad de bugs encontrados y solucionados cada día.
 Como se puede ver, durante el primer sprint no se realizó mucho testing, por lo cual al final del segundo, al testear las funcionalidades desarrolladas en los primeros dos sprints, se dió el periodo donde se encontró la mayor cantidad de bugs.
-Como la mayoría de bugs encontrados eran no críticos, se prefirió darle foco en desarrollar nuevas funcionalidades en los sprints 3 y 4, dejando el arreglo de bugs para el final, en lo cual se pudo arreglar la gran mayoría de bugs.
+
+Debido a que la mayoria de estos bugs fueron calificados como no críticos, se prefirió darle foco en desarrollar nuevas funcionalidades en los sprints 3 y 4, dejando el arreglo de bugs no criticos para el final.
+
 <img src="/images/bugs.png" width="604" height="337">
 
-Y el último indicador utilizado es el indicador de nivel de riesgo, el cual se utiliza para conocer bajo qué tanto peligro se encuentra el proyecto en un determinado momento.
-En nuestro caso lo calculamos sumando los 5 riesgos de mayor exposición que se encuentran en la matriz de riesgos.
-Como se puede ver, los dos picos de subida que se ven en el gráfico se deben primero al problema que tuvimos que todavía no encontrábamos forma de hostear el backend del sistema, lo cual al encontrar Railway bajó el nivel de riesgo, y el segundo pico fue por los problemas de integración del front mencionados anteriormente.
-Al final del proyecto se solucionaron la mayoría de los riesgos, por lo cual el nivel de riesgo acabó siendo bajo.
+### Nivel de riesgo
+
+Usado para conocer bajo qué tanto peligro se encuentra el proyecto en un determinado momento.
+En nuestro caso lo calculamos sumando los 5 riesgos de mayor exposición que se encuentran en la matriz de riesgos(documentacion privada).
+Los dos picos de subida que se ven en el gráfico se deben primero al problema de encontrar un host para el backend del sistema, y el segundo por problemas de integración del front con los otros equipos de desarrollo.
+Al final del proyecto se solucionaron la mayoría de los riesgos, por lo cual el nivel de riesgo termino bajando.
+
 <img src="/images/riesgo.png" width="604" height="337">
 
 ## Diagramas
-Bueno, a continuación voy a presentar los diagramas.
+a continuación  presentar los diagramas.
 El primero es el flujo NORMAL de compra de un vehículo representado en un diagrama de actividad.
+
 El objetivo de este gráfico es mostrar las interacciones entre los módulos o grupos al momento de realizar la compra de un vehículo.
 Como primer paso un usuario que desee vender su vehículo cargará sus datos personales y de contacto en una pantalla creada por el módulo comercial. Estos datos serán utilizados más adelante para hacer envío de información …
 Cuando termina de cargar los datos, será redirigido a una pantalla creada por el grupo de administración, en esta deberá cargar los datos relacionados con el vehículo como la patente, modelo o tipo de combustible.
@@ -44,12 +59,14 @@ Para hacer la entrega de la documentación requerida de un vehículo el usuario 
 A continuación, se realizará la revisión técnica en sí y luego a partir de los datos obtenidos previamente se genera una cotización de compra donde en caso de llegar a un acuerdo, un personal de ventas confirmará la compra del vehículo y se utilizará la funcionalidad creada por el grupo 2 para simular el pago bancario.
 Una vez realizado todo este proceso se tiene en cuenta el estado del vehículo, si su puntaje técnico es del 100%, es decir en perfecto estado, quiere decir que el vehículo está disponible para su habilitación (poner en venta)
 En caso de no estarlo, se deberá sacar turno para reparación y luego de la misma poder habilitar el vehículo para su venta
+
 <img src="/images/flujoDeCompra.png" width="604" height="337">
 
 El siguiente diagrama es una diagrama de estados por los que pasa el vehículo, este está en gran parte relacionado al diagrama anterior, excepto que a partir del estado disponible pertenecería al flujo de venta.
 Bueno rápidamente podemos mencionar el estado de espera revisión legal, que es cuando todavía no se cargó la documentación o está incompleta. espera revisión técnica cuando espera que el vehículo todavía no fue revisado, espera decisión final, cuando todavía no se confirmó la compra por parte del grupo comercial. Cuando se toma la decisión pasa a rechazado o aceptado.
 Pasará a comprado directamente si el auto estaba en perfecto estado y si no, pasará por reparación.
 Por último cuando el auto es habilitado, pasa a disponible donde podrá ser reservado y luego vendido o en caso de que cancelen la reserva volver a estar disponible o que se venda directamente.
+
 <img src="/images/estadoVehiculo.png" width="604" height="337">
 
 ## Demo
