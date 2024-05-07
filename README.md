@@ -88,5 +88,5 @@ Una vez llenados los datos se crea la publicación.
 3:46
 Así que ahora vamos a la sección para comprar un auto, y vemos que el nuevo vehículo ha sido publicado exitosamente.
 
-[![Alt text](src/main/resources/Karu-DemoIMG.png)](https://www.youtube.com/watch?v=ImLtY6LBlNU)
+[![Alt text](/images/demo.png)](https://www.youtube.com/watch?v=ImLtY6LBlNU)
 ## Integrantes
