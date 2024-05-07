@@ -1,6 +1,5 @@
 # KarU - Proyecto Profesional
 
-## Introducción
 ## Integrantes
 ## Alcance
 ## Indicadores
