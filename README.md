@@ -7,7 +7,7 @@ Para lograrlo se decidio dividir el total de desarrolladores en 4 grupos, facili
 usaba la base de datos y lenguaje de programacion que gusten.
 
 ## Alcance :mag:
-El proyecto se dividio en 3 modulos: comercio, administracion, tecnico.
+El proyecto se dividio en **3 modulos: Comercio, Administración, Técnico**.
 
 Cabe desatacar que las tareas de administracion se reapartieron entre 2 equipos. 
 
@@ -20,45 +20,45 @@ Nuestro equipo fue el encargado de:
 ## Indicadores :chart_with_upwards_trend:
 Durante el transcurso del proyecto se realizaron diferentes entregas donde se mostraba el avance del proyecto.
 
-A continuacion se presentan la version final de los indicadores:
-
 ### Burndown Chart
 
 Usado para mostrar el avance del proyecto en horas.
-En este caso podemos ver que se llego una estimacion de 694 horas para todo el proyecto y que durante el segundo y tercer sprint se agregaron cambios en las funcionalidades y es por esa razon que se ven picos que demuestran el uso extra de horas.
+En este caso podemos ver que **se llego una estimacion de 694 horas para todo el proyecto** y que durante el segundo y tercer sprint se agregaron cambios en las funcionalidades y es por esa razon que se ven picos que demuestran el uso extra de horas.
 
 <img src="/images/burndownchart.png" width="604" height="337">
 
 ### Bugs abiertos vs cerrados
 
 Usado para mostrar la cantidad de bugs encontrados y solucionados cada día.
-Como se puede ver, durante el primer sprint no se realizó mucho testing, por lo cual al final del segundo, al testear las funcionalidades desarrolladas en los primeros dos sprints, se dió el periodo donde se encontró la mayor cantidad de bugs.
+Como se puede ver, durante el primer sprint no se realizó mucho testing, por lo cual **al final del segundo**, al testear las funcionalidades desarrolladas en los primeros dos sprints, **se dió el periodo donde se encontró la mayor cantidad de bugs.**
 
-Debido a que la mayoria de estos bugs fueron calificados como no críticos, se prefirió darle foco en desarrollar nuevas funcionalidades en los sprints 3 y 4, dejando el arreglo de bugs no criticos para el final.
+Debido a que **la mayoria de estos bugs fueron calificados como no críticos**, se prefirió darle foco en desarrollar nuevas funcionalidades en los sprints 3 y 4, dejando el arreglo de bugs no criticos para el final.
 
 <img src="/images/bugs.png" width="604" height="337">
 
 ### Nivel de riesgo
 
 Usado para conocer bajo qué tanto peligro se encuentra el proyecto en un determinado momento.
-En nuestro caso lo calculamos sumando los 5 riesgos de mayor exposición que se encuentran en la matriz de riesgos(documentacion privada).
-Los dos picos de subida que se ven en el gráfico se deben primero al problema de encontrar un host para el backend del sistema, y el segundo por problemas de integración del front con los otros equipos de desarrollo.
-Al final del proyecto se solucionaron la mayoría de los riesgos, por lo cual el nivel de riesgo termino bajando.
+En nuestro caso **lo calculamos sumando los 5 riesgos de mayor exposición** que se encuentran en la matriz de riesgos(documentacion privada).
+Los dos picos de subida que se ven en el gráfico se deben primero al problema de encontrar un host para el backend del sistema, y el segundo por **problemas de integración del front** con los otros equipos de desarrollo.
+**Al final** del proyecto **se solucionaron la mayoría de los riesgos**, por lo cual el nivel de riesgo termino bajando.
 
 <img src="/images/riesgo.png" width="604" height="337">
 
 ## Diagramas :book:
-a continuación  presentar los diagramas.
-El primero es el flujo NORMAL de compra de un vehículo representado en un diagrama de actividad.
 
-El objetivo de este gráfico es mostrar las interacciones entre los módulos o grupos al momento de realizar la compra de un vehículo.
-Como primer paso un usuario que desee vender su vehículo cargará sus datos personales y de contacto en una pantalla creada por el módulo comercial. Estos datos serán utilizados más adelante para hacer envío de información …
-Cuando termina de cargar los datos, será redirigido a una pantalla creada por el grupo de administración, en esta deberá cargar los datos relacionados con el vehículo como la patente, modelo o tipo de combustible.
-Al finalizar pasará a la última pantalla , en este caso creada por el grupo técnico, donde deberá sacar un turno para la revisión técnica de su vehículo.
-Para hacer la entrega de la documentación requerida de un vehículo el usuario deberá acercarse personalmente a una sucursal, donde deberá presentar los documentos al personal administrativo, donde este será encargado de cargarlos en el sistema.
-A continuación, se realizará la revisión técnica en sí y luego a partir de los datos obtenidos previamente se genera una cotización de compra donde en caso de llegar a un acuerdo, un personal de ventas confirmará la compra del vehículo y se utilizará la funcionalidad creada por el grupo 2 para simular el pago bancario.
-Una vez realizado todo este proceso se tiene en cuenta el estado del vehículo, si su puntaje técnico es del 100%, es decir en perfecto estado, quiere decir que el vehículo está disponible para su habilitación (poner en venta)
-En caso de no estarlo, se deberá sacar turno para reparación y luego de la misma poder habilitar el vehículo para su venta
+### De actividad
+Usado para representar el proceso NORMAL de compra de un vehículo.
+
+**El objetivo** de este gráfico **es mostrar las interacciones entre los** módulos o **grupos al momento de realizar la compra** de un vehículo.
+
+1. **Un usuario** que desee vender su vehículo **cargará sus datos** personales y de contacto en una pantalla creada por el módulo comercial. Estos datos **serán utilizados** más adelante **para hacer envío de información.**
+2. Cuando termina de cargar los datos, **será redirigido a una pantalla** creada por el grupo de administración, en esta **deberá cargar los datos relacionados con el vehículo** como la patente, modelo o tipo de combustible.
+3. **Al finalizar** pasará a la última pantalla , en este caso creada por el grupo técnico, donde **deberá sacar un turno para la revisión técnica de su vehículo.**
+4. **La documentacion** requerida **del vehiculo se hará de manera presencial** al personal administrativo de una sucursal, donde este será encargado de cargarlos en el sistema.
+5. A continuación, **se realizará la revisión técnica** en sí **y** luego a partir de los datos obtenidos previamente **se genera una cotización de compra** donde en caso de llegar a un acuerdo **, un personal de ventas confirmará la compra del vehículo** y se utilizará la funcionalidad creada por el grupo 2 para simular el pago bancario.
+6. Una vez realizado todo este proceso **se tiene en cuenta el estado del vehículo**, si su puntaje técnico es del 100%, es decir **en perfecto estado, quiere decir que el vehículo está disponible para su** venta
+**En caso de no estarlo**, se deberá **sacar turno para reparación** y luego de la misma poder habilitar el vehículo para su venta
 
 <img src="/images/flujoDeCompra.png" width="604" height="337">
 
