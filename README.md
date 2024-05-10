@@ -6,7 +6,7 @@ Ademas , **se requería** utilizar el marco de trabajo Safe y como **metodologia
 Para lograrlo se decidio dividir el total de desarrolladores en 4 grupos, facilitando asi aplicar la **arquitectura de microservicios** donde cada grupo
 usaba la base de datos y lenguaje de programacion que gusten.
 
-## Alcance
+## Alcance :mag:
 El proyecto se dividio en 3 modulos: comercio, administracion, tecnico.
 
 Cabe desatacar que las tareas de administracion se reapartieron entre 2 equipos. 
@@ -17,7 +17,7 @@ Nuestro equipo fue el encargado de:
 - Manejar los datos de los empleados(login, registro,TFA)
 - Manejar los datos de los vehiculos(carga y control del proceso de compra/venta).
 
-## Indicadores
+## Indicadores :chart_with_upwards_trend:
 Durante el transcurso del proyecto se realizaron diferentes entregas donde se mostraba el avance del proyecto.
 
 A continuacion se presentan la version final de los indicadores:
@@ -47,7 +47,7 @@ Al final del proyecto se solucionaron la mayoría de los riesgos, por lo cual el
 
 <img src="/images/riesgo.png" width="604" height="337">
 
-## Diagramas
+## Diagramas :book:
 a continuación  presentar los diagramas.
 El primero es el flujo NORMAL de compra de un vehículo representado en un diagrama de actividad.
 
@@ -69,7 +69,7 @@ Por último cuando el auto es habilitado, pasa a disponible donde podrá ser res
 
 <img src="/images/estadoVehiculo.png" width="604" height="337">
 
-## Demo
+## Demo :rocket:
 https://karu-web-back.onrender.com/ (BBDD Fuera de Servicio)
 ACLARACION
 Lo primero que queremos aclarar es que como en el flujo interactúan diversos roles, cada uno con sus diferentes vistas; en la demo estaremos accediendo con el rol de IT, un desarrollador, que tiene acceso a todas las funcionalidades del sistema para ahorrar tiempo de la demo.
@@ -105,4 +105,4 @@ Una vez llenados los datos se crea la publicación.
 Así que ahora vamos a la sección para comprar un auto, y vemos que el nuevo vehículo ha sido publicado exitosamente.
 
 [![Alt text](/images/demo.png)](https://www.youtube.com/watch?v=ImLtY6LBlNU)
-## Integrantes
+## Integrantes :black_nib:
