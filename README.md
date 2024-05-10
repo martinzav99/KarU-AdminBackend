@@ -6,7 +6,7 @@ Ademas , **se requería** utilizar el marco de trabajo Safe y como **metodologia
 Para lograrlo se decidio dividir el total de desarrolladores en 4 grupos, facilitando asi aplicar la **arquitectura de microservicios** donde cada grupo
 usaba la base de datos y lenguaje de programacion que gusten.
 
-Pagina web KarU: https://karu-web-back.onrender.com/ _(BBDD Fuera de Servicio)_
+https://karu-web-back.onrender.com/ _(BBDD fuera de servicio)_
 
 ## Alcance :mag:
 El proyecto se dividio en **3 modulos: Comercio, Administración, Técnico**.
