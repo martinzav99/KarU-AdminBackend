@@ -72,33 +72,39 @@ Usado para mostrar los estados por los que pasa el vehiculo, ya sea durante el p
 
 **Definiciones de algunos estados:**
 
-- espera revisión legal:  El vehiculo todavía no tiene cargada la documentación o está incompleta. 
-- espera revisión técnica:  El vehículo todavía no fue revisado.
-- espera decisión final: El equipo comercial todavía no se confirmó la compra. 
-- en reparacion: El vehiculo adquirido no esta en perfectas condiciones, cuando se repare pasara a estar disponible.
-- reservado: El vehiculo antes de su venta puede ser reservado, si luego cancelan la reserva vuelve a estar disponible.
+- Espera revisión legal: el vehiculo todavía no tiene cargada la documentación o está incompleta. 
+- Espera revisión técnica: el vehículo todavía no fue revisado.
+- Espera decisión final: el equipo comercial todavía no se confirmó la compra. 
+- En reparacion: el vehiculo adquirido no esta en perfectas condiciones, cuando se repare pasara a estar disponible.
+- Reservado: el vehiculo antes de su venta puede ser reservado, si luego cancelan la reserva vuelve a estar disponible.
 
 _[!]Destacamos que a partir del estado disponible pertenecería al proceso de venta._
 
 ## Demo :rocket:
 https://karu-web-back.onrender.com/ (BBDD Fuera de Servicio)
-ACLARACION
-Lo primero que queremos aclarar es que como en el flujo interactúan diversos roles, cada uno con sus diferentes vistas; en la demo estaremos accediendo con el rol de IT, un desarrollador, que tiene acceso a todas las funcionalidades del sistema para ahorrar tiempo de la demo.
+_[!] como en el flujo interactúan diversos roles, cada uno con sus diferentes vistas; en la demo estaremos accediendo con el rol de desarrollador, que tiene acceso a todas las funcionalidades del sistema para ahorrar tiempo de la demo._
+
+**Vistas del cliente que desea vender su auto**
 
 0:25
-Primero un cliente accede a la funcionalidad de vender mi auto, aquí lo primero que debe hacer es llenar un formulario con sus datos personales. Los datos más importantes son el DNI porque será usado por los diferentes equipos para identificar a un cliente, y el mail porque posteriormente será necesario para que reciba instrucciones de como llevar a cabo la compra.
+Accede a la funcionalidad de vender mi auto,  llena un formulario con sus datos personales.
 
 0:47
-Una vez terminado de cargar sus datos, se lo redirige a una pantalla para cargar los datos del vehíiculo. Aquí ingresa datos como su patente, el kilometraje, la marca y modelo de vehículo con año y motor. Y por último indica si el vehículo es importado o nacional, y si tiene gnc o no.
+Se lo redirige a una pantalla para cargar los datos del vehículo. 
 
 1:00
-A continuación lo redirige a una pantalla para que el cliente pueda sacar un turno para realizar una revisión técnica. Ingresa su patente, selecciona el taller donde quiere realizar la revisión, y por último selecciona la fecha y horario.
-Una vez saca el turno, se le envía un mail con instrucciones indicándole que tiene que presentarse media hora antes del turno en el área de administración de una sucursal de la empresa y llevar la documentación correspondiente para que la revisen.
+A continuación lo redirige a una pantalla para sacar un turno para realizar una revisión técnica.
+Una vez saca el turno, recibirá un mail con instrucciones para continuar el tramite.
+
+**Vista del personal administrativo**
 
 1:45
-Así que el día de la revisión, el cliente se acerca a administración y un empleado administrativo carga este formulario, controlando las multas del vehículo y revisando si la verificación policial, el grabado de autopartes y la vtv están en orden.
+Un empleado administrativo carga este formulario, controlando las multas del vehículo y revisando si la verificación policial, el grabado de autopartes y la vtv están en orden.
 Si todo está bien, ahora el cliente puede acercarse al taller para hacer la revisión técnica.
-La revisión es un proceso largo y tomaría mucho tiempo para la demo así que vamos a continuar la demo con otro vehículo simulando que se le realizó la revisión técnica.
+
+_[!]La revisión es un proceso largo y tomaría mucho tiempo para la demo así que continuaremos con otro vehículo simulando que se le realizó la revisión técnica._
+
+**Vista del personal de Comercio**
 
 2:10
 Esta es la pantalla de compras que mostró el grupo 3, donde se puede aceptar o rechazar una compra.
