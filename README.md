@@ -96,6 +96,6 @@ _[*]La revisión es un proceso largo y tomaría mucho tiempo para la demo así q
 En circunstancias normales, un vendedor le pide los datos bancarios al cliente y le realiza una transferencia, pero en este caso vamos a simular que se realiza esa transacción con una integración realizada con el grupo 2. Así que apretamos en comprar y se realiza el pago al cliente.
 
 **Vista del cliente que desea comprar un auto** 3:35 al 3:51
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ImLtY6LBlNU" frameborder="0" allowfullscreen></iframe>
+[<img src="/images/demo.png" width="604" height="337">](https://www.youtube.com/watch?v=ImLtY6LBlNU)
 [![Alt text](/images/demo.png)](https://www.youtube.com/watch?v=ImLtY6LBlNU)
 ## Integrantes :black_nib:
