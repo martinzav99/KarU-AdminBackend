@@ -90,11 +90,11 @@ HACER CLICK EN LA IAMGEN PARA VER LA DEMO :)
 
 **Vista del personal administrativo** del 1:20 al 1:50 
 
-**Vista del personal de Comercio** del 2:00 aal 3:30
+**Vista del personal de Comercio** del 2:00 al 3:30
 
 **Vista del cliente que desea comprar un auto** 3:35 al 3:51
 
-[<img src="/images/demo.png" width="604" height="337">](https://www.youtube.com/watch?v=ImLtY6LBlNU)
+[<img src="/images/demo.png" width="604" height="337">](https://www.youtube.com/watch?v=ImLtY6LBlNU){:target="_blank"}
 
 _[*] En la demo estaremos accediendo con el rol de desarrollador, que tiene acceso a todas las funcionalidades y vistas del sistema para ahorrar tiempo._
 
