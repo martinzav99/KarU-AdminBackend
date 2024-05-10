@@ -64,7 +64,7 @@ Usado para representar el proceso NORMAL de compra de un vehículo.
 4. Una vez realizado todo este proceso **se tiene en cuenta el estado del vehículo**, si su puntaje técnico es del 100%, es decir en perfecto estado, el vehiculo se pone a la venta.
 **En caso de no estarlo**, se deberá **sacar turno para reparación** y luego de la misma poder habilitar el vehículo para su venta
 
-_[!] cada actividad muestra lo desarrollado por el correspondiente grupo, ya sea en forma de vista en el sitio web o como funcionalidad_
+_[*] cada actividad muestra lo desarrollado por el correspondiente grupo, ya sea en forma de vista en el sitio web o como funcionalidad_
 ### De estado
 Usado para mostrar los estados por los que pasa el vehiculo, ya sea durante el proceso de compra o venta.
 
@@ -78,48 +78,24 @@ Usado para mostrar los estados por los que pasa el vehiculo, ya sea durante el p
 - En reparacion: el vehiculo adquirido no esta en perfectas condiciones, cuando se repare pasara a estar disponible.
 - Reservado: el vehiculo antes de su venta puede ser reservado, si luego cancelan la reserva vuelve a estar disponible.
 
-_[!]Destacamos que a partir del estado disponible pertenecería al proceso de venta._
+_[*]Destacamos que a partir del estado disponible pertenecería al proceso de venta._
 
 ## Demo :rocket:
 https://karu-web-back.onrender.com/ (BBDD Fuera de Servicio)
+
 _[!] como en el flujo interactúan diversos roles, cada uno con sus diferentes vistas; en la demo estaremos accediendo con el rol de desarrollador, que tiene acceso a todas las funcionalidades del sistema para ahorrar tiempo de la demo._
 
-**Vistas del cliente que desea vender su auto**
+**Vistas del cliente que desea vender su auto** del 0:00 al 1:20
 
-0:25
-Accede a la funcionalidad de vender mi auto,  llena un formulario con sus datos personales.
+**Vista del personal administrativo** del 1:20 al 1:50 
 
-0:47
-Se lo redirige a una pantalla para cargar los datos del vehículo. 
+_[*]La revisión es un proceso largo y tomaría mucho tiempo para la demo así que continuamos con otro vehículo simulando que se le realizó la revisión técnica._
 
-1:00
-A continuación lo redirige a una pantalla para sacar un turno para realizar una revisión técnica.
-Una vez saca el turno, recibirá un mail con instrucciones para continuar el tramite.
+**Vista del personal de Comercio** del 2:00 aal 3:30
 
-**Vista del personal administrativo**
-
-1:45
-Un empleado administrativo carga este formulario, controlando las multas del vehículo y revisando si la verificación policial, el grabado de autopartes y la vtv están en orden.
-Si todo está bien, ahora el cliente puede acercarse al taller para hacer la revisión técnica.
-
-_[!]La revisión es un proceso largo y tomaría mucho tiempo para la demo así que continuaremos con otro vehículo simulando que se le realizó la revisión técnica._
-
-**Vista del personal de Comercio**
-
-2:10
-Esta es la pantalla de compras que mostró el grupo 3, donde se puede aceptar o rechazar una compra.
-Normalmente cuando se termina de revisar un vehículo, se calculan los gastos de reparación, y con ese valor ya se puede generar una cotización de compra del vehículo, el cual se la pasamos a un vendedor, el cual decide si aceptarla o rechazarla. 
-Vamos a simular que el vendedor aceptó la compra, y vamos a continuar con el vehículo SKG701.
-
-2:25
 En circunstancias normales, un vendedor le pide los datos bancarios al cliente y le realiza una transferencia, pero en este caso vamos a simular que se realiza esa transacción con una integración realizada con el grupo 2. Así que apretamos en comprar y se realiza el pago al cliente.
 
-3:22
-Una vez comprado, el vehículo puede que necesite reparaciones o puede estar en perfecto estado, en este caso el vehículo está en perfecto estado, así que está listo para que se cree su publicación de venta. Para ello vamos a habilitar vehículo, donde llenamos 3 imágenes del vehículo y seleccionamos la sucursal donde se va a vender.
-Una vez llenados los datos se crea la publicación.
-
-3:46
-Así que ahora vamos a la sección para comprar un auto, y vemos que el nuevo vehículo ha sido publicado exitosamente.
+**Vista del cliente que desea comprar un auto** 3:35 al 3:51
 
 [![Alt text](/images/demo.png)](https://www.youtube.com/watch?v=ImLtY6LBlNU)
 ## Integrantes :black_nib:
