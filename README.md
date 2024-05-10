@@ -94,7 +94,7 @@ HACER CLICK EN LA IAMGEN PARA VER LA DEMO :)
 
 **Vista del cliente que desea comprar un auto** 3:35 al 3:51
 
-[<img src="/images/demo.png" width="604" height="337">](https://www.youtube.com/watch?v=ImLtY6LBlNU){:target="_blank"}
+[<img src="/images/demo.png" width="604" height="337">](https://www.youtube.com/watch?v=ImLtY6LBlNU)
 
 _[*] En la demo estaremos accediendo con el rol de desarrollador, que tiene acceso a todas las funcionalidades y vistas del sistema para ahorrar tiempo._
 
