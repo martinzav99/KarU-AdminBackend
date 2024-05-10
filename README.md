@@ -6,6 +6,8 @@ Ademas , **se requería** utilizar el marco de trabajo Safe y como **metodologia
 Para lograrlo se decidio dividir el total de desarrolladores en 4 grupos, facilitando asi aplicar la **arquitectura de microservicios** donde cada grupo
 usaba la base de datos y lenguaje de programacion que gusten.
 
+Pagina web KarU: https://karu-web-back.onrender.com/ _(BBDD Fuera de Servicio)_
+
 ## Alcance :mag:
 El proyecto se dividio en **3 modulos: Comercio, Administración, Técnico**.
 
@@ -93,8 +95,6 @@ HACER CLICK EN LA IAMGEN PARA VER LA DEMO :)
 **Vista del cliente que desea comprar un auto** 3:35 al 3:51
 
 [<img src="/images/demo.png" width="604" height="337">](https://www.youtube.com/watch?v=ImLtY6LBlNU)
-
-Link a la pagina web KarU: https://karu-web-back.onrender.com/ (BBDD Fuera de Servicio)
 
 _[*] En la demo estaremos accediendo con el rol de desarrollador, que tiene acceso a todas las funcionalidades y vistas del sistema para ahorrar tiempo._
 
