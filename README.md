@@ -83,20 +83,21 @@ _[*]Destacamos que a partir del estado disponible pertenecería al proceso de ve
 ## Demo :rocket:
 https://karu-web-back.onrender.com/ (BBDD Fuera de Servicio)
 
-_[!] como en el flujo interactúan diversos roles, cada uno con sus diferentes vistas; en la demo estaremos accediendo con el rol de desarrollador, que tiene acceso a todas las funcionalidades del sistema para ahorrar tiempo de la demo._
-
 **Vistas del cliente que desea vender su auto** del 0:00 al 1:20
 
 **Vista del personal administrativo** del 1:20 al 1:50 
 
-_[*]La revisión es un proceso largo y tomaría mucho tiempo para la demo así que continuamos con otro vehículo simulando que se le realizó la revisión técnica._
-
 **Vista del personal de Comercio** del 2:00 aal 3:30
-
-En circunstancias normales, un vendedor le pide los datos bancarios al cliente y le realiza una transferencia, pero en este caso vamos a simular que se realiza esa transacción con una integración realizada con el grupo 2. Así que apretamos en comprar y se realiza el pago al cliente.
 
 **Vista del cliente que desea comprar un auto** 3:35 al 3:51
 
 [<img src="/images/demo.png" width="604" height="337">](https://www.youtube.com/watch?v=ImLtY6LBlNU)
+
+_[*] como en el flujo interactúan diversos roles, cada uno con sus diferentes vistas; en la demo estaremos accediendo con el rol de desarrollador, que tiene acceso a todas las funcionalidades del sistema para ahorrar tiempo de la demo._
+
+_[*]La revisión es un proceso largo y tomaría mucho tiempo para la demo así que continuamos con otro vehículo simulando que se le realizó la revisión técnica._
+
+_[*]En circunstancias normales, un vendedor le pide los datos bancarios al cliente y le realiza una transferencia, pero en este caso vamos a simular que se realiza esa transacción con una integración realizada con el grupo 2. Así que apretamos en comprar y se realiza el pago al cliente._
+
 
 ## Integrantes :black_nib:
