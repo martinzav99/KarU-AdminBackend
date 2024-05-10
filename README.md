@@ -70,14 +70,13 @@ Usado para mostrar los estados por los que pasa el vehiculo, ya sea durante el p
 
 <img src="/images/estadoVehiculo.png" width="604" height="337">
 
-A continuacion definimos algunos estados:
-
-espera revisión legal:  El vehiculo todavía no tiene cargada la documentación o está incompleta. 
-espera revisión técnica:  El vehículo todavía no fue revisado.
-espera decisión final: El equipo comercial todavía no se confirmó la compra. 
-rechazado o aceptado: El equipo comercial rechaza o acepta adquirir el vehiculo.
-comprado o reparacion: El vehiculo adquirido esta en perfecto estado o no lo esta.
-disponible: El vehiculo se pone a la venta en el sitio web donde podrá ser reservado y luego vendido o en caso de que cancelen la reserva volver a estar disponible o que se venda directamente.
+- espera revisión legal:  El vehiculo todavía no tiene cargada la documentación o está incompleta. 
+- espera revisión técnica:  El vehículo todavía no fue revisado.
+- espera decisión final: El equipo comercial todavía no se confirmó la compra. 
+- rechazado o aceptado: El equipo comercial rechaza o acepta adquirir el vehiculo.
+- comprado o reparacion: El vehiculo adquirido esta en perfecto estado o no lo esta.
+- disponible: El vehiculo esta a la venta en el sitio web donde podrá ser reservado y luego vendido
+- reservado: El vehiculo en caso de que cancelen la reserva vuelve a estar disponible.
 
 _[!]Destacamos que a partir del estado disponible pertenecería al proceso de venta._
 
