@@ -30,6 +30,7 @@ En este caso podemos ver que **se llego una estimacion de 694 horas para todo el
 ### Bugs abiertos vs cerrados
 
 Usado para mostrar la cantidad de bugs encontrados y solucionados cada día.
+
 Como se puede ver, durante el primer sprint no se realizó mucho testing, por lo cual **al final del segundo**, al testear las funcionalidades desarrolladas en los primeros dos sprints, **se dió el periodo donde se encontró la mayor cantidad de bugs.**
 
 Debido a que **la mayoria de estos bugs fueron calificados como no críticos**, se prefirió darle foco en desarrollar nuevas funcionalidades en los sprints 3 y 4, dejando el arreglo de bugs no criticos para el final.
@@ -39,8 +40,11 @@ Debido a que **la mayoria de estos bugs fueron calificados como no críticos**, 
 ### Nivel de riesgo
 
 Usado para conocer bajo qué tanto peligro se encuentra el proyecto en un determinado momento.
+
 En nuestro caso **lo calculamos sumando los 5 riesgos de mayor exposición** que se encuentran en la matriz de riesgos(documentacion privada).
+
 Los dos picos de subida que se ven en el gráfico se deben primero al problema de encontrar un host para el backend del sistema, y el segundo por **problemas de integración del front** con los otros equipos de desarrollo.
+
 **Al final** del proyecto **se solucionaron la mayoría de los riesgos**, por lo cual el nivel de riesgo termino bajando.
 
 <img src="/images/riesgo.png" width="604" height="337">
@@ -52,18 +56,18 @@ Usado para representar el proceso NORMAL de compra de un vehículo.
 
 **El objetivo** de este gráfico **es mostrar las interacciones entre los** módulos o **grupos al momento de realizar la compra** de un vehículo.
 
-1. **Un usuario** que desee vender su vehículo **cargará sus datos** personales y de contacto en una pantalla creada por el módulo comercial. Estos datos **serán utilizados** más adelante **para hacer envío de información.**
-2. Cuando termina de cargar los datos, **será redirigido a una pantalla** creada por el grupo de administración, en esta **deberá cargar los datos relacionados con el vehículo** como la patente, modelo o tipo de combustible.
-3. **Al finalizar** pasará a la última pantalla , en este caso creada por el grupo técnico, donde **deberá sacar un turno para la revisión técnica de su vehículo.**
-4. **La documentacion** requerida **del vehiculo se hará de manera presencial** al personal administrativo de una sucursal, donde este será encargado de cargarlos en el sistema.
-5. A continuación, **se realizará la revisión técnica** en sí **y** luego a partir de los datos obtenidos previamente **se genera una cotización de compra** donde en caso de llegar a un acuerdo **, un personal de ventas confirmará la compra del vehículo** y se utilizará la funcionalidad creada por el grupo 2 para simular el pago bancario.
-6. Una vez realizado todo este proceso **se tiene en cuenta el estado del vehículo**, si su puntaje técnico es del 100%, es decir **en perfecto estado, quiere decir que el vehículo está disponible para su** venta
-**En caso de no estarlo**, se deberá **sacar turno para reparación** y luego de la misma poder habilitar el vehículo para su venta
-
 <img src="/images/flujoDeCompra.png" width="604" height="337">
 
+1. **Un usuario** que desee vender su vehículo **cargará** sus **datos de contacto** (módulo comercial), **datos del vehiculo**(modulo administracion) y debera **sacar un turno para la revision tecnica**(modulo técnico).
+2. **La documentacion** requerida **del vehiculo se hará de manera presencial** al personal administrativo de una sucursal el dia del turno, donde este será encargado de cargarlos en el sistema.
+3. A continuación, **se realizará la revisión técnica** en sí **y** luego a partir de los datos obtenidos previamente **se genera una cotización de compra** donde en caso de llegar a un acuerdo **, un personal de ventas confirmará la compra del vehículo** y se utilizará la funcionalidad creada por el grupo 2 para simular el pago bancario.
+4. Una vez realizado todo este proceso **se tiene en cuenta el estado del vehículo**, si su puntaje técnico es del 100%, es decir **en perfecto estado, quiere decir que el vehículo está disponible para su** venta
+**En caso de no estarlo**, se deberá **sacar turno para reparación** y luego de la misma poder habilitar el vehículo para su venta
+
+### De estado
+
 El siguiente diagrama es una diagrama de estados por los que pasa el vehículo, este está en gran parte relacionado al diagrama anterior, excepto que a partir del estado disponible pertenecería al flujo de venta.
-Bueno rápidamente podemos mencionar el estado de espera revisión legal, que es cuando todavía no se cargó la documentación o está incompleta. espera revisión técnica cuando espera que el vehículo todavía no fue revisado, espera decisión final, cuando todavía no se confirmó la compra por parte del grupo comercial. Cuando se toma la decisión pasa a rechazado o aceptado.
+Bueno rápidamente pode mos mencionar el estado de espera revisión legal, que es cuando todavía no se cargó la documentación o está incompleta. espera revisión técnica cuando espera que el vehículo todavía no fue revisado, espera decisión final, cuando todavía no se confirmó la compra por parte del grupo comercial. Cuando se toma la decisión pasa a rechazado o aceptado.
 Pasará a comprado directamente si el auto estaba en perfecto estado y si no, pasará por reparación.
 Por último cuando el auto es habilitado, pasa a disponible donde podrá ser reservado y luego vendido o en caso de que cancelen la reserva volver a estar disponible o que se venda directamente.
 
