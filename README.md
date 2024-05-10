@@ -81,7 +81,8 @@ Usado para mostrar los estados por los que pasa el vehiculo, ya sea durante el p
 _[*]Destacamos que a partir del estado disponible pertenecería al proceso de venta._
 
 ## Demo :rocket:
-https://karu-web-back.onrender.com/ (BBDD Fuera de Servicio)
+
+HACER CLICK EN LA IAMGEN PARA VER LA DEMO :)
 
 **Vistas del cliente que desea vender su auto** del 0:00 al 1:20
 
@@ -93,11 +94,12 @@ https://karu-web-back.onrender.com/ (BBDD Fuera de Servicio)
 
 [<img src="/images/demo.png" width="604" height="337">](https://www.youtube.com/watch?v=ImLtY6LBlNU)
 
-_[*] como en el flujo interactúan diversos roles, cada uno con sus diferentes vistas; en la demo estaremos accediendo con el rol de desarrollador, que tiene acceso a todas las funcionalidades del sistema para ahorrar tiempo de la demo._
+Link a la pagina web KarU: https://karu-web-back.onrender.com/ (BBDD Fuera de Servicio)
 
-_[*]La revisión es un proceso largo y tomaría mucho tiempo para la demo así que continuamos con otro vehículo simulando que se le realizó la revisión técnica._
+_[*] En la demo estaremos accediendo con el rol de desarrollador, que tiene acceso a todas las funcionalidades y vistas del sistema para ahorrar tiempo._
 
-_[*]En circunstancias normales, un vendedor le pide los datos bancarios al cliente y le realiza una transferencia, pero en este caso vamos a simular que se realiza esa transacción con una integración realizada con el grupo 2. Así que apretamos en comprar y se realiza el pago al cliente._
+_[*] La revisión tecnica tomaría mucho tiempo para la demo así que continuamos con otro vehículo al que ya se le hizo una._
 
+_[*] Normalmente deberiamos tener los datos bancarios del cliente y realizar una transferencia. En este caso vamos a simular que se realiza esa transacción con una integración realizada con el grupo 2._
 
 ## Integrantes :black_nib:
